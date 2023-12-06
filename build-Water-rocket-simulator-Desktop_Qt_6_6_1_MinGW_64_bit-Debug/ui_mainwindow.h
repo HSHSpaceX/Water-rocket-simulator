@@ -11,6 +11,9 @@
 
 #include <QtCore/QVariant>
 #include <QtWidgets/QApplication>
+#include <QtWidgets/QDoubleSpinBox>
+#include <QtWidgets/QFormLayout>
+#include <QtWidgets/QLabel>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenuBar>
 #include <QtWidgets/QPushButton>
@@ -23,7 +26,13 @@ class Ui_MainWindow
 {
 public:
     QWidget *centralwidget;
-    QPushButton *pushButton;
+    QFormLayout *formLayout;
+    QLabel *label_speed;
+    QDoubleSpinBox *doubleSpinBox_speed;
+    QLabel *label_time;
+    QDoubleSpinBox *doubleSpinBox_time;
+    QPushButton *pushButton_simulate;
+    QLabel *label_distance;
     QMenuBar *menubar;
     QStatusBar *statusbar;
 
@@ -34,9 +43,38 @@ public:
         MainWindow->resize(800, 600);
         centralwidget = new QWidget(MainWindow);
         centralwidget->setObjectName("centralwidget");
-        pushButton = new QPushButton(centralwidget);
-        pushButton->setObjectName("pushButton");
-        pushButton->setGeometry(QRect(130, 100, 80, 24));
+        formLayout = new QFormLayout(centralwidget);
+        formLayout->setObjectName("formLayout");
+        label_speed = new QLabel(centralwidget);
+        label_speed->setObjectName("label_speed");
+
+        formLayout->setWidget(0, QFormLayout::LabelRole, label_speed);
+
+        doubleSpinBox_speed = new QDoubleSpinBox(centralwidget);
+        doubleSpinBox_speed->setObjectName("doubleSpinBox_speed");
+
+        formLayout->setWidget(0, QFormLayout::FieldRole, doubleSpinBox_speed);
+
+        label_time = new QLabel(centralwidget);
+        label_time->setObjectName("label_time");
+
+        formLayout->setWidget(1, QFormLayout::LabelRole, label_time);
+
+        doubleSpinBox_time = new QDoubleSpinBox(centralwidget);
+        doubleSpinBox_time->setObjectName("doubleSpinBox_time");
+
+        formLayout->setWidget(1, QFormLayout::FieldRole, doubleSpinBox_time);
+
+        pushButton_simulate = new QPushButton(centralwidget);
+        pushButton_simulate->setObjectName("pushButton_simulate");
+
+        formLayout->setWidget(2, QFormLayout::FieldRole, pushButton_simulate);
+
+        label_distance = new QLabel(centralwidget);
+        label_distance->setObjectName("label_distance");
+
+        formLayout->setWidget(4, QFormLayout::FieldRole, label_distance);
+
         MainWindow->setCentralWidget(centralwidget);
         menubar = new QMenuBar(MainWindow);
         menubar->setObjectName("menubar");
@@ -54,7 +92,10 @@ public:
     void retranslateUi(QMainWindow *MainWindow)
     {
         MainWindow->setWindowTitle(QCoreApplication::translate("MainWindow", "MainWindow", nullptr));
-        pushButton->setText(QCoreApplication::translate("MainWindow", "PushButton", nullptr));
+        label_speed->setText(QCoreApplication::translate("MainWindow", "speed", nullptr));
+        label_time->setText(QCoreApplication::translate("MainWindow", "time", nullptr));
+        pushButton_simulate->setText(QCoreApplication::translate("MainWindow", "PushButton", nullptr));
+        label_distance->setText(QCoreApplication::translate("MainWindow", "TextLabel", nullptr));
     } // retranslateUi
 
 };
