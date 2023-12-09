@@ -25,6 +25,9 @@ def plot_graph():
         # Update the canvas
         canvas.draw()
 
+        # Erase error message
+        error_label.config(text="")
+
     except ValueError:
         # Handle the case where the entered value is not a valid float
         error_label.config(text="Invalid input. Please enter a numeric value.")
