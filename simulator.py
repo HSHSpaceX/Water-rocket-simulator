@@ -29,6 +29,9 @@ total_time = float(0)
 def simulate():
     global total_time
     try:
+        # Clear total_time value
+        total_time = 0
+
         # Clear all arrays
         array_time.clear()
         array_h.clear()
