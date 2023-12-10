@@ -99,13 +99,19 @@ def simulate():
             array_time.append(total_time)
             total_time = total_time + delta_t 
 
+            # Add values that are not changing for plot
+            array_mass.append(Roc_mass)            
+            array_V_water.append(V_water)
+            array_V_air.append(V_air)
+
+
             Tt = T * 2 / (k_const + 1)
 
             dot_m = P_ins * At * pow(2/(k_const+1), 0.5 * (k_const+1)/(k_const-1)) * math.sqrt(k_const/(Rs*Tt))
             
             ve_air = math.sqrt(k_const * Rs * Tt)
 
-            P_throat = pow(2 / (k_const + 1), k_const / (k_const - 1))
+            P_throat = pow(2 / (k_const + 1), k_const / (k_const - 1)) * P_ins
             Ft = dot_m * ve_air + At * (P_throat - P_atm)
             array_Ft.append(Ft)
 
@@ -118,8 +124,42 @@ def simulate():
             P_ins = mass_air * Rs * T / V_air
             array_pressure.append(P_ins)
 
+        while(P_ins > P_atm):     
+            # Update time array for plot
+            array_time.append(total_time)
+            total_time = total_time + delta_t 
 
-        
+            # Add values that are not changing for plot
+            array_mass.append(Roc_mass)            
+            array_V_water.append(V_water)
+            array_V_air.append(V_air)
+
+            Mach = math.sqrt(2 / (k_const-1) * (pow(P_ins / P_atm, (k_const-1) / k_const) - 1))
+
+            Tt = T / (1 + 0.5 * (k_const-1) * Mach * Mach)
+
+            ve_air = Mach * math.sqrt(k_const * Rs * Tt)
+
+            density_chamber = mass_air / V_air
+            density_throat = density_chamber / pow(1 + 0.5 * (k_const - 1) * Mach * Mach, 1 / (k_const-1))
+
+            dot_m = At * density_throat * ve_air
+
+            Ft = dot_m * ve_air
+            array_Ft.append(Ft)
+
+            delta_m = dot_m * delta_t
+
+            mass_air = mass_air - delta_m
+
+            T = (P_ins / Rs) * pow(V_air / (mass_air + delta_m), k_const) * pow(V_air / mass_air, 1 - k_const)
+            array_temperature.append(T)
+
+            P_ins = mass_air * Rs * T / V_air
+            array_pressure.append(P_ins)
+
+
+
         # Erase error message
         error_label.config(text="")
         plot_Ft()
