@@ -30,6 +30,7 @@ total_time = float(0)
 
 def simulate():
     global total_time
+    global Ic
     try:
         # Clear total_time value
         total_time = 0
@@ -67,6 +68,7 @@ def simulate():
             # Calculate thurst
             Ft = 2 * At * (P_ins - P_atm)
             array_Ft.append(Ft)
+            Ic += Ft * delta_t
 
             ve = math.sqrt(2 * (P_ins - P_atm) / water_density)
 
@@ -114,7 +116,8 @@ def simulate():
             P_throat = pow(2 / (k_const + 1), k_const / (k_const - 1)) * P_ins
             Ft = dot_m * ve_air + At * (P_throat - P_atm)
             array_Ft.append(Ft)
-
+            Ic += Ft * delta_t
+            
             delta_m = dot_m * delta_t
             mass_air = mass_air - delta_m
 
@@ -147,6 +150,7 @@ def simulate():
 
             Ft = dot_m * ve_air
             array_Ft.append(Ft)
+            Ic += Ft * delta_t
 
             delta_m = dot_m * delta_t
 
@@ -162,11 +166,16 @@ def simulate():
 
         # Erase error message
         error_label.config(text="")
+        text_widget.insert(tk.END, "Ic = ")
+        text_widget.insert(tk.END, Ic) 
+        text_widget.insert(tk.END, "\n")
+        
+        
         plot_Ft()
 
     except ValueError:
         # Handle the case where entered value is not valid
-        error_label.config(text="Invalid input.")
+        error_label.config(text="Invalid input. Please enter a numeric value.")
 
 def plot_Ft():
     try:
@@ -345,26 +354,28 @@ entry_5.insert(0, "0")  # Initialize with a default value
 
 # Adjusted row numbers for the following buttons
 plot_button = ttk.Button(frame_left, text="Simulate", command=simulate)
-plot_button.grid(row=6, column=0, columnspan=2, pady=10)
+plot_button.grid(row=6, column=0, columnspan=2, pady=10, sticky="w")
 
 plot_button = ttk.Button(frame_left, text="Plot Thrust", command=plot_Ft)
-plot_button.grid(row=7, column=0, columnspan=2, pady=10)
+plot_button.grid(row=6, column=2, columnspan=2, pady=10, sticky="w")
 
 plot_button = ttk.Button(frame_left, text="Plot Pressure", command=plot_pressure)
-plot_button.grid(row=8, column=0, columnspan=2, pady=10)
+plot_button.grid(row=7, column=0, columnspan=2, pady=10, sticky="w")
 
 plot_button = ttk.Button(frame_left, text="Plot Volume", command=plot_volume)
-plot_button.grid(row=9, column=0, columnspan=2, pady=10)
+plot_button.grid(row=7, column=2, columnspan=2, pady=10, sticky="w")
 
 plot_button = ttk.Button(frame_left, text="Plot Mass", command=plot_mass)
-plot_button.grid(row=10, column=0, columnspan=2, pady=10)
+plot_button.grid(row=8, column=0, columnspan=2, pady=10, sticky="w")
 
 plot_button = ttk.Button(frame_left, text="Plot Temperature", command=plot_temperature)
-plot_button.grid(row=11, column=0, columnspan=2, pady=10)
+plot_button.grid(row=8, column=2, columnspan=2, pady=10,sticky="w")
 
 error_label = ttk.Label(frame_left, text="", foreground="red")
-error_label.grid(row=12, column=0, columnspan=2, pady=5)
+error_label.grid(row=10, column=0, columnspan=4, pady=5, sticky="w")
 
+text_widget = tk.Text(frame_left, height=10, width=40)
+text_widget.grid(row=9, column=0, columnspan=4, sticky="w")
 
 # Create a Matplotlib figure and a canvas to embed it in the Tkinter window
 fig, ax = plt.subplots()
