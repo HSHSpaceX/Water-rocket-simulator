@@ -71,6 +71,10 @@ def simulate():
             array_V_water.append(V_water)
             array_V_air.append(V_air)
 
+            # Update mass array
+            array_mass.append(Roc_mass)
+            Roc_mass = Roc_mass - delta_V * water_density
+
             # Update volume values
             V_air = V_air + delta_V
             V_water = V_water - delta_V
@@ -81,6 +85,7 @@ def simulate():
         
         # Erase error message
         error_label.config(text="")
+        plot_Ft()
 
     except ValueError:
         # Handle the case where entered value is not valid
@@ -109,6 +114,29 @@ def plot_Ft():
         # Handle the case where the entered value is not a valid float
         error_label.config(text="Invalid input. Please enter a numeric value.")
 
+
+def plot_mass():
+    try:
+        # Clear the previous plot
+        ax.clear()
+
+        # Plot the new data
+        ax.plot(array_time, array_mass, marker='o', linestyle='-', color='b')
+
+        # Set labels and title
+        ax.set_xlabel('Time[t]')
+        ax.set_ylabel('Mass[kg]')
+        ax.set_title('Graph of mass')
+
+        # Update the canvas
+        canvas.draw()
+
+        # Erase error message
+        error_label.config(text="")
+
+    except ValueError:
+        # Handle the case where the entered value is not a valid float
+        error_label.config(text="Invalid input. Please enter a numeric value.")
 
 def plot_pressure():
     try:
@@ -210,7 +238,7 @@ entry_4.insert(0, "0")  # Initialize with a default value
 plot_button = ttk.Button(frame_left, text="Simulate", command=simulate)
 plot_button.grid(row=5, column=0, columnspan=2, pady=10)
 
-plot_button = ttk.Button(frame_left, text="Plot Ft", command=plot_Ft)
+plot_button = ttk.Button(frame_left, text="Plot Thrust", command=plot_Ft)
 plot_button.grid(row=6, column=0, columnspan=2, pady=10)
 
 plot_button = ttk.Button(frame_left, text="Plot Pressure", command=plot_pressure)
@@ -219,8 +247,11 @@ plot_button.grid(row=7, column=0, columnspan=2, pady=10)
 plot_button = ttk.Button(frame_left, text="Plot Volume", command=plot_volume)
 plot_button.grid(row=8, column=0, columnspan=2, pady=10)
 
+plot_button = ttk.Button(frame_left, text="Plot Mass", command=plot_mass)
+plot_button.grid(row=9, column=0, columnspan=2, pady=10)
+
 error_label = ttk.Label(frame_left, text="", foreground="red")
-error_label.grid(row=9, column=0, columnspan=2, pady=5)
+error_label.grid(row=10, column=0, columnspan=2, pady=5)
 
 # Create a Matplotlib figure and a canvas to embed it in the Tkinter window
 fig, ax = plt.subplots()
