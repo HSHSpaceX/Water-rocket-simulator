@@ -28,35 +28,60 @@ total_time = float(0)
 
 def simulate():
     global total_time
+    try:
+        # Clear all arrays
+        array_time.clear()
+        array_h.clear()
+        array_Ft.clear()
+        array_mass.clear()
+        array_temperature.clear()
+        array_pressure.clear()
+        array_V_water.clear()
+        array_V_air.clear()
 
-    P_ins = float(entry_0.get())*100000
-    At = 3.1415*pow(0.01*float(entry_1.get())/2, 2)
-    V_air = float(entry_2.get())*0.001
-    V_water = float(entry_3.get())*0.001
-    Roc_mass = float(entry_4.get())
+        # Entry values read
+        P_ins = float(entry_0.get())*100000
+        At = 3.1415*pow(0.01*float(entry_1.get())/2, 2)
+        V_air = float(entry_2.get())*0.001
+        V_water = float(entry_3.get())*0.001
+        Roc_mass = float(entry_4.get())
 
-    C_const = P_ins * pow(V_air, k_const)
+        # Define adiabatic constant
+        C_const = P_ins * pow(V_air, k_const)
 
-    while(V_water > 0): 
-        array_time.append(total_time)
-        total_time = total_time + delta_t 
+        # Main loop of simulation
+        while(V_water > 0): 
+            # Update time array for plot
+            array_time.append(total_time)
+            total_time = total_time + delta_t 
 
-        Ft = 2 * At * (P_ins - P_atm)
-        array_Ft.append(Ft)
+            # Calculate thurst
+            Ft = 2 * At * (P_ins - P_atm)
+            array_Ft.append(Ft)
 
-        ve = math.sqrt(2 * (P_ins - P_atm) / water_density)
+            ve = math.sqrt(2 * (P_ins - P_atm) / water_density)
 
-        delta_V = At * ve * delta_t
+            # Calculate change of volume
+            delta_V = At * ve * delta_t
 
-        array_V_water.append(V_water)
-        array_V_air.append(V_air)
+            # Update volume arrays
+            array_V_water.append(V_water)
+            array_V_air.append(V_air)
 
-        V_air = V_air + delta_V
-        V_water = V_water - delta_V
+            # Update volume values
+            V_air = V_air + delta_V
+            V_water = V_water - delta_V
+            
+            # Calculate pressure and update array
+            array_pressure.append(P_ins)
+            P_ins = C_const * pow(V_air, -k_const)
         
-        array_pressure.append(P_ins)
-        P_ins = C_const * pow(V_air, -k_const)
+        # Erase error message
+        error_label.config(text="")
 
+    except ValueError:
+        # Handle the case where entered value is not valid
+        error_label.config(text="Invalid input.")
 
 def plot_Ft():
     try:
