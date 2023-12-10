@@ -5,10 +5,12 @@ from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 import matplotlib.pyplot as plt
 
 # Constants declaration
-delta_t = 0.1
+delta_t = 0.01
 k_const = 1.4
 P_atm = 1*101325
 water_density = 1000
+Rs = 287
+
 
 # Array declaration
 array_time = []
@@ -48,11 +50,15 @@ def simulate():
         V_air = float(entry_2.get())*0.001
         V_water = float(entry_3.get())*0.001
         Roc_mass = float(entry_4.get())
+        T = float(entry_5.get())+273.15
 
         # Define adiabatic constant
         C_const = P_ins * pow(V_air, k_const)
 
-        # Main loop of simulation, handles low pressure models
+        # Calculate mass of air
+        mass_air = P_ins * V_air / (T * Rs)
+
+        # Main loop of simulation, handles models that push out only fraction of water inside
         while(V_water > 0 and P_ins > P_atm):  
             # Update time array for plot
             array_time.append(total_time)
@@ -71,6 +77,10 @@ def simulate():
             array_V_water.append(V_water)
             array_V_air.append(V_air)
 
+            # Calculate temperature
+            T = P_ins * V_air / (mass_air * Rs)
+            array_temperature.append(T)
+
             # Update mass array
             array_mass.append(Roc_mass)
             Roc_mass = Roc_mass - delta_V * water_density
@@ -82,7 +92,15 @@ def simulate():
             # Calculate pressure and update array
             array_pressure.append(P_ins)
             P_ins = C_const * pow(V_air, -k_const)
-        
+        '''        
+        # Loop for Mach 1 on exit
+        while(P_ins > P_atm and P_ins/P_atm >= pow((k_const+1)/2, k_const/(k_const-1))):
+            # Update time array for plot
+            array_time.append(total_time)
+            total_time = total_time + delta_t 
+
+            dot_m = P_ins * At * pow(2/(k_const+1), 0.5 * (k_const+1)/(k_const-1)) * math.sqrt(k_const/(Rs*Tt))
+        '''
         # Erase error message
         error_label.config(text="")
         plot_Ft()
@@ -137,6 +155,30 @@ def plot_mass():
     except ValueError:
         # Handle the case where the entered value is not a valid float
         error_label.config(text="Invalid input. Please enter a numeric value.")
+
+def plot_temperature():
+    try:
+        # Clear the previous plot
+        ax.clear()
+
+        # Plot the new data
+        ax.plot(array_time, array_temperature, marker='o', linestyle='-', color='b')
+
+        # Set labels and title
+        ax.set_xlabel('Time[t]')
+        ax.set_ylabel('Temperature[K]')
+        ax.set_title('Graph of temperature')
+
+        # Update the canvas
+        canvas.draw()
+
+        # Erase error message
+        error_label.config(text="")
+
+    except ValueError:
+        # Handle the case where the entered value is not a valid float
+        error_label.config(text="Invalid input. Please enter a numeric value.")
+
 
 def plot_pressure():
     try:
@@ -227,7 +269,6 @@ entry_3 = ttk.Entry(frame_left, width=10)
 entry_3.grid(row=3, column=2, pady=5)
 entry_3.insert(0, "0")  # Initialize with a default value
 
-
 label_4 = ttk.Label(frame_left, text="Enter mass of rocket value:")
 label_4.grid(row=4, column=0, columnspan=2, pady=5, sticky="w")
 
@@ -235,23 +276,36 @@ entry_4 = ttk.Entry(frame_left, width=10)
 entry_4.grid(row=4, column=2, pady=5)
 entry_4.insert(0, "0")  # Initialize with a default value
 
-plot_button = ttk.Button(frame_left, text="Simulate", command=simulate)
-plot_button.grid(row=5, column=0, columnspan=2, pady=10)
+# Updated row number for Label and Entry
+label_5 = ttk.Label(frame_left, text="Enter another value:")
+label_5.grid(row=5, column=0, columnspan=2, pady=5, sticky="w")
 
-plot_button = ttk.Button(frame_left, text="Plot Thrust", command=plot_Ft)
+entry_5 = ttk.Entry(frame_left, width=10)
+entry_5.grid(row=5, column=2, pady=5)
+entry_5.insert(0, "0")  # Initialize with a default value
+
+# Adjusted row numbers for the following buttons
+plot_button = ttk.Button(frame_left, text="Simulate", command=simulate)
 plot_button.grid(row=6, column=0, columnspan=2, pady=10)
 
-plot_button = ttk.Button(frame_left, text="Plot Pressure", command=plot_pressure)
+plot_button = ttk.Button(frame_left, text="Plot Thrust", command=plot_Ft)
 plot_button.grid(row=7, column=0, columnspan=2, pady=10)
 
-plot_button = ttk.Button(frame_left, text="Plot Volume", command=plot_volume)
+plot_button = ttk.Button(frame_left, text="Plot Pressure", command=plot_pressure)
 plot_button.grid(row=8, column=0, columnspan=2, pady=10)
 
-plot_button = ttk.Button(frame_left, text="Plot Mass", command=plot_mass)
+plot_button = ttk.Button(frame_left, text="Plot Volume", command=plot_volume)
 plot_button.grid(row=9, column=0, columnspan=2, pady=10)
 
+plot_button = ttk.Button(frame_left, text="Plot Mass", command=plot_mass)
+plot_button.grid(row=10, column=0, columnspan=2, pady=10)
+
+plot_button = ttk.Button(frame_left, text="Plot Temperature", command=plot_temperature)
+plot_button.grid(row=11, column=0, columnspan=2, pady=10)
+
 error_label = ttk.Label(frame_left, text="", foreground="red")
-error_label.grid(row=10, column=0, columnspan=2, pady=5)
+error_label.grid(row=12, column=0, columnspan=2, pady=5)
+
 
 # Create a Matplotlib figure and a canvas to embed it in the Tkinter window
 fig, ax = plt.subplots()
