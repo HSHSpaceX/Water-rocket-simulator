@@ -17,6 +17,8 @@ array_Ft = []
 array_mass = []
 array_temperature = []
 array_pressure = []
+array_V_water = []
+array_V_air = []
 
 #Output variables declaration
 Ic = float(0)
@@ -46,6 +48,9 @@ def simulate():
 
         delta_V = At * ve * delta_t
 
+        array_V_water.append(V_water)
+        array_V_air.append(V_air)
+
         V_air = V_air + delta_V
         V_water = V_water - delta_V
         
@@ -62,8 +67,8 @@ def plot_Ft():
         ax.plot(array_time, array_Ft, marker='o', linestyle='-', color='b')
 
         # Set labels and title
-        ax.set_xlabel('Time-axis')
-        ax.set_ylabel('Thrust-axis')
+        ax.set_xlabel('Time[t]')
+        ax.set_ylabel('Thrust[N]')
         ax.set_title('Graph of thrust')
 
         # Update the canvas
@@ -82,14 +87,43 @@ def plot_pressure():
         # Clear the previous plot
         ax.clear()
 
+        # Change pressure unit to bar
+        for i in range(len(array_pressure)):
+            array_pressure[i] /= 100000
+
         # Plot the new data
         ax.plot(array_time, array_pressure, marker='o', linestyle='-', color='b')
 
         # Set labels and title
-        ax.set_xlabel('Time-axis')
-        ax.set_ylabel('Pressure-axis')
+        ax.set_xlabel('Time[s]')
+        ax.set_ylabel('Pressure[bar]')
         ax.set_title('Graph of pressure')
 
+        # Update the canvas
+        canvas.draw()
+
+        # Erase error message
+        error_label.config(text="")
+
+    except ValueError:
+        # Handle the case where the entered value is not a valid float
+        error_label.config(text="Invalid input. Please enter a numeric value.")
+
+
+def plot_volume():
+    try:
+        # Clear the previous plot
+        ax.clear()
+
+        # Plot the new data
+        ax.plot(array_time, array_V_water, marker='o', linestyle='-', color='b', label = "Water")
+        ax.plot(array_time, array_V_air, marker='o', linestyle='-', color='c', label = "Air")
+        
+        # Set labels and title
+        ax.set_xlabel('Time[t]')
+        ax.set_ylabel('Volume in m^3')
+        ax.set_title('Graph of thrust')
+        ax.legend()
         # Update the canvas
         canvas.draw()
 
@@ -154,8 +188,11 @@ plot_button.grid(row=6, column=0, columnspan=2, pady=10)
 plot_button = ttk.Button(frame_left, text="Plot Pressure", command=plot_pressure)
 plot_button.grid(row=7, column=0, columnspan=2, pady=10)
 
+plot_button = ttk.Button(frame_left, text="Plot Volume", command=plot_volume)
+plot_button.grid(row=8, column=0, columnspan=2, pady=10)
+
 error_label = ttk.Label(frame_left, text="", foreground="red")
-error_label.grid(row=8, column=0, columnspan=2, pady=5)
+error_label.grid(row=9, column=0, columnspan=2, pady=5)
 
 # Create a Matplotlib figure and a canvas to embed it in the Tkinter window
 fig, ax = plt.subplots()
