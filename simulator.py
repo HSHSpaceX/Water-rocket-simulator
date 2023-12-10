@@ -52,8 +52,8 @@ def simulate():
         # Define adiabatic constant
         C_const = P_ins * pow(V_air, k_const)
 
-        # Main loop of simulation
-        while(V_water > 0): 
+        # Main loop of simulation, handles low pressure models
+        while(V_water > 0 and P_ins > P_atm):  
             # Update time array for plot
             array_time.append(total_time)
             total_time = total_time + delta_t 
