@@ -12,3 +12,4 @@ Mass of empty rocket, Drag factor, Nozle impedance
 9. Saving project
 10. Mathematical/physical model and algorithm 
 ok 11. Test Qt, input and output with plot --- PRIO
+ok 12. Rewrite to python

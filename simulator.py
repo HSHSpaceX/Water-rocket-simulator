@@ -1,26 +1,70 @@
+import math
 import tkinter as tk
 from tkinter import ttk
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 import matplotlib.pyplot as plt
 
-def plot_graph():
+# Constants declaration
+delta_t = 0.1
+k_const = 1.4
+P_atm = 1*101325
+water_density = 1000
+
+# Array declaration
+array_time = []
+array_h = []
+array_Ft = []
+array_mass = []
+array_temperature = []
+array_pressure = []
+
+#Output variables declaration
+Ic = float(0)
+max_h = float(0)
+total_time = float(0)
+
+
+def simulate():
+    global total_time
+
+    P_ins = float(entry_0.get())*100000
+    At = 3.1415*pow(0.01*float(entry_1.get())/2, 2)
+    V_air = float(entry_2.get())*0.001
+    V_water = float(entry_3.get())*0.001
+    Roc_mass = float(entry_4.get())
+
+    C_const = P_ins * pow(V_air, k_const)
+
+    while(V_water > 0): 
+        array_time.append(total_time)
+        total_time = total_time + delta_t 
+
+        Ft = 2 * At * (P_ins - P_atm)
+        array_Ft.append(Ft)
+
+        ve = math.sqrt(2 * (P_ins - P_atm) / water_density)
+
+        delta_V = At * ve * delta_t
+
+        V_air = V_air + delta_V
+        V_water = V_water - delta_V
+        
+        array_pressure.append(P_ins)
+        P_ins = C_const * pow(V_air, -k_const)
+
+
+def plot_Ft():
     try:
-        # Retrieve the value from the entry widget
-        x_value = float(entry_0.get())
-
-        # Generate some example data for the plot
-        y_values = [x_value ** 2, x_value ** 3, x_value ** 4]
-
         # Clear the previous plot
         ax.clear()
 
         # Plot the new data
-        ax.plot([2, 3, 4], y_values, marker='o', linestyle='-', color='b')
+        ax.plot(array_time, array_Ft, marker='o', linestyle='-', color='b')
 
         # Set labels and title
-        ax.set_xlabel('X-axis')
-        ax.set_ylabel('Y-axis')
-        ax.set_title('Graph of DUPA')
+        ax.set_xlabel('Time-axis')
+        ax.set_ylabel('Thrust-axis')
+        ax.set_title('Graph of thrust')
 
         # Update the canvas
         canvas.draw()
@@ -31,6 +75,31 @@ def plot_graph():
     except ValueError:
         # Handle the case where the entered value is not a valid float
         error_label.config(text="Invalid input. Please enter a numeric value.")
+
+
+def plot_pressure():
+    try:
+        # Clear the previous plot
+        ax.clear()
+
+        # Plot the new data
+        ax.plot(array_time, array_pressure, marker='o', linestyle='-', color='b')
+
+        # Set labels and title
+        ax.set_xlabel('Time-axis')
+        ax.set_ylabel('Pressure-axis')
+        ax.set_title('Graph of pressure')
+
+        # Update the canvas
+        canvas.draw()
+
+        # Erase error message
+        error_label.config(text="")
+
+    except ValueError:
+        # Handle the case where the entered value is not a valid float
+        error_label.config(text="Invalid input. Please enter a numeric value.")
+
 
 # Create the main Tkinter window
 root = tk.Tk()
@@ -76,11 +145,17 @@ entry_4 = ttk.Entry(frame_left, width=10)
 entry_4.grid(row=4, column=2, pady=5)
 entry_4.insert(0, "0")  # Initialize with a default value
 
-plot_button = ttk.Button(frame_left, text="Plot", command=plot_graph)
+plot_button = ttk.Button(frame_left, text="Simulate", command=simulate)
 plot_button.grid(row=5, column=0, columnspan=2, pady=10)
 
+plot_button = ttk.Button(frame_left, text="Plot Ft", command=plot_Ft)
+plot_button.grid(row=6, column=0, columnspan=2, pady=10)
+
+plot_button = ttk.Button(frame_left, text="Plot Pressure", command=plot_pressure)
+plot_button.grid(row=7, column=0, columnspan=2, pady=10)
+
 error_label = ttk.Label(frame_left, text="", foreground="red")
-error_label.grid(row=6, column=0, columnspan=2, pady=5)
+error_label.grid(row=8, column=0, columnspan=2, pady=5)
 
 # Create a Matplotlib figure and a canvas to embed it in the Tkinter window
 fig, ax = plt.subplots()
