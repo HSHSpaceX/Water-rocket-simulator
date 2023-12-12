@@ -58,6 +58,7 @@ def simulate():
 
         # Calculate mass of air
         mass_air = P_ins * V_air / (T * Rs)
+        mass_propelant = mass_air + V_water * water_density
 
         # Main loop of simulation, handles models that push out only fraction of water inside
         while(V_water > 0 and P_ins > P_atm):  
@@ -166,10 +167,16 @@ def simulate():
 
         # Erase error message
         error_label.config(text="")
+
+        # Print  output values
         text_widget.insert(tk.END, "Ic = ")
         text_widget.insert(tk.END, Ic) 
         text_widget.insert(tk.END, "\n")
         
+        text_widget.insert(tk.END, "Ist = ")
+        text_widget.insert(tk.END, Ic / (mass_propelant * 9.81)) 
+        text_widget.insert(tk.END, "\n")
+
         
         plot_Ft()
 
@@ -309,35 +316,35 @@ root.title("Water Rocket Simulator")
 frame_left = ttk.Frame(root, padding="10")
 frame_left.grid(row=0, column=0, sticky=(tk.W, tk.E, tk.N, tk.S))
 
-label_0 = ttk.Label(frame_left, text="Enter pressure value:")
+label_0 = ttk.Label(frame_left, text="Pressure[bar]:")
 label_0.grid(row=0, column=0, columnspan=2, pady=5, sticky="w")
 
 entry_0 = ttk.Entry(frame_left, width=10)
 entry_0.grid(row=0, column=2, pady=5)
 entry_0.insert(0, "0")  # Initialize with a default value
 
-label_1 = ttk.Label(frame_left, text="Enter area throat value:")
+label_1 = ttk.Label(frame_left, text="Diameter[cm]:")
 label_1.grid(row=1, column=0, columnspan=2, pady=5, sticky="w")
 
 entry_1 = ttk.Entry(frame_left, width=10)
 entry_1.grid(row=1, column=2, pady=5)
 entry_1.insert(0, "0")  # Initialize with a default value
 
-label_2 = ttk.Label(frame_left, text="Enter air volume value:")
+label_2 = ttk.Label(frame_left, text="Air volume[l]:")
 label_2.grid(row=2, column=0, columnspan=2,  pady=5, sticky="w")
 
 entry_2 = ttk.Entry(frame_left, width=10)
 entry_2.grid(row=2, column=2, pady=5)
 entry_2.insert(0, "0")  # Initialize with a default value
 
-label_3 = ttk.Label(frame_left, text="Enter water volume value:")
+label_3 = ttk.Label(frame_left, text="Water volume[l]:")
 label_3.grid(row=3, column=0, columnspan=2, pady=5, sticky="w")
 
 entry_3 = ttk.Entry(frame_left, width=10)
 entry_3.grid(row=3, column=2, pady=5)
 entry_3.insert(0, "0")  # Initialize with a default value
 
-label_4 = ttk.Label(frame_left, text="Enter mass of rocket value:")
+label_4 = ttk.Label(frame_left, text="Mass of rocket[kg]:")
 label_4.grid(row=4, column=0, columnspan=2, pady=5, sticky="w")
 
 entry_4 = ttk.Entry(frame_left, width=10)
@@ -345,7 +352,7 @@ entry_4.grid(row=4, column=2, pady=5)
 entry_4.insert(0, "0")  # Initialize with a default value
 
 # Updated row number for Label and Entry
-label_5 = ttk.Label(frame_left, text="Enter another value:")
+label_5 = ttk.Label(frame_left, text="Temperature[C]:")
 label_5.grid(row=5, column=0, columnspan=2, pady=5, sticky="w")
 
 entry_5 = ttk.Entry(frame_left, width=10)
