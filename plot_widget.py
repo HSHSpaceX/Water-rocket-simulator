@@ -44,7 +44,7 @@ root.rowconfigure(0, weight=1)
 frame_left = ttk.Frame(root, padding="10")
 frame_left.grid(row=0, column=0, sticky=(tk.W, tk.E, tk.N, tk.S))
 
-fig_left, ax_left = plt.subplots(figsize=(screen_width / 204.3, screen_height / 150))
+fig_left, ax_left = plt.subplots(figsize=(screen_width / 200, screen_height / 120))
 canvas_left = FigureCanvasTkAgg(fig_left, master=frame_left)
 canvas_widget_left = canvas_left.get_tk_widget()
 canvas_widget_left.grid(row=0, column=0, sticky=(tk.W, tk.E, tk.N, tk.S))
@@ -52,15 +52,11 @@ canvas_widget_left.grid(row=0, column=0, sticky=(tk.W, tk.E, tk.N, tk.S))
 plot_button_left = ttk.Button(frame_left, text="Plot Left", command=plot_left_graph)
 plot_button_left.grid(row=1, column=0, pady=10)
 
-# Separator
-separator = ttk.Separator(root, orient=tk.VERTICAL)
-separator.grid(row=0, column=1, sticky="ns", padx=0)
-
 # Right plot
 frame_right = ttk.Frame(root, padding="10")
 frame_right.grid(row=0, column=2, sticky=(tk.W, tk.E, tk.N, tk.S))
 
-fig_right, ax_right = plt.subplots(figsize=(screen_width / 204.3, screen_height / 150))
+fig_right, ax_right = plt.subplots(figsize=(screen_width / 200, screen_height / 100))
 canvas_right = FigureCanvasTkAgg(fig_right, master=frame_right)
 canvas_widget_right = canvas_right.get_tk_widget()
 canvas_widget_right.grid(row=0, column=0, sticky=(tk.W, tk.E, tk.N, tk.S))
