@@ -34,6 +34,7 @@ def simulate():
     try:
         # Clear total_time value
         total_time = 0
+        Ic=0
 
         # Clear all arrays
         array_time.clear()
@@ -190,7 +191,7 @@ def plot_Ft():
         ax_left.clear()
 
         # Plot the new data
-        ax_left.plot(array_time, array_Ft, marker='o', linestyle='-', color='b')
+        ax_left.plot(array_time, array_Ft, linestyle='-', color='b')
 
         # Set labels and title
         ax_left.set_xlabel('Time[t]')
@@ -214,7 +215,7 @@ def plot_mass():
         ax_left.clear()
 
         # Plot the new data
-        ax_left.plot(array_time, array_mass, marker='o', linestyle='-', color='b')
+        ax_left.plot(array_time, array_mass, linestyle='-', color='b')
 
         # Set labels and title
         ax_left.set_xlabel('Time[t]')
@@ -237,7 +238,7 @@ def plot_temperature():
         ax_left.clear()
 
         # Plot the new data
-        ax_left.plot(array_time, array_temperature, marker='o', linestyle='-', color='b')
+        ax_left.plot(array_time, array_temperature, linestyle='-', color='b')
 
         # Set labels and title
         ax_left.set_xlabel('Time[t]')
@@ -265,7 +266,7 @@ def plot_pressure():
             array_pressure[i] /= 100000
 
         # Plot the new data
-        ax_left.plot(array_time, array_pressure, marker='o', linestyle='-', color='b')
+        ax_left.plot(array_time, array_pressure, linestyle='-', color='b')
 
         # Set labels and title
         ax_left.set_xlabel('Time[s]')
@@ -289,8 +290,8 @@ def plot_volume():
         ax_left.clear()
 
         # Plot the new data
-        ax_left.plot(array_time, array_V_water, marker='o', linestyle='-', color='b', label = "Water")
-        ax_left.plot(array_time, array_V_air, marker='o', linestyle='-', color='c', label = "Air")
+        ax_left.plot(array_time, array_V_water, linestyle='-', color='b', label = "Water")
+        ax_left.plot(array_time, array_V_air, linestyle='-', color='c', label = "Air")
         
         # Set labels and title
         ax_left.set_xlabel('Time[t]')
