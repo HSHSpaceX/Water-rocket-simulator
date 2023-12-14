@@ -492,40 +492,79 @@ canvas_widget.grid(row=0, column=0, sticky=(tk.W, tk.E, tk.N, tk.S))
 frame_simulate_r = ttk.Frame(root, padding="10")
 frame_simulate_r.grid(row=1, column=4, sticky=(tk.W, tk.E, tk.N, tk.S))
 
-simulate_button = ttk.Button(frame_simulate_r, text="Simulate", command=simulate)
+simulate_button = ttk.Button(frame_simulate_r, text="Optimalize", command=simulate)
 simulate_button.grid(row=0, column=0, columnspan=2, pady=5, sticky="w")
+
+# Create a label for displaying the selected option
+label_choose_opt = ttk.Label(frame_simulate_r, text="Choose variable to optimalize")
+label_choose_opt.grid(row=1, column=0, columnspan=2, pady=5, sticky="w")
+
+# Create a StringVar to hold the selected value from the combobox
+choosen_opt_variable = tk.StringVar()
+
+# Create a combobox (dropdown menu)
+options_variable_opt = ["Air", "Argon", "Helium", "Hydrogen", "Nitrogen", "CO2", "Xenon"]
+combobox_variable_opt = ttk.Combobox(frame_simulate_r, textvariable=choosen_opt_variable, values=options_variable_opt, state="readonly", width=7)
+combobox_variable_opt.grid(row=2, column=0, columnspan=2, pady=5, sticky="w")
+# combobox_variable_opt.bind("<<ComboboxSelected>>", change_gas)
+
+# Optimalization range
+label_opt_range = ttk.Label(frame_simulate_r, text="Optimalization range: (min) (max)")
+label_opt_range.grid(row=3, column=0, columnspan=2, pady=5, sticky="w")
+
+entry_opt_min = ttk.Entry(frame_simulate_r, width=10)
+entry_opt_min.grid(row=4, column=0, sticky="w", pady=5)
+entry_opt_min.insert(0, "min")  # Initialize with a default value
+
+entry_opt_max = ttk.Entry(frame_simulate_r, width=10)
+entry_opt_max.grid(row=5, column=0, sticky="w", pady=5)
+entry_opt_max.insert(0, "max")  # Initialize with a default value
 
 # Create and pack widgets on the right side
 frame_right = ttk.Frame(root, padding="10")
 frame_right.grid(row=1, column=5, sticky=(tk.W, tk.E, tk.N, tk.S))
 
-label_r_0 = ttk.Label(frame_right, text="Right Label 0:")
-label_r_0.grid(row=0, column=0, columnspan=2, pady=5, sticky="w")
+label_0_r = ttk.Label(frame_right, text="Pressure[bar]:")
+label_0_r.grid(row=0, column=0, columnspan=2, pady=5, sticky="w")
 
-entry_r_0 = ttk.Entry(frame_right, width=10)
-entry_r_0.grid(row=0, column=2, pady=5)
-entry_r_0.insert(0, "0")  # Initialize with a default value
+entry_0_r = ttk.Entry(frame_right, width=10)
+entry_0_r.grid(row=0, column=2, pady=5)
+entry_0_r.insert(0, "0")  # Initialize with a default value
 
-label_r_1 = ttk.Label(frame_right, text="Right Label 1:")
-label_r_1.grid(row=1, column=0, columnspan=2, pady=5, sticky="w")
+label_1_r = ttk.Label(frame_right, text="Diameter[mm]:")
+label_1_r.grid(row=1, column=0, columnspan=2, pady=5, sticky="w")
 
-entry_r_1 = ttk.Entry(frame_right, width=10)
-entry_r_1.grid(row=1, column=2, pady=5)
-entry_r_1.insert(0, "0")  # Initialize with a default value
+entry_1_r = ttk.Entry(frame_right, width=10)
+entry_1_r.grid(row=1, column=2, pady=5)
+entry_1_r.insert(0, "0")  # Initialize with a default value
 
-label_r_2 = ttk.Label(frame_right, text="Right Label 2:")
-label_r_2.grid(row=2, column=0, columnspan=2, pady=5, sticky="w")
+label_2_r = ttk.Label(frame_right, text="Total volume[l]:")
+label_2_r.grid(row=2, column=0, columnspan=2, pady=5, sticky="w")
 
-entry_r_2 = ttk.Entry(frame_right, width=10)
-entry_r_2.grid(row=2, column=2, pady=5)
-entry_r_2.insert(0, "0")  # Initialize with a default value
+entry_2_r = ttk.Entry(frame_right, width=10)
+entry_2_r.grid(row=2, column=2, pady=5)
+entry_2_r.insert(0, "0")  # Initialize with a default value
 
-label_r_3 = ttk.Label(frame_right, text="Right Label 3:")
-label_r_3.grid(row=3, column=0, columnspan=2, pady=5, sticky="w")
+label_3_r = ttk.Label(frame_right, text="Water content[%]:")
+label_3_r.grid(row=3, column=0, columnspan=2, pady=5, sticky="w")
 
-entry_r_3 = ttk.Entry(frame_right, width=10)
-entry_r_3.grid(row=3, column=2, pady=5)
-entry_r_3.insert(0, "0")  # Initialize with a default value
+entry_3_r = ttk.Entry(frame_right, width=10)
+entry_3_r.grid(row=3, column=2, pady=5)
+entry_3_r.insert(0, "0")  # Initialize with a default value
+
+label_4_r = ttk.Label(frame_right, text="Mass of rocket[kg]:")
+label_4_r.grid(row=4, column=0, columnspan=2, pady=5, sticky="w")
+
+entry_4_r = ttk.Entry(frame_right, width=10)
+entry_4_r.grid(row=4, column=2, pady=5)
+entry_4_r.insert(0, "0")  # Initialize with a default value
+
+label_5_r = ttk.Label(frame_right, text="Temperature[C]:")
+label_5_r.grid(row=5, column=0, columnspan=2, pady=5, sticky="w")
+
+entry_5_r = ttk.Entry(frame_right, width=10)
+entry_5_r.grid(row=5, column=2, pady=5)
+entry_5_r.insert(0, "0")  # Initialize with a default value
 
 # ... (continue with other labels and entries in frame_right)
 
@@ -533,22 +572,19 @@ frame_button_r = ttk.Frame(root, padding="10")
 frame_button_r.grid(row=1, column=6, sticky=(tk.W, tk.E, tk.N, tk.S))
 
 # Adjusted row numbers for the following buttons in frame_button_r
-plot_button_r = ttk.Button(frame_button_r, text="Right Plot 1")
+plot_button_r = ttk.Button(frame_button_r, text="Plot Ic")
 plot_button_r.grid(row=1, column=0, columnspan=2, pady=5, sticky="w")
 
-plot_button_r = ttk.Button(frame_button_r, text="Right Plot 2")
+plot_button_r = ttk.Button(frame_button_r, text="Plot tc")
 plot_button_r.grid(row=2, column=0, columnspan=2, pady=5, sticky="w")
+
+plot_button_r = ttk.Button(frame_button_r, text="Plot delta_v")
+plot_button_r.grid(row=3, column=0, columnspan=2, pady=5, sticky="w")
 
 # ... (continue with other buttons in frame_button_r)
 
 error_label_r = ttk.Label(frame_button_r, text="", foreground="red")
 error_label_r.grid(row=10, column=0, columnspan=4, pady=5, sticky="w")
-
-frame_text_widget_r = ttk.Frame(root, padding="10")
-frame_text_widget_r.grid(row=1, column=7, sticky=(tk.W, tk.E, tk.N, tk.S))
-
-text_widget_r = tk.Text(frame_text_widget_r, height=11, width=40)
-text_widget_r.grid(row=0, column=0, sticky="w")
 
 # Dupa
 frame_plot_right = ttk.Frame(root, padding="10")
