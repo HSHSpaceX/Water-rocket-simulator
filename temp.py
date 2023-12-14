@@ -11,6 +11,35 @@ P_atm = 1*101325
 water_density = 1000
 Rs = 287
 
+# Fuction to change constants values for selected gas
+def change_gas(event):
+    global k_const
+    global Rs
+    gas_name = choosen_gas.get()
+
+    if(gas_name == "Air"):
+        k_const = 1.4
+        Rs = 287
+    if(gas_name == "Argon"):
+        k_const = 1.67
+        Rs = 208
+    if(gas_name == "Helium"):
+        k_const = 1.66
+        Rs = 2077
+    if(gas_name == "Hydrogen"):
+        k_const = 1.41
+        Rs = 4124
+    if(gas_name == "Nitrogen"):
+        k_const = 1.4
+        Rs = 297 
+    if(gas_name == "CO2"):
+        k_const = 1.3
+        Rs = 188
+    if(gas_name == "Xenon"):
+        k_const = 1.65
+        Rs = 208
+
+
 
 # Array declaration
 array_time = []
@@ -38,6 +67,7 @@ def simulate():
         # Clear total_time value
         total_time = 0
         Ic = 0
+        delta_v = 0
 
         # Clear all arrays
         array_time.clear()
@@ -196,6 +226,10 @@ def simulate():
         text_widget.insert(tk.END, "Ic = ")
         text_widget.insert(tk.END, Ic) 
         text_widget.insert(tk.END, "\n")
+
+        text_widget.insert(tk.END, "tc = ")
+        text_widget.insert(tk.END, total_time) 
+        text_widget.insert(tk.END, "\n")
         
         text_widget.insert(tk.END, "Ist = ")
         text_widget.insert(tk.END, Ic / (mass_propelant * 9.81)) 
@@ -350,6 +384,20 @@ frame_simulate.grid(row=1, column=0, sticky=(tk.W, tk.E, tk.N, tk.S))
 
 simulate_button = ttk.Button(frame_simulate, text="Simulate", command=simulate)
 simulate_button.grid(row=0, column=0, columnspan=2, pady=5, sticky="w")
+
+# Create a label for displaying the selected option
+label_gas = ttk.Label(frame_simulate, text="Choose a gas")
+label_gas.grid(row=1, column=0, columnspan=2, pady=5, sticky="w")
+
+# Create a StringVar to hold the selected value from the combobox
+default_option = "Air"
+choosen_gas = tk.StringVar(value=default_option)
+
+# Create a combobox (dropdown menu)
+options = ["Air", "Argon", "Helium", "Hydrogen", "Nitrogen", "CO2", "Xenon"]
+combobox = ttk.Combobox(frame_simulate, textvariable=choosen_gas, values=options, state="readonly", width=7)
+combobox.grid(row=2, column=0, columnspan=2, pady=5, sticky="w")
+combobox.bind("<<ComboboxSelected>>", change_gas)
 
 # Create and pack widgets on the left side
 frame_left = ttk.Frame(root, padding="10")
