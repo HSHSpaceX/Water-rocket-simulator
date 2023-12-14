@@ -26,11 +26,14 @@ array_V_air = []
 Ic = float(0)
 max_h = float(0)
 total_time = float(0)
+delta_v = float(0)
 
 
 def simulate():
     global total_time
     global Ic
+    global delta_v
+
     try:
         # Clear total_time value
         total_time = 0
@@ -48,9 +51,11 @@ def simulate():
 
         # Entry values read
         P_ins = float(entry_0.get())*100000
-        At = 3.1415*pow(0.01*float(entry_1.get())/2, 2)
-        V_air = float(entry_2.get())*0.001
-        V_water = float(entry_3.get())*0.001
+        At = 3.1415*pow(0.001*float(entry_1.get())/2, 2)
+        V_total = float(entry_2.get())*0.001
+        water_content = float(entry_3.get()) * 0.01
+        V_air = V_total - water_content * V_total
+        V_water = water_content * V_total
         Roc_mass = float(entry_4.get())
         T = float(entry_5.get())+273.15
 
@@ -89,6 +94,10 @@ def simulate():
             array_mass.append(Roc_mass)
             Roc_mass = Roc_mass - delta_V * water_density
 
+            # Update delta_v
+            delta_v = delta_v + delta_t * Ft / Roc_mass
+
+
             # Update volume values
             V_air = V_air + delta_V
             V_water = V_water - delta_V
@@ -124,6 +133,9 @@ def simulate():
             # Update rocket mass
             Roc_mass = Roc_mass - delta_m
             array_mass.append(Roc_mass)
+
+             # Update delta_v
+            delta_v = delta_v + delta_t * Ft / Roc_mass
 
             mass_air = mass_air - delta_m
 
@@ -164,6 +176,9 @@ def simulate():
             Roc_mass = Roc_mass - delta_m
             array_mass.append(Roc_mass)
 
+            # Update delta_v
+            delta_v = delta_v + delta_t * Ft / Roc_mass
+
             mass_air = mass_air - delta_m
 
             T = (P_ins / Rs) * pow(V_air / (mass_air + delta_m), k_const) * pow(V_air / mass_air, 1 - k_const)
@@ -185,6 +200,10 @@ def simulate():
         text_widget.insert(tk.END, "Ist = ")
         text_widget.insert(tk.END, Ic / (mass_propelant * 9.81)) 
         text_widget.insert(tk.END, "\n")
+
+        text_widget.insert(tk.END, "delta_v = ")
+        text_widget.insert(tk.END, delta_v) 
+        text_widget.insert(tk.END, "\n\n")
 
         
         plot_Ft()
@@ -343,21 +362,21 @@ entry_0 = ttk.Entry(frame_left, width=10)
 entry_0.grid(row=0, column=2, pady=5)
 entry_0.insert(0, "0")  # Initialize with a default value
 
-label_1 = ttk.Label(frame_left, text="Diameter[cm]:")
+label_1 = ttk.Label(frame_left, text="Diameter[mm]:")
 label_1.grid(row=1, column=0, columnspan=2, pady=5, sticky="w")
 
 entry_1 = ttk.Entry(frame_left, width=10)
 entry_1.grid(row=1, column=2, pady=5)
 entry_1.insert(0, "0")  # Initialize with a default value
 
-label_2 = ttk.Label(frame_left, text="Air volume[l]:")
+label_2 = ttk.Label(frame_left, text="Total volume[l]:")
 label_2.grid(row=2, column=0, columnspan=2,  pady=5, sticky="w")
 
 entry_2 = ttk.Entry(frame_left, width=10)
 entry_2.grid(row=2, column=2, pady=5)
 entry_2.insert(0, "0")  # Initialize with a default value
 
-label_3 = ttk.Label(frame_left, text="Water volume[l]:")
+label_3 = ttk.Label(frame_left, text="Water content[%]:")
 label_3.grid(row=3, column=0, columnspan=2, pady=5, sticky="w")
 
 entry_3 = ttk.Entry(frame_left, width=10)
