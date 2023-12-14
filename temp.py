@@ -34,7 +34,7 @@ def simulate():
     try:
         # Clear total_time value
         total_time = 0
-        Ic=0
+        Ic = 0
 
         # Clear all arrays
         array_time.clear()
@@ -103,8 +103,7 @@ def simulate():
             array_time.append(total_time)
             total_time = total_time + delta_t 
 
-            # Add values that are not changing for plot
-            array_mass.append(Roc_mass)            
+            # Add values that are not changing for plot            
             array_V_water.append(V_water)
             array_V_air.append(V_air)
 
@@ -121,7 +120,13 @@ def simulate():
             Ic += Ft * delta_t
             
             delta_m = dot_m * delta_t
+            
+            # Update rocket mass
+            Roc_mass = Roc_mass - delta_m
+            array_mass.append(Roc_mass)
+
             mass_air = mass_air - delta_m
+
 
             T = (P_ins / Rs) * pow(V_air / (mass_air + delta_m), k_const) * pow(V_air / mass_air, 1 - k_const)
             array_temperature.append(T)
@@ -134,8 +139,7 @@ def simulate():
             array_time.append(total_time)
             total_time = total_time + delta_t 
 
-            # Add values that are not changing for plot
-            array_mass.append(Roc_mass)            
+            # Add values that are not changing for plot           
             array_V_water.append(V_water)
             array_V_air.append(V_air)
 
@@ -155,6 +159,10 @@ def simulate():
             Ic += Ft * delta_t
 
             delta_m = dot_m * delta_t
+
+            # Update rocket mass
+            Roc_mass = Roc_mass - delta_m
+            array_mass.append(Roc_mass)
 
             mass_air = mass_air - delta_m
 
@@ -299,7 +307,7 @@ def plot_volume():
         ax_left.set_title('Graph of thrust')
         ax_left.legend()
         # Update the canvas
-        canvas_left.draw()
+        canvas_left.draw()  
 
         # Erase error message
         error_label.config(text="")

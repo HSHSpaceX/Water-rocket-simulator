@@ -56,7 +56,7 @@ plot_button_left.grid(row=1, column=0, pady=10)
 frame_right = ttk.Frame(root, padding="10")
 frame_right.grid(row=0, column=2, sticky=(tk.W, tk.E, tk.N, tk.S))
 
-fig_right, ax_right = plt.subplots(figsize=(screen_width / 200, screen_height / 100))
+fig_right, ax_right = plt.subplots(figsize=(screen_width / 200, screen_height / 120))
 canvas_right = FigureCanvasTkAgg(fig_right, master=frame_right)
 canvas_widget_right = canvas_right.get_tk_widget()
 canvas_widget_right.grid(row=0, column=0, sticky=(tk.W, tk.E, tk.N, tk.S))
