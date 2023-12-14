@@ -244,7 +244,7 @@ def simulate():
 
     except ValueError:
         # Handle the case where entered value is not valid
-        error_label.config(text="Invalid input. Please enter a numeric value.")
+        error_label.config(text="Invalid input.")
 
 def plot_Ft():
     try:
@@ -267,7 +267,7 @@ def plot_Ft():
 
     except ValueError:
         # Handle the case where the entered value is not a valid float
-        error_label.config(text="Invalid input. Please enter a numeric value.")
+        error_label.config(text="Invalid input.")
 
 
 def plot_mass():
@@ -291,7 +291,7 @@ def plot_mass():
 
     except ValueError:
         # Handle the case where the entered value is not a valid float
-        error_label.config(text="Invalid input. Please enter a numeric value.")
+        error_label.config(text="Invalid input.")
 
 def plot_temperature():
     try:
@@ -314,7 +314,7 @@ def plot_temperature():
 
     except ValueError:
         # Handle the case where the entered value is not a valid float
-        error_label.config(text="Invalid input. Please enter a numeric value.")
+        error_label.config(text="Invalid input.")
 
 
 def plot_pressure():
@@ -342,7 +342,7 @@ def plot_pressure():
 
     except ValueError:
         # Handle the case where the entered value is not a valid float
-        error_label.config(text="Invalid input. Please enter a numeric value.")
+        error_label.config(text="Invalid input.")
 
 
 def plot_volume():
@@ -367,7 +367,7 @@ def plot_volume():
 
     except ValueError:
         # Handle the case where the entered value is not a valid float
-        error_label.config(text="Invalid input. Please enter a numeric value.")
+        error_label.config(text="Invalid input.")
 
 
 # Create the main Tkinter window
@@ -410,7 +410,7 @@ entry_0 = ttk.Entry(frame_left, width=10)
 entry_0.grid(row=0, column=2, pady=5)
 entry_0.insert(0, "0")  # Initialize with a default value
 
-label_1 = ttk.Label(frame_left, text="Diameter[mm]:")
+label_1 = ttk.Label(frame_left, text="Throat diameter[mm]:")
 label_1.grid(row=1, column=0, columnspan=2, pady=5, sticky="w")
 
 entry_1 = ttk.Entry(frame_left, width=10)
@@ -465,8 +465,9 @@ plot_button.grid(row=4, column=0, columnspan=2, pady=5, sticky="w")
 plot_button = ttk.Button(frame_button, text="Plot Temperature", command=plot_temperature)
 plot_button.grid(row=5, column=0, columnspan=2, pady=5,sticky="w")
 
-error_label = ttk.Label(frame_button, text="", foreground="red")
-error_label.grid(row=10, column=0, columnspan=4, pady=5, sticky="w")
+# ERROR
+error_label = ttk.Label(frame_simulate, text="", foreground="red")
+error_label.grid(row=3, column=0, columnspan=2, pady=5, sticky="w")
 
 frame_text_widget = ttk.Frame(root, padding="10")
 frame_text_widget.grid(row=1, column=3, sticky=(tk.W, tk.E, tk.N, tk.S))
@@ -531,7 +532,7 @@ entry_0_r = ttk.Entry(frame_right, width=10)
 entry_0_r.grid(row=0, column=2, pady=5)
 entry_0_r.insert(0, "0")  # Initialize with a default value
 
-label_1_r = ttk.Label(frame_right, text="Diameter[mm]:")
+label_1_r = ttk.Label(frame_right, text="Throat diameter[mm]:")
 label_1_r.grid(row=1, column=0, columnspan=2, pady=5, sticky="w")
 
 entry_1_r = ttk.Entry(frame_right, width=10)
@@ -581,10 +582,9 @@ plot_button_r.grid(row=2, column=0, columnspan=2, pady=5, sticky="w")
 plot_button_r = ttk.Button(frame_button_r, text="Plot delta_v")
 plot_button_r.grid(row=3, column=0, columnspan=2, pady=5, sticky="w")
 
-# ... (continue with other buttons in frame_button_r)
-
-error_label_r = ttk.Label(frame_button_r, text="", foreground="red")
-error_label_r.grid(row=10, column=0, columnspan=4, pady=5, sticky="w")
+# ERROR
+error_label_r = ttk.Label(frame_simulate, text="", foreground="red")
+error_label_r.grid(row=6, column=0, columnspan=2, pady=5, sticky="w")
 
 # Dupa
 frame_plot_right = ttk.Frame(root, padding="10")
