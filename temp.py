@@ -6,11 +6,11 @@ import matplotlib.pyplot as plt
 
 # Constants declaration
 delta_t = 0.001
-k_const = 1.4
+#k_const = 1.4
 P_atm = 1*101325
 water_density = 1000
-Rs = 287
-
+#Rs = 287
+'''
 # Fuction to change constants values for selected gas
 def change_gas(event):
     global k_const
@@ -38,7 +38,7 @@ def change_gas(event):
     if(gas_name == "Xenon"):
         k_const = 1.65
         Rs = 208
-
+'''
 
 
 # Array declaration
@@ -51,17 +51,97 @@ array_pressure = []
 array_V_water = []
 array_V_air = []
 
-#Output variables declaration
+# Output variables declaration
 Ic = float(0)
 max_h = float(0)
 total_time = float(0)
 delta_v = float(0)
+
+# Optimalization output data
+array_opt_x = []
+array_opt_Ic = []
+array_opt_tc = []
+array_opt_delta_v = []
+opt_variable_name = ""
+
+def optimalize():
+    gas_name = choosen_gas_opt.get()
+
+    if(gas_name == "Air"):
+        k_const = 1.4
+        Rs = 287
+    if(gas_name == "Argon"):
+        k_const = 1.67
+        Rs = 208
+    if(gas_name == "Helium"):
+        k_const = 1.66
+        Rs = 2077
+    if(gas_name == "Hydrogen"):
+        k_const = 1.41
+        Rs = 4124
+    if(gas_name == "Nitrogen"):
+        k_const = 1.4
+        Rs = 297 
+    if(gas_name == "CO2"):
+        k_const = 1.3
+        Rs = 188
+    if(gas_name == "Xenon"):
+        k_const = 1.65
+        Rs = 208
+
+    try:
+        # Entry values read
+        P_ins = float(entry_0_r.get())*100000
+        At = 3.1415*pow(0.001*float(entry_1_r.get())/2, 2)
+        V_total = float(entry_2_r.get())*0.001
+        water_content = float(entry_3_r.get()) * 0.01
+        V_air = V_total - water_content * V_total
+        V_water = water_content * V_total
+        Roc_mass = float(entry_4_r.get())
+        T = float(entry_5_r.get())+273.15
+
+        # Define adiabatic constant
+        C_const = P_ins * pow(V_air, k_const)
+
+        # Calculate mass of air
+        mass_air = P_ins * V_air / (T * Rs)
+        mass_propelant = mass_air + V_water * water_density
+
+    except ValueError:
+        # Handle the case where entered value is not valid
+        error_label_r.config(text="Invalid input.")
+
+    
 
 
 def simulate():
     global total_time
     global Ic
     global delta_v
+
+    gas_name = choosen_gas.get()
+
+    if(gas_name == "Air"):
+        k_const = 1.4
+        Rs = 287
+    if(gas_name == "Argon"):
+        k_const = 1.67
+        Rs = 208
+    if(gas_name == "Helium"):
+        k_const = 1.66
+        Rs = 2077
+    if(gas_name == "Hydrogen"):
+        k_const = 1.41
+        Rs = 4124
+    if(gas_name == "Nitrogen"):
+        k_const = 1.4
+        Rs = 297 
+    if(gas_name == "CO2"):
+        k_const = 1.3
+        Rs = 188
+    if(gas_name == "Xenon"):
+        k_const = 1.65
+        Rs = 208
 
     try:
         # Clear total_time value
@@ -397,7 +477,7 @@ choosen_gas = tk.StringVar(value=default_option)
 options = ["Air", "Argon", "Helium", "Hydrogen", "Nitrogen", "CO2", "Xenon"]
 combobox = ttk.Combobox(frame_simulate, textvariable=choosen_gas, values=options, state="readonly", width=7)
 combobox.grid(row=2, column=0, columnspan=2, pady=5, sticky="w")
-combobox.bind("<<ComboboxSelected>>", change_gas)
+# combobox.bind("<<ComboboxSelected>>", change_gas)
 
 # Create and pack widgets on the left side
 frame_left = ttk.Frame(root, padding="10")
@@ -581,6 +661,19 @@ plot_button_r.grid(row=2, column=0, columnspan=2, pady=5, sticky="w")
 
 plot_button_r = ttk.Button(frame_button_r, text="Plot delta_v")
 plot_button_r.grid(row=3, column=0, columnspan=2, pady=5, sticky="w")
+
+# Create a label for displaying the selected option
+label_gas_opt = ttk.Label(frame_button_r, text="Choose a gas")
+label_gas_opt.grid(row=4, column=0, columnspan=2, pady=5, sticky="w")
+
+# Create a StringVar to hold the selected value from the combobox
+choosen_gas_opt = tk.StringVar(value=default_option)
+
+# Create a combobox (dropdown menu)
+options_gas_opt = ["Air", "Argon", "Helium", "Hydrogen", "Nitrogen", "CO2", "Xenon"]
+combobox_gas_opt = ttk.Combobox(frame_button_r, textvariable=choosen_gas_opt, values=options_gas_opt, state="readonly", width=7)
+combobox_gas_opt.grid(row=5, column=0, columnspan=2, pady=5, sticky="w")
+# combobox_gas_opt.bind("<<ComboboxSelected>>", change_gas)
 
 # ERROR
 error_label_r = ttk.Label(frame_simulate, text="", foreground="red")
