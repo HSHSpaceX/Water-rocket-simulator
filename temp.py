@@ -5,7 +5,7 @@ from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 import matplotlib.pyplot as plt
 
 # Constants declaration
-delta_t = 0.01
+delta_t = 0.001
 k_const = 1.4
 P_atm = 1*101325
 water_density = 1000
