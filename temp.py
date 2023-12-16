@@ -5,9 +5,9 @@ from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 import matplotlib.pyplot as plt
 
 # Constants declaration
-delta_t = 0.001
+delta_t = 0.0001
 #k_const = 1.4
-P_atm = 1*101325
+P_atm = float(1*101325)
 #Rs = 287
 '''
 # Fuction to change constants values for selected gas
@@ -49,13 +49,13 @@ array_temperature = []
 array_pressure = []
 array_V_water = []
 array_V_air = []
-
+'''
 # Output variables declaration
 Ic = float(0)
 max_h = float(0)
 total_time = float(0)
 delta_v = float(0)
-
+'''
 # Optimalization output data
 array_opt_x = []
 array_opt_Ic = []
@@ -67,6 +67,13 @@ opt_variable_name = ""
 # Simulation for optimalization loop
 def opt_sim(k_const, Rs, water_density, P_ins, At, V_air, V_water, Roc_mass, T, rod_lenght, rod_inside_diameter):
     try:
+        #print(str(k_const) + " " + str(Rs) + " " + str(water_density) + " "+ str(P_ins) + " " + str(At) + " " + str(V_water) + " " + str(V_air) + " " + str(Roc_mass) +" "+ str(T) + " " + str(rod_lenght) + " " + str(rod_inside_diameter)+ "\n")
+        # Output variables declaration
+        Ic = float(0)
+        max_h = float(0)
+        total_time = float(0)
+        delta_v = float(0)
+
         s = float(0.0)
         vrod = float(0.0)
 
@@ -87,19 +94,19 @@ def opt_sim(k_const, Rs, water_density, P_ins, At, V_air, V_water, Roc_mass, T, 
         if(rod_inside_diameter > 0 and rod_lenght > 0):
             while(s < rod_lenght):
                 # Array update
-                array_time.append(total_time)
+                #array_time.append(total_time)
                 total_time = total_time + delta_t
                 
-                array_V_water.append(V_water)
-                array_V_air.append(V_air)
+                #array_V_water.append(V_water)
+                #array_V_air.append(V_air)
 
-                array_mass.append(Roc_mass)
-                array_pressure.append(P_ins)
-                array_temperature.append(T)
+                #array_mass.append(Roc_mass)
+                #array_pressure.append(P_ins)
+                #array_temperature.append(T)
 
                 # Calculate Ft and Ic
                 Ft = P_ins * At
-                array_Ft.append(Ft)
+                #array_Ft.append(Ft)
                 Ic += Ft * delta_t
 
                 arod = Ft / Roc_mass
@@ -111,19 +118,19 @@ def opt_sim(k_const, Rs, water_density, P_ins, At, V_air, V_water, Roc_mass, T, 
         if(rod_inside_diameter == 0 and rod_lenght > 0):
             while(s < rod_lenght):
                 # Array update
-                array_time.append(total_time)
+                #array_time.append(total_time)
                 total_time = total_time + delta_t
 
-                array_mass.append(Roc_mass)
-                array_V_air.append(V_air)
-                array_V_water.append(V_water)
+                #array_mass.append(Roc_mass)
+                #array_V_air.append(V_air)
+                #array_V_water.append(V_water)
                 
-                array_pressure.append(P_ins)
-                array_temperature.append(T)
+                #array_pressure.append(P_ins)
+                #array_temperature.append(T)
 
                 # Calculate Ft and Ic
                 Ft = P_ins * At
-                array_Ft.append(Ft)
+                #array_Ft.append(Ft)
                 Ic += Ft * delta_t
 
                 arod = Ft / Roc_mass
@@ -142,14 +149,14 @@ def opt_sim(k_const, Rs, water_density, P_ins, At, V_air, V_water, Roc_mass, T, 
 
 
         # Main loop of simulation, handles models that push out only fraction of water inside
-        while(V_water > 0 and P_ins > P_atm):  
+        while(float(V_water) > float(0) and float(P_ins) > float(P_atm)):  
             # Update time array for plot
-            array_time.append(total_time)
+            #array_time.append(total_time)
             total_time = total_time + delta_t 
 
             # Calculate thurst
             Ft = 2 * At * (P_ins - P_atm)
-            array_Ft.append(Ft)
+            #array_Ft.append(Ft)
             Ic += Ft * delta_t
 
             ve = math.sqrt(2 * (P_ins - P_atm) / water_density)
@@ -158,15 +165,15 @@ def opt_sim(k_const, Rs, water_density, P_ins, At, V_air, V_water, Roc_mass, T, 
             delta_V = At * ve * delta_t
 
             # Update volume arrays
-            array_V_water.append(V_water)
-            array_V_air.append(V_air)
+            #array_V_water.append(V_water)
+            #array_V_air.append(V_air)
 
             # Calculate temperature
             T = P_ins * V_air / (mass_air * Rs)
-            array_temperature.append(T)
+            #array_temperature.append(T)
 
             # Update mass array
-            array_mass.append(Roc_mass)
+            #array_mass.append(Roc_mass)
             Roc_mass = Roc_mass - delta_V * water_density
 
             # Update delta_v
@@ -178,18 +185,18 @@ def opt_sim(k_const, Rs, water_density, P_ins, At, V_air, V_water, Roc_mass, T, 
             V_water = V_water - delta_V
             
             # Calculate pressure and update array
-            array_pressure.append(P_ins)
+            #array_pressure.append(P_ins)
             P_ins = C_const * pow(V_air, -k_const)
             
         # Loop for Mach 1 on exit
         while(P_ins > P_atm and P_ins/P_atm >= pow((k_const+1)/2, k_const/(k_const-1))):
             # Update time array for plot
-            array_time.append(total_time)
+            #array_time.append(total_time)
             total_time = total_time + delta_t 
 
             # Add values that are not changing for plot            
-            array_V_water.append(V_water)
-            array_V_air.append(V_air)
+            #array_V_water.append(V_water)
+            #array_V_air.append(V_air)
 
 
             Tt = T * 2 / (k_const + 1)
@@ -207,7 +214,7 @@ def opt_sim(k_const, Rs, water_density, P_ins, At, V_air, V_water, Roc_mass, T, 
             
             # Update rocket mass
             Roc_mass = Roc_mass - delta_m
-            array_mass.append(Roc_mass)
+            #array_mass.append(Roc_mass)
 
              # Update delta_v
             delta_v = delta_v + delta_t * Ft / Roc_mass
@@ -216,19 +223,19 @@ def opt_sim(k_const, Rs, water_density, P_ins, At, V_air, V_water, Roc_mass, T, 
 
 
             T = (P_ins / Rs) * pow(V_air / (mass_air + delta_m), k_const) * pow(V_air / mass_air, 1 - k_const)
-            array_temperature.append(T)
+            #array_temperature.append(T)
 
             P_ins = mass_air * Rs * T / V_air
-            array_pressure.append(P_ins)
+            #array_pressure.append(P_ins)
 
         while(P_ins > P_atm):     
             # Update time array for plot
-            array_time.append(total_time)
+            #array_time.append(total_time)
             total_time = total_time + delta_t 
 
             # Add values that are not changing for plot           
-            array_V_water.append(V_water)
-            array_V_air.append(V_air)
+            #array_V_water.append(V_water)
+            #array_V_air.append(V_air)
 
             Mach = math.sqrt(2 / (k_const-1) * (pow(P_ins / P_atm, (k_const-1) / k_const) - 1))
 
@@ -242,14 +249,14 @@ def opt_sim(k_const, Rs, water_density, P_ins, At, V_air, V_water, Roc_mass, T, 
             dot_m = At * density_throat * ve_air
 
             Ft = dot_m * ve_air
-            array_Ft.append(Ft)
+            #array_Ft.append(Ft)
             Ic += Ft * delta_t
 
             delta_m = dot_m * delta_t
 
             # Update rocket mass
             Roc_mass = Roc_mass - delta_m
-            array_mass.append(Roc_mass)
+            #array_mass.append(Roc_mass)
 
             # Update delta_v
             delta_v = delta_v + delta_t * Ft / Roc_mass
@@ -257,11 +264,12 @@ def opt_sim(k_const, Rs, water_density, P_ins, At, V_air, V_water, Roc_mass, T, 
             mass_air = mass_air - delta_m
 
             T = (P_ins / Rs) * pow(V_air / (mass_air + delta_m), k_const) * pow(V_air / mass_air, 1 - k_const)
-            array_temperature.append(T)
+            #array_temperature.append(T)
 
             P_ins = mass_air * Rs * T / V_air
-            array_pressure.append(P_ins)
-
+            #array_pressure.append(P_ins)
+        
+        #print(str(Ic) + "\n")
         return [Ic, total_time, Ic / (mass_propelant * 9.81), delta_v]
     except ValueError:
         # Handle the case where entered value is not valid
@@ -269,15 +277,16 @@ def opt_sim(k_const, Rs, water_density, P_ins, At, V_air, V_water, Roc_mass, T, 
 
 
 
-
-
-
-
-
-
 # MAIN OPTIMALIZATION FUNCTION
 def optimalize():
     global opt_variable_name
+
+    array_opt_x.clear()
+    array_opt_Ic.clear()
+    array_opt_tc.clear()
+    array_opt_delta_v.clear()
+    array_opt_Ist.clear()
+
     gas_name = choosen_gas_opt.get()
 
     if(gas_name == "Air"):
@@ -313,8 +322,8 @@ def optimalize():
         At = 3.1415*pow(0.001*float(entry_1_r.get())/2, 2)
         V_total = float(entry_2_r.get())*0.001
         water_content = float(entry_3_r.get()) * 0.01
-        V_air = V_total - water_content * V_total
-        V_water = water_content * V_total
+        V_air = float(V_total - water_content * V_total)
+        V_water = float(water_content * V_total)
         Roc_mass = float(entry_4_r.get())
         T = float(entry_5_r.get())+273.15
         rod_lenght = float(entry_launch_lenght_opt.get()) * 0.001
@@ -343,10 +352,50 @@ def optimalize():
         opt_variable_name = opt_var
 
         if(opt_var == "Pressure"):
+            opt_range_min *= 100000
+            opt_range_max *= 100000
             opt_eps = (opt_range_max - opt_range_min) / float(opt_it)
             
             for i in range(opt_it + 1):
                 array_opt_x.append(opt_range_min)
+                #print(str(opt_range_min) + "\n")
+
+                temp_data_opt = opt_sim(k_const, Rs, water_density, opt_range_min, At, V_air, V_water, Roc_mass, T, rod_lenght, rod_inside_diameter)
+                array_opt_Ic.append(temp_data_opt[0])
+                array_opt_tc.append(temp_data_opt[1])
+                array_opt_Ist.append(temp_data_opt[2])
+                array_opt_delta_v.append(temp_data_opt[3])
+
+                opt_range_min += opt_eps
+
+        if(opt_var == "Throat"):
+            opt_range_min = 3.1415*pow(0.001*opt_range_min/2, 2)
+            opt_range_max = 3.1415*pow(0.001*opt_range_max/2, 2)
+            opt_eps = (opt_range_max - opt_range_min) / float(opt_it)
+            
+            for i in range(opt_it + 1):
+                array_opt_x.append(opt_range_min)
+                #print(str(opt_range_min) + "\n")
+
+                temp_data_opt = opt_sim(k_const, Rs, water_density, P_ins, opt_range_min, V_air, V_water, Roc_mass, T, rod_lenght, rod_inside_diameter)
+                array_opt_Ic.append(temp_data_opt[0])
+                array_opt_tc.append(temp_data_opt[1])
+                array_opt_Ist.append(temp_data_opt[2])
+                array_opt_delta_v.append(temp_data_opt[3])
+
+                opt_range_min += opt_eps
+
+        if(opt_var == "Volume"):
+            opt_range_min *= 0.001
+            opt_range_max *= 0.001
+            opt_eps = (opt_range_max - opt_range_min) / float(opt_it)
+            
+            for i in range(opt_it + 1):
+                array_opt_x.append(opt_range_min)
+                #print(str(opt_range_min) + "\n")
+
+                V_air = opt_range_min - water_content * opt_range_min
+                V_water = water_content * opt_range_min
 
                 temp_data_opt = opt_sim(k_const, Rs, water_density, P_ins, At, V_air, V_water, Roc_mass, T, rod_lenght, rod_inside_diameter)
                 array_opt_Ic.append(temp_data_opt[0])
@@ -355,7 +404,62 @@ def optimalize():
                 array_opt_delta_v.append(temp_data_opt[3])
 
                 opt_range_min += opt_eps
+        if(opt_var == "Water content"):
+            opt_range_min *= 0.01
+            opt_range_max *= 0.01
+            opt_eps = (opt_range_max - opt_range_min) / float(opt_it)
+            
+            for i in range(opt_it + 1):
+                array_opt_x.append(opt_range_min)
+                #print(str(opt_range_min) + "\n")
 
+                V_air = float(V_total - opt_range_min * V_total)
+                V_water = float(opt_range_min * V_total)
+
+                temp_data_opt = opt_sim(k_const, Rs, water_density, float(P_ins), At, V_air, V_water, Roc_mass, T, rod_lenght, rod_inside_diameter)
+                array_opt_Ic.append(temp_data_opt[0])
+                array_opt_tc.append(temp_data_opt[1])
+                array_opt_Ist.append(temp_data_opt[2])
+                array_opt_delta_v.append(temp_data_opt[3])
+
+                opt_range_min += opt_eps
+
+        if(opt_var == "Dry mass"):
+            #opt_range_max *= 0.01
+            opt_eps = (opt_range_max - opt_range_min) / float(opt_it)
+            
+            for i in range(opt_it + 1):
+                array_opt_x.append(opt_range_min)
+                #print(str(opt_range_min) + "\n")
+
+                temp_data_opt = opt_sim(k_const, Rs, water_density, float(P_ins), At, V_air, V_water, opt_range_min, T, rod_lenght, rod_inside_diameter)
+                array_opt_Ic.append(temp_data_opt[0])
+                array_opt_tc.append(temp_data_opt[1])
+                array_opt_Ist.append(temp_data_opt[2])
+                array_opt_delta_v.append(temp_data_opt[3])
+
+                opt_range_min += opt_eps
+
+        if(opt_var == "Gas temperature"):
+            opt_range_min += 273.15
+            opt_range_max += 273.15
+            opt_eps = (opt_range_max - opt_range_min) / float(opt_it)
+            
+            for i in range(opt_it + 1):
+                array_opt_x.append(opt_range_min)
+                #print(str(opt_range_min) + "\n")
+
+                temp_data_opt = opt_sim(k_const, Rs, water_density, float(P_ins), At, V_air, V_water, Roc_mass, opt_range_min, rod_lenght, rod_inside_diameter)
+                array_opt_Ic.append(temp_data_opt[0])
+                array_opt_tc.append(temp_data_opt[1])
+                array_opt_Ist.append(temp_data_opt[2])
+                array_opt_delta_v.append(temp_data_opt[3])
+
+                opt_range_min += opt_eps
+
+
+
+        plot_opt_Ic()
 
         # Erase error message
         error_label_r.config(text="")
@@ -370,31 +474,100 @@ def plot_opt_Ic():
         ax_right.clear()
 
         # Plot the new data
-        ax_right.plot(array_time, array_Ft, linestyle='-', color='b')
+        ax_right.plot(array_opt_x, array_opt_Ic, linestyle='-', color='b')
 
         # Set labels and title
-        ax_right.set_xlabel('Time[t]')
-        ax_right.set_ylabel('Thrust[N]')
-        ax_right.set_title('Graph of thrust')
+        ax_right.set_xlabel(opt_variable_name)
+        ax_right.set_ylabel('Ic[Ns]')
+        ax_right.set_title('Graph of ')
 
         # Update the canvas
         canvas_right.draw()
 
         # Erase error message
-        error_label.config(text="")
+        error_label_r.config(text="")
 
     except ValueError:
         # Handle the case where the entered value is not a valid float
-        error_label.config(text="Invalid input.")
+        error_label_r.config(text="Invalid input.")
 
+def plot_opt_tc():
+    try:
+        # Clear the previous plot
+        ax_right.clear()
 
-    
+        # Plot the new data
+        ax_right.plot(array_opt_x, array_opt_tc, linestyle='-', color='b')
+
+        # Set labels and title
+        ax_right.set_xlabel(opt_variable_name)
+        ax_right.set_ylabel('Total time[s]')
+        ax_right.set_title('Graph of ')
+
+        # Update the canvas
+        canvas_right.draw()
+
+        # Erase error message
+        error_label_r.config(text="")
+
+    except ValueError:
+        # Handle the case where the entered value is not a valid float
+        error_label_r.config(text="Invalid input.")
+
+def plot_opt_Ist():
+    try:
+        # Clear the previous plot
+        ax_right.clear()
+
+        # Plot the new data
+        ax_right.plot(array_opt_x, array_opt_Ist, linestyle='-', color='b')
+
+        # Set labels and title
+        ax_right.set_xlabel(opt_variable_name)
+        ax_right.set_ylabel('Specific impuls[s]')
+        ax_right.set_title('Graph of ')
+
+        # Update the canvas
+        canvas_right.draw()
+
+        # Erase error message
+        error_label_r.config(text="")
+
+    except ValueError:
+        # Handle the case where the entered value is not a valid float
+        error_label_r.config(text="Invalid input.")
+
+def plot_opt_delta_v():
+    try:
+        # Clear the previous plot
+        ax_right.clear()
+
+        # Plot the new data
+        ax_right.plot(array_opt_x, array_opt_delta_v, linestyle='-', color='b')
+
+        # Set labels and title
+        ax_right.set_xlabel(opt_variable_name)
+        ax_right.set_ylabel('Delta v[m/s]')
+        ax_right.set_title('Graph of ')
+
+        # Update the canvas
+        canvas_right.draw()
+
+        # Erase error message
+        error_label_r.config(text="")
+
+    except ValueError:
+        # Handle the case where the entered value is not a valid float
+        error_label_r.config(text="Invalid input.")
+
 
 # MAIN SIMULATION FUNCTION
 def simulate():
-    global total_time
-    global Ic
-    global delta_v
+    # Output variables declaration
+    Ic = float(0)
+    max_h = float(0)
+    total_time = float(0)
+    delta_v = float(0)
 
     gas_name = choosen_gas.get()
 
@@ -961,7 +1134,7 @@ canvas_widget.grid(row=0, column=0, sticky=(tk.W, tk.E, tk.N, tk.S))
 frame_simulate_r = ttk.Frame(root, padding="10")
 frame_simulate_r.grid(row=1, column=4, sticky=(tk.W, tk.E, tk.N, tk.S))
 
-simulate_button = ttk.Button(frame_simulate_r, text="Optimalize", command=simulate)
+simulate_button = ttk.Button(frame_simulate_r, text="Optimalize", command=optimalize)
 simulate_button.grid(row=0, column=0, columnspan=2, pady=5, sticky="w")
 
 # Create a label for displaying the selected option
@@ -1107,15 +1280,17 @@ frame_button_r = ttk.Frame(root, padding="10")
 frame_button_r.grid(row=1, column=7, sticky=(tk.W, tk.E, tk.N, tk.S))
 
 # Adjusted row numbers for the following buttons in frame_button_r
-plot_button_r = ttk.Button(frame_button_r, text="Plot Ic")
+plot_button_r = ttk.Button(frame_button_r, text="Plot Ic", command=plot_opt_Ic)
 plot_button_r.grid(row=1, column=0, columnspan=2, pady=5, sticky="w")
 
-plot_button_r = ttk.Button(frame_button_r, text="Plot tc")
+plot_button_r = ttk.Button(frame_button_r, text="Plot tc", command=plot_opt_tc)
 plot_button_r.grid(row=2, column=0, columnspan=2, pady=5, sticky="w")
 
-plot_button_r = ttk.Button(frame_button_r, text="Plot delta_v")
+plot_button_r = ttk.Button(frame_button_r, text="Plot delta_v", command=plot_opt_delta_v)
 plot_button_r.grid(row=3, column=0, columnspan=2, pady=5, sticky="w")
 
+plot_button_r = ttk.Button(frame_button_r, text="Plot Ist", command=plot_opt_Ist)
+plot_button_r.grid(row=4, column=0, columnspan=2, pady=5, sticky="w")
 
 # ERROR
 error_label_r = ttk.Label(frame_simulate, text="", foreground="red")
