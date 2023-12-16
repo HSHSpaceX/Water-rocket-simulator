@@ -178,13 +178,79 @@ def simulate():
         V_water = water_content * V_total
         Roc_mass = float(entry_4.get())
         T = float(entry_5.get())+273.15
+        rod_lenght = float(entry_launch_lenght.get()) * 0.001
+        rod_inside_diameter = float(entry_launch_diameter.get()) * 0.001
+        
+        s = float(0.0)
+        vrod = float(0.0)
+
+        # V_air fix for existing rod
+        V_air = V_air - At * rod_lenght
 
         # Define adiabatic constant
         C_const = P_ins * pow(V_air, k_const)
 
+        
         # Calculate mass of air
         mass_air = P_ins * V_air / (T * Rs)
         mass_propelant = mass_air + V_water * water_density
+
+        if(rod_inside_diameter > 0 and rod_lenght > 0):
+            while(s < rod_lenght):
+                # Array update
+                array_time.append(total_time)
+                total_time = total_time + delta_t
+                
+                array_V_water.append(V_water)
+                array_V_air.append(V_air)
+
+                array_mass.append(Roc_mass)
+                array_pressure.append(P_ins)
+                array_temperature.append(T)
+
+                # Calculate Ft and Ic
+                Ft = P_ins * At
+                array_Ft.append(Ft)
+                Ic += Ft * delta_t
+
+                arod = Ft / Roc_mass
+                vrod += delta_t * arod
+                delta_v += vrod
+
+                s += vrod * delta_t + 0.5 * arod * delta_t * delta_t
+
+        if(rod_inside_diameter == 0 and rod_lenght > 0):
+            while(s < rod_lenght):
+                # Array update
+                array_time.append(total_time)
+                total_time = total_time + delta_t
+
+                array_mass.append(Roc_mass)
+                array_V_air.append(V_air)
+                array_V_water.append(V_water)
+                
+                array_pressure.append(P_ins)
+                array_temperature.append(T)
+
+                # Calculate Ft and Ic
+                Ft = P_ins * At
+                array_Ft.append(Ft)
+                Ic += Ft * delta_t
+
+                arod = Ft / Roc_mass
+                vrod += delta_t * arod
+                delta_v += vrod
+
+                s += vrod * delta_t + 0.5 * arod * delta_t * delta_t
+
+                delta_V = At * vrod * delta_t
+                V_air += delta_V
+
+                P_ins = C_const / pow(V_air, k_const)
+
+                T = (P_ins * V_air) / (mass_air * Rs)
+
+
 
         # Main loop of simulation, handles models that push out only fraction of water inside
         while(V_water > 0 and P_ins > P_atm):  
@@ -510,16 +576,16 @@ entry_combobox2.insert(0, "0")  # Initialize with a default value
 label_launch_lenght = ttk.Label(frame_simulate, text="Launch rod lenght:")
 label_launch_lenght.grid(row=6, column=0, columnspan=2, pady=5, sticky="w")
 
-entry_combobox2 = ttk.Entry(frame_simulate, width=10)
-entry_combobox2.grid(row=6, column=2, pady=5)
-entry_combobox2.insert(0, "0")  # Initialize with a default value
+entry_launch_lenght = ttk.Entry(frame_simulate, width=10)
+entry_launch_lenght.grid(row=6, column=2, pady=5)
+entry_launch_lenght.insert(0, "0")  # Initialize with a default value
 
 label_launch_diameter = ttk.Label(frame_simulate, text="Rod inside diameter:")
 label_launch_diameter.grid(row=7, column=0, columnspan=2, pady=5, sticky="w")
 
-entry_combobox2 = ttk.Entry(frame_simulate, width=10)
-entry_combobox2.grid(row=7, column=2, pady=5)
-entry_combobox2.insert(0, "0")  # Initialize with a default value
+entry_launch_diameter = ttk.Entry(frame_simulate, width=10)
+entry_launch_diameter.grid(row=7, column=2, pady=5)
+entry_launch_diameter.insert(0, "0")  # Initialize with a default value
 
 # Create and pack widgets on the left side
 frame_left = ttk.Frame(root, padding="10")
@@ -676,14 +742,28 @@ label_combobox1_opt.grid(row=4, column=0, columnspan=2, pady=5, sticky="w")
 entry_combobox1_opt = ttk.Entry(frame_overall_data_right, width=10)
 entry_combobox1_opt.grid(row=4, column=2, pady=5)
 entry_combobox1_opt.insert(0, "0")  # Initialize with a default value
-# combobox.bind("<<ComboboxSelected>>", change_gas)
 
-label_combobox2 = ttk.Label(frame_overall_data_right, text="Specific gas constant:")
-label_combobox2.grid(row=5, column=0, columnspan=2, pady=5, sticky="w")
+label_combobox2_opt = ttk.Label(frame_overall_data_right, text="Specific gas constant:")
+label_combobox2_opt.grid(row=5, column=0, columnspan=2, pady=5, sticky="w")
 
-entry_combobox2 = ttk.Entry(frame_overall_data_right, width=10)
-entry_combobox2.grid(row=5, column=2, pady=5)
-entry_combobox2.insert(0, "0")  # Initialize with a default value
+entry_combobox2_opt = ttk.Entry(frame_overall_data_right, width=10)
+entry_combobox2_opt.grid(row=5, column=2, pady=5)
+entry_combobox2_opt.insert(0, "0")  # Initialize with a default value
+
+# Launch rod data
+label_launch_lenght_opt = ttk.Label(frame_overall_data_right, text="Launch rod lenght:")
+label_launch_lenght_opt.grid(row=6, column=0, columnspan=2, pady=5, sticky="w")
+
+entry_combobox2_opt = ttk.Entry(frame_overall_data_right, width=10)
+entry_combobox2_opt.grid(row=6, column=2, pady=5)
+entry_combobox2_opt.insert(0, "0")  # Initialize with a default value
+
+label_launch_diameter_opt = ttk.Label(frame_overall_data_right, text="Rod inside diameter:")
+label_launch_diameter_opt.grid(row=7, column=0, columnspan=2, pady=5, sticky="w")
+
+entry_combobox2_opt = ttk.Entry(frame_overall_data_right, width=10)
+entry_combobox2_opt.grid(row=7, column=2, pady=5)
+entry_combobox2_opt.insert(0, "0")  # Initialize with a default value
 
 
 
