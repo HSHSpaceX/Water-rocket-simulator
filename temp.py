@@ -8,7 +8,6 @@ import matplotlib.pyplot as plt
 delta_t = 0.001
 #k_const = 1.4
 P_atm = 1*101325
-water_density = 1000
 #Rs = 287
 '''
 # Fuction to change constants values for selected gas
@@ -88,6 +87,12 @@ def optimalize():
     if(gas_name == "Xenon"):
         k_const = 1.65
         Rs = 208
+    if(gas_name == "Custom"):
+        k_const = float(entry_combobox1.get())
+        Rs = float(entry_combobox2.get())
+
+    water_density = float(entry_6_r.get())
+
 
     try:
         # Entry values read
@@ -121,29 +126,34 @@ def simulate():
 
     gas_name = choosen_gas.get()
 
-    if(gas_name == "Air"):
-        k_const = 1.4
-        Rs = 287
-    if(gas_name == "Argon"):
-        k_const = 1.67
-        Rs = 208
-    if(gas_name == "Helium"):
-        k_const = 1.66
-        Rs = 2077
-    if(gas_name == "Hydrogen"):
-        k_const = 1.41
-        Rs = 4124
-    if(gas_name == "Nitrogen"):
-        k_const = 1.4
-        Rs = 297 
-    if(gas_name == "CO2"):
-        k_const = 1.3
-        Rs = 188
-    if(gas_name == "Xenon"):
-        k_const = 1.65
-        Rs = 208
-
     try:
+        if(gas_name == "Air"):
+            k_const = 1.4
+            Rs = 287
+        if(gas_name == "Argon"):
+            k_const = 1.67
+            Rs = 208
+        if(gas_name == "Helium"):
+            k_const = 1.66
+            Rs = 2077
+        if(gas_name == "Hydrogen"):
+            k_const = 1.41
+            Rs = 4124
+        if(gas_name == "Nitrogen"):
+            k_const = 1.4
+            Rs = 297 
+        if(gas_name == "CO2"):
+            k_const = 1.3
+            Rs = 188
+        if(gas_name == "Xenon"):
+            k_const = 1.65
+            Rs = 208
+        if(gas_name == "Custom"):
+            k_const = float(entry_combobox1.get())
+            Rs = float(entry_combobox2.get())
+
+        water_density = float(entry_6.get())
+    
         # Clear total_time value
         total_time = 0
         Ic = 0
@@ -466,7 +476,7 @@ simulate_button = ttk.Button(frame_simulate, text="Simulate", command=simulate)
 simulate_button.grid(row=0, column=0, columnspan=2, pady=5, sticky="w")
 
 # Create a label for displaying the selected option
-label_gas = ttk.Label(frame_simulate, text="Choose a gas")
+label_gas = ttk.Label(frame_simulate, text="Choose a gas:")
 label_gas.grid(row=1, column=0, columnspan=2, pady=5, sticky="w")
 
 # Create a StringVar to hold the selected value from the combobox
@@ -474,10 +484,42 @@ default_option = "Air"
 choosen_gas = tk.StringVar(value=default_option)
 
 # Create a combobox (dropdown menu)
-options = ["Air", "Argon", "Helium", "Hydrogen", "Nitrogen", "CO2", "Xenon"]
+options = ["Air", "Argon", "Helium", "Hydrogen", "Nitrogen", "CO2", "Xenon", "Custom"]
 combobox = ttk.Combobox(frame_simulate, textvariable=choosen_gas, values=options, state="readonly", width=7)
-combobox.grid(row=2, column=0, columnspan=2, pady=5, sticky="w")
+combobox.grid(row=1, column=2, columnspan=2, pady=5, sticky="w")
+
+label_custom_gas_info = ttk.Label(frame_simulate, text="Custom gas data:")
+label_custom_gas_info.grid(row=3, column=0, columnspan=2, pady=5, sticky="w")
+
+label_combobox1 = ttk.Label(frame_simulate, text="Specific heat ratio:")
+label_combobox1.grid(row=4, column=0, columnspan=2, pady=5, sticky="w")
+
+entry_combobox1 = ttk.Entry(frame_simulate, width=10)
+entry_combobox1.grid(row=4, column=2, pady=5)
+entry_combobox1.insert(0, "0")  # Initialize with a default value
 # combobox.bind("<<ComboboxSelected>>", change_gas)
+
+label_combobox2 = ttk.Label(frame_simulate, text="Specific gas constant:")
+label_combobox2.grid(row=5, column=0, columnspan=2, pady=5, sticky="w")
+
+entry_combobox2 = ttk.Entry(frame_simulate, width=10)
+entry_combobox2.grid(row=5, column=2, pady=5)
+entry_combobox2.insert(0, "0")  # Initialize with a default value
+
+# Launch rod data
+label_launch_lenght = ttk.Label(frame_simulate, text="Launch rod lenght:")
+label_launch_lenght.grid(row=6, column=0, columnspan=2, pady=5, sticky="w")
+
+entry_combobox2 = ttk.Entry(frame_simulate, width=10)
+entry_combobox2.grid(row=6, column=2, pady=5)
+entry_combobox2.insert(0, "0")  # Initialize with a default value
+
+label_launch_diameter = ttk.Label(frame_simulate, text="Rod inside diameter:")
+label_launch_diameter.grid(row=7, column=0, columnspan=2, pady=5, sticky="w")
+
+entry_combobox2 = ttk.Entry(frame_simulate, width=10)
+entry_combobox2.grid(row=7, column=2, pady=5)
+entry_combobox2.insert(0, "0")  # Initialize with a default value
 
 # Create and pack widgets on the left side
 frame_left = ttk.Frame(root, padding="10")
@@ -526,6 +568,14 @@ entry_5 = ttk.Entry(frame_left, width=10)
 entry_5.grid(row=5, column=2, pady=5)
 entry_5.insert(0, "0")  # Initialize with a default value
 
+# Custom water_density
+label_6 = ttk.Label(frame_left, text="Liquid density[kg/m^3]:")
+label_6.grid(row=6, column=0, columnspan=2, pady=5, sticky="w")
+
+entry_6 = ttk.Entry(frame_left, width=10)
+entry_6.grid(row=6, column=2, pady=5)
+entry_6.insert(0, "1000")  # Initialize with a default value
+
 frame_button = ttk.Frame(root, padding="10")
 frame_button.grid(row=1, column=2, sticky=(tk.W, tk.E, tk.N, tk.S))
 
@@ -552,7 +602,7 @@ error_label.grid(row=3, column=0, columnspan=2, pady=5, sticky="w")
 frame_text_widget = ttk.Frame(root, padding="10")
 frame_text_widget.grid(row=1, column=3, sticky=(tk.W, tk.E, tk.N, tk.S))
 
-text_widget = tk.Text(frame_text_widget, height=11, width=40)
+text_widget = tk.Text(frame_text_widget, height=11, width=30)
 text_widget.grid(row=0, column=0, sticky="w")
 
 # Dupa
@@ -584,13 +634,13 @@ label_choose_opt.grid(row=1, column=0, columnspan=2, pady=5, sticky="w")
 choosen_opt_variable = tk.StringVar()
 
 # Create a combobox (dropdown menu)
-options_variable_opt = ["Air", "Argon", "Helium", "Hydrogen", "Nitrogen", "CO2", "Xenon"]
+options_variable_opt = ["Pressure", "Throat", "Volume", "Water content"]
 combobox_variable_opt = ttk.Combobox(frame_simulate_r, textvariable=choosen_opt_variable, values=options_variable_opt, state="readonly", width=7)
 combobox_variable_opt.grid(row=2, column=0, columnspan=2, pady=5, sticky="w")
 # combobox_variable_opt.bind("<<ComboboxSelected>>", change_gas)
 
 # Optimalization range
-label_opt_range = ttk.Label(frame_simulate_r, text="Optimalization range: (min) (max)")
+label_opt_range = ttk.Label(frame_simulate_r, text="Optimalization range:")
 label_opt_range.grid(row=3, column=0, columnspan=2, pady=5, sticky="w")
 
 entry_opt_min = ttk.Entry(frame_simulate_r, width=10)
@@ -601,9 +651,45 @@ entry_opt_max = ttk.Entry(frame_simulate_r, width=10)
 entry_opt_max.grid(row=5, column=0, sticky="w", pady=5)
 entry_opt_max.insert(0, "max")  # Initialize with a default value
 
+# 2nd frame on right
+frame_overall_data_right = ttk.Frame(root, padding="10")
+frame_overall_data_right.grid(row=1, column=5, sticky=(tk.W, tk.E, tk.N, tk.S))
+
+# Create a label for displaying the selected option
+label_gas_r = ttk.Label(frame_overall_data_right, text="Choose a gas")
+label_gas_r.grid(row=1, column=0, columnspan=2, pady=5, sticky="w")
+
+# Create a StringVar to hold the selected value from the combobox
+choosen_gas_opt = tk.StringVar(value=default_option)
+
+# Create a combobox (dropdown menu)
+options_gas_opt = ["Air", "Argon", "Helium", "Hydrogen", "Nitrogen", "CO2", "Xenon", "Custom"]
+combobox_gas_opt = ttk.Combobox(frame_overall_data_right, textvariable=choosen_gas, values=options, state="readonly", width=7)
+combobox_gas_opt.grid(row=2, column=0, columnspan=2, pady=5, sticky="w")
+
+label_custom_gas_info_opt = ttk.Label(frame_overall_data_right, text="Custom gas data:")
+label_custom_gas_info_opt.grid(row=3, column=0, columnspan=2, pady=5, sticky="w")
+
+label_combobox1_opt = ttk.Label(frame_overall_data_right, text="Specific heat ratio:")
+label_combobox1_opt.grid(row=4, column=0, columnspan=2, pady=5, sticky="w")
+
+entry_combobox1_opt = ttk.Entry(frame_overall_data_right, width=10)
+entry_combobox1_opt.grid(row=4, column=2, pady=5)
+entry_combobox1_opt.insert(0, "0")  # Initialize with a default value
+# combobox.bind("<<ComboboxSelected>>", change_gas)
+
+label_combobox2 = ttk.Label(frame_overall_data_right, text="Specific gas constant:")
+label_combobox2.grid(row=5, column=0, columnspan=2, pady=5, sticky="w")
+
+entry_combobox2 = ttk.Entry(frame_overall_data_right, width=10)
+entry_combobox2.grid(row=5, column=2, pady=5)
+entry_combobox2.insert(0, "0")  # Initialize with a default value
+
+
+
 # Create and pack widgets on the right side
 frame_right = ttk.Frame(root, padding="10")
-frame_right.grid(row=1, column=5, sticky=(tk.W, tk.E, tk.N, tk.S))
+frame_right.grid(row=1, column=6, sticky=(tk.W, tk.E, tk.N, tk.S))
 
 label_0_r = ttk.Label(frame_right, text="Pressure[bar]:")
 label_0_r.grid(row=0, column=0, columnspan=2, pady=5, sticky="w")
@@ -647,10 +733,18 @@ entry_5_r = ttk.Entry(frame_right, width=10)
 entry_5_r.grid(row=5, column=2, pady=5)
 entry_5_r.insert(0, "0")  # Initialize with a default value
 
+# Custom water_density
+label_6_r = ttk.Label(frame_right, text="Liquid density[kg/m^3]:")
+label_6_r.grid(row=6, column=0, columnspan=2, pady=5, sticky="w")
+
+entry_6_r = ttk.Entry(frame_right, width=10)
+entry_6_r.grid(row=6, column=2, pady=5)
+entry_6_r.insert(0, "1000")  # Initialize with a default value
+
 # ... (continue with other labels and entries in frame_right)
 
 frame_button_r = ttk.Frame(root, padding="10")
-frame_button_r.grid(row=1, column=6, sticky=(tk.W, tk.E, tk.N, tk.S))
+frame_button_r.grid(row=1, column=7, sticky=(tk.W, tk.E, tk.N, tk.S))
 
 # Adjusted row numbers for the following buttons in frame_button_r
 plot_button_r = ttk.Button(frame_button_r, text="Plot Ic")
@@ -662,18 +756,6 @@ plot_button_r.grid(row=2, column=0, columnspan=2, pady=5, sticky="w")
 plot_button_r = ttk.Button(frame_button_r, text="Plot delta_v")
 plot_button_r.grid(row=3, column=0, columnspan=2, pady=5, sticky="w")
 
-# Create a label for displaying the selected option
-label_gas_opt = ttk.Label(frame_button_r, text="Choose a gas")
-label_gas_opt.grid(row=4, column=0, columnspan=2, pady=5, sticky="w")
-
-# Create a StringVar to hold the selected value from the combobox
-choosen_gas_opt = tk.StringVar(value=default_option)
-
-# Create a combobox (dropdown menu)
-options_gas_opt = ["Air", "Argon", "Helium", "Hydrogen", "Nitrogen", "CO2", "Xenon"]
-combobox_gas_opt = ttk.Combobox(frame_button_r, textvariable=choosen_gas_opt, values=options_gas_opt, state="readonly", width=7)
-combobox_gas_opt.grid(row=5, column=0, columnspan=2, pady=5, sticky="w")
-# combobox_gas_opt.bind("<<ComboboxSelected>>", change_gas)
 
 # ERROR
 error_label_r = ttk.Label(frame_simulate, text="", foreground="red")
@@ -681,7 +763,7 @@ error_label_r.grid(row=6, column=0, columnspan=2, pady=5, sticky="w")
 
 # Dupa
 frame_plot_right = ttk.Frame(root, padding="10")
-frame_plot_right.grid(row=0, column=4, columnspan=4, sticky=(tk.W, tk.E, tk.N, tk.S))
+frame_plot_right.grid(row=0, column=4, columnspan=5, sticky=(tk.W, tk.E, tk.N, tk.S))
 
 # Create a Matplotlib figure and a canvas to embed it in the Tkinter window
 fig_right, ax_right = plt.subplots(figsize=(screen_width / 200, screen_height / 150))
