@@ -61,9 +61,223 @@ array_opt_x = []
 array_opt_Ic = []
 array_opt_tc = []
 array_opt_delta_v = []
+array_opt_Ist = []
 opt_variable_name = ""
 
+# Simulation for optimalization loop
+def opt_sim(k_const, Rs, water_density, P_ins, At, V_air, V_water, Roc_mass, T, rod_lenght, rod_inside_diameter):
+    try:
+        s = float(0.0)
+        vrod = float(0.0)
+
+        
+
+        # Define adiabatic constant
+        C_const = P_ins * pow(V_air, k_const)
+
+        
+        # Calculate mass of air
+        mass_air = P_ins * V_air / (T * Rs)
+        mass_propelant = mass_air + V_water * water_density
+        total_time = 0
+
+        # V_air fix for existing rod
+        V_air = V_air - At * rod_lenght
+
+        if(rod_inside_diameter > 0 and rod_lenght > 0):
+            while(s < rod_lenght):
+                # Array update
+                array_time.append(total_time)
+                total_time = total_time + delta_t
+                
+                array_V_water.append(V_water)
+                array_V_air.append(V_air)
+
+                array_mass.append(Roc_mass)
+                array_pressure.append(P_ins)
+                array_temperature.append(T)
+
+                # Calculate Ft and Ic
+                Ft = P_ins * At
+                array_Ft.append(Ft)
+                Ic += Ft * delta_t
+
+                arod = Ft / Roc_mass
+                vrod += delta_t * arod
+                delta_v += vrod
+
+                s += vrod * delta_t + 0.5 * arod * delta_t * delta_t
+
+        if(rod_inside_diameter == 0 and rod_lenght > 0):
+            while(s < rod_lenght):
+                # Array update
+                array_time.append(total_time)
+                total_time = total_time + delta_t
+
+                array_mass.append(Roc_mass)
+                array_V_air.append(V_air)
+                array_V_water.append(V_water)
+                
+                array_pressure.append(P_ins)
+                array_temperature.append(T)
+
+                # Calculate Ft and Ic
+                Ft = P_ins * At
+                array_Ft.append(Ft)
+                Ic += Ft * delta_t
+
+                arod = Ft / Roc_mass
+                vrod += delta_t * arod
+                delta_v += vrod
+
+                s += vrod * delta_t + 0.5 * arod * delta_t * delta_t
+
+                delta_V = At * vrod * delta_t
+                V_air += delta_V
+
+                P_ins = C_const / pow(V_air, k_const)
+
+                T = (P_ins * V_air) / (mass_air * Rs)
+
+
+
+        # Main loop of simulation, handles models that push out only fraction of water inside
+        while(V_water > 0 and P_ins > P_atm):  
+            # Update time array for plot
+            array_time.append(total_time)
+            total_time = total_time + delta_t 
+
+            # Calculate thurst
+            Ft = 2 * At * (P_ins - P_atm)
+            array_Ft.append(Ft)
+            Ic += Ft * delta_t
+
+            ve = math.sqrt(2 * (P_ins - P_atm) / water_density)
+
+            # Calculate change of volume
+            delta_V = At * ve * delta_t
+
+            # Update volume arrays
+            array_V_water.append(V_water)
+            array_V_air.append(V_air)
+
+            # Calculate temperature
+            T = P_ins * V_air / (mass_air * Rs)
+            array_temperature.append(T)
+
+            # Update mass array
+            array_mass.append(Roc_mass)
+            Roc_mass = Roc_mass - delta_V * water_density
+
+            # Update delta_v
+            delta_v = delta_v + delta_t * Ft / Roc_mass
+
+
+            # Update volume values
+            V_air = V_air + delta_V
+            V_water = V_water - delta_V
+            
+            # Calculate pressure and update array
+            array_pressure.append(P_ins)
+            P_ins = C_const * pow(V_air, -k_const)
+            
+        # Loop for Mach 1 on exit
+        while(P_ins > P_atm and P_ins/P_atm >= pow((k_const+1)/2, k_const/(k_const-1))):
+            # Update time array for plot
+            array_time.append(total_time)
+            total_time = total_time + delta_t 
+
+            # Add values that are not changing for plot            
+            array_V_water.append(V_water)
+            array_V_air.append(V_air)
+
+
+            Tt = T * 2 / (k_const + 1)
+
+            dot_m = P_ins * At * pow(2/(k_const+1), 0.5 * (k_const+1)/(k_const-1)) * math.sqrt(k_const/(Rs*Tt))
+            
+            ve_air = math.sqrt(k_const * Rs * Tt)
+
+            P_throat = pow(2 / (k_const + 1), k_const / (k_const - 1)) * P_ins
+            Ft = dot_m * ve_air + At * (P_throat - P_atm)
+            array_Ft.append(Ft)
+            Ic += Ft * delta_t
+            
+            delta_m = dot_m * delta_t
+            
+            # Update rocket mass
+            Roc_mass = Roc_mass - delta_m
+            array_mass.append(Roc_mass)
+
+             # Update delta_v
+            delta_v = delta_v + delta_t * Ft / Roc_mass
+
+            mass_air = mass_air - delta_m
+
+
+            T = (P_ins / Rs) * pow(V_air / (mass_air + delta_m), k_const) * pow(V_air / mass_air, 1 - k_const)
+            array_temperature.append(T)
+
+            P_ins = mass_air * Rs * T / V_air
+            array_pressure.append(P_ins)
+
+        while(P_ins > P_atm):     
+            # Update time array for plot
+            array_time.append(total_time)
+            total_time = total_time + delta_t 
+
+            # Add values that are not changing for plot           
+            array_V_water.append(V_water)
+            array_V_air.append(V_air)
+
+            Mach = math.sqrt(2 / (k_const-1) * (pow(P_ins / P_atm, (k_const-1) / k_const) - 1))
+
+            Tt = T / (1 + 0.5 * (k_const-1) * Mach * Mach)
+
+            ve_air = Mach * math.sqrt(k_const * Rs * Tt)
+
+            density_chamber = mass_air / V_air
+            density_throat = density_chamber / pow(1 + 0.5 * (k_const - 1) * Mach * Mach, 1 / (k_const-1))
+
+            dot_m = At * density_throat * ve_air
+
+            Ft = dot_m * ve_air
+            array_Ft.append(Ft)
+            Ic += Ft * delta_t
+
+            delta_m = dot_m * delta_t
+
+            # Update rocket mass
+            Roc_mass = Roc_mass - delta_m
+            array_mass.append(Roc_mass)
+
+            # Update delta_v
+            delta_v = delta_v + delta_t * Ft / Roc_mass
+
+            mass_air = mass_air - delta_m
+
+            T = (P_ins / Rs) * pow(V_air / (mass_air + delta_m), k_const) * pow(V_air / mass_air, 1 - k_const)
+            array_temperature.append(T)
+
+            P_ins = mass_air * Rs * T / V_air
+            array_pressure.append(P_ins)
+
+        return [Ic, total_time, Ic / (mass_propelant * 9.81), delta_v]
+    except ValueError:
+        # Handle the case where entered value is not valid
+        error_label_r.config(text="Invalid input.")
+
+
+
+
+
+
+
+
+
+# MAIN OPTIMALIZATION FUNCTION
 def optimalize():
+    global opt_variable_name
     gas_name = choosen_gas_opt.get()
 
     if(gas_name == "Air"):
@@ -88,11 +302,10 @@ def optimalize():
         k_const = 1.65
         Rs = 208
     if(gas_name == "Custom"):
-        k_const = float(entry_combobox1.get())
-        Rs = float(entry_combobox2.get())
+        k_const = float(entry_combobox1_opt.get())
+        Rs = float(entry_combobox2_opt.get())
 
     water_density = float(entry_6_r.get())
-
 
     try:
         # Entry values read
@@ -104,21 +317,80 @@ def optimalize():
         V_water = water_content * V_total
         Roc_mass = float(entry_4_r.get())
         T = float(entry_5_r.get())+273.15
+        rod_lenght = float(entry_launch_lenght_opt.get()) * 0.001
+        rod_inside_diameter = float(entry_launch_diameter_opt.get()) * 0.001
+        
+        s = float(0.0)
+        vrod = float(0.0)
+
+        # V_air fix for existing rod
+        V_air = V_air - At * rod_lenght
 
         # Define adiabatic constant
         C_const = P_ins * pow(V_air, k_const)
 
+        
         # Calculate mass of air
         mass_air = P_ins * V_air / (T * Rs)
         mass_propelant = mass_air + V_water * water_density
 
+        # Get Optimalization variables
+        opt_var = choosen_opt_variable.get()
+        opt_range_min = float(entry_opt_min.get())
+        opt_range_max = float(entry_opt_max.get())
+        opt_it = int(entry_opt_itteration.get())
+
+        opt_variable_name = opt_var
+
+        if(opt_var == "Pressure"):
+            opt_eps = (opt_range_max - opt_range_min) / float(opt_it)
+            
+            for i in range(opt_it + 1):
+                array_opt_x.append(opt_range_min)
+
+                temp_data_opt = opt_sim(k_const, Rs, water_density, P_ins, At, V_air, V_water, Roc_mass, T, rod_lenght, rod_inside_diameter)
+                array_opt_Ic.append(temp_data_opt[0])
+                array_opt_tc.append(temp_data_opt[1])
+                array_opt_Ist.append(temp_data_opt[2])
+                array_opt_delta_v.append(temp_data_opt[3])
+
+                opt_range_min += opt_eps
+
+
+        # Erase error message
+        error_label_r.config(text="")
     except ValueError:
         # Handle the case where entered value is not valid
         error_label_r.config(text="Invalid input.")
 
+
+def plot_opt_Ic():
+    try:
+        # Clear the previous plot
+        ax_right.clear()
+
+        # Plot the new data
+        ax_right.plot(array_time, array_Ft, linestyle='-', color='b')
+
+        # Set labels and title
+        ax_right.set_xlabel('Time[t]')
+        ax_right.set_ylabel('Thrust[N]')
+        ax_right.set_title('Graph of thrust')
+
+        # Update the canvas
+        canvas_right.draw()
+
+        # Erase error message
+        error_label.config(text="")
+
+    except ValueError:
+        # Handle the case where the entered value is not a valid float
+        error_label.config(text="Invalid input.")
+
+
     
 
-
+# MAIN SIMULATION FUNCTION
 def simulate():
     global total_time
     global Ic
@@ -184,9 +456,6 @@ def simulate():
         s = float(0.0)
         vrod = float(0.0)
 
-        # V_air fix for existing rod
-        V_air = V_air - At * rod_lenght
-
         # Define adiabatic constant
         C_const = P_ins * pow(V_air, k_const)
 
@@ -194,6 +463,9 @@ def simulate():
         # Calculate mass of air
         mass_air = P_ins * V_air / (T * Rs)
         mass_propelant = mass_air + V_water * water_density
+
+        # V_air fix for existing rod
+        V_air = V_air - At * rod_lenght
 
         if(rod_inside_diameter > 0 and rod_lenght > 0):
             while(s < rod_lenght):
@@ -700,7 +972,7 @@ label_choose_opt.grid(row=1, column=0, columnspan=2, pady=5, sticky="w")
 choosen_opt_variable = tk.StringVar()
 
 # Create a combobox (dropdown menu)
-options_variable_opt = ["Pressure", "Throat", "Volume", "Water content"]
+options_variable_opt = ["Pressure", "Throat", "Volume", "Water content", "Dry mass", "Gas temperature"]
 combobox_variable_opt = ttk.Combobox(frame_simulate_r, textvariable=choosen_opt_variable, values=options_variable_opt, state="readonly", width=7)
 combobox_variable_opt.grid(row=2, column=0, columnspan=2, pady=5, sticky="w")
 # combobox_variable_opt.bind("<<ComboboxSelected>>", change_gas)
@@ -716,6 +988,14 @@ entry_opt_min.insert(0, "min")  # Initialize with a default value
 entry_opt_max = ttk.Entry(frame_simulate_r, width=10)
 entry_opt_max.grid(row=5, column=0, sticky="w", pady=5)
 entry_opt_max.insert(0, "max")  # Initialize with a default value
+
+# Itteration number
+label_opt_itteration = ttk.Label(frame_simulate_r, text="Itterations:")
+label_opt_itteration.grid(row=6, column=0, columnspan=2, pady=5, sticky="w")
+
+entry_opt_itteration = ttk.Entry(frame_simulate_r, width=6)
+entry_opt_itteration.grid(row=6, column=1, sticky="w", pady=5)
+entry_opt_itteration.insert(0, "1")  # Initialize with a default value
 
 # 2nd frame on right
 frame_overall_data_right = ttk.Frame(root, padding="10")
@@ -754,16 +1034,16 @@ entry_combobox2_opt.insert(0, "0")  # Initialize with a default value
 label_launch_lenght_opt = ttk.Label(frame_overall_data_right, text="Launch rod lenght:")
 label_launch_lenght_opt.grid(row=6, column=0, columnspan=2, pady=5, sticky="w")
 
-entry_combobox2_opt = ttk.Entry(frame_overall_data_right, width=10)
-entry_combobox2_opt.grid(row=6, column=2, pady=5)
-entry_combobox2_opt.insert(0, "0")  # Initialize with a default value
+entry_launch_lenght_opt = ttk.Entry(frame_overall_data_right, width=10)
+entry_launch_lenght_opt.grid(row=6, column=2, pady=5)
+entry_launch_lenght_opt.insert(0, "0")  # Initialize with a default value
 
 label_launch_diameter_opt = ttk.Label(frame_overall_data_right, text="Rod inside diameter:")
 label_launch_diameter_opt.grid(row=7, column=0, columnspan=2, pady=5, sticky="w")
 
-entry_combobox2_opt = ttk.Entry(frame_overall_data_right, width=10)
-entry_combobox2_opt.grid(row=7, column=2, pady=5)
-entry_combobox2_opt.insert(0, "0")  # Initialize with a default value
+entry_launch_diameter_opt = ttk.Entry(frame_overall_data_right, width=10)
+entry_launch_diameter_opt.grid(row=7, column=2, pady=5)
+entry_launch_diameter_opt.insert(0, "0")  # Initialize with a default value
 
 
 
