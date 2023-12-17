@@ -1192,7 +1192,7 @@ def save_and_close(entry_export_name, entry_export_diameter, entry_export_lenght
 
 
 def save_to_export():
-    file_path = filedialog.asksaveasfilename(defaultextension=".txt", filetypes=[("Text files", "*.txt")])
+    file_path = filedialog.asksaveasfilename(defaultextension=".eng", filetypes=[("Text files", "*.eng")])
     if file_path:
         with open(file_path, "w") as file:
             file.write(engine_name + " ")
