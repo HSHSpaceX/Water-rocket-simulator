@@ -1,6 +1,7 @@
 import math
 import tkinter as tk
 from tkinter import ttk
+from tkinter import filedialog
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 import matplotlib.pyplot as plt
 
@@ -63,6 +64,15 @@ array_opt_tc = []
 array_opt_delta_v = []
 array_opt_Ist = []
 opt_variable_name = ""
+
+# Export data
+engine_name = ""
+engine_diameter = 0
+engine_lenght = 0
+engine_dry_mass = 0
+engine_full_mass = 0
+engine_manufacturer = ""
+
 
 # Simulation for optimalization loop
 def opt_sim(k_const, Rs, water_density, P_ins, At, V_air, V_water, Roc_mass, T, rod_lenght, rod_inside_diameter):
@@ -324,7 +334,7 @@ def optimalize():
         water_content = float(entry_3_r.get()) * 0.01
         V_air = float(V_total - water_content * V_total)
         V_water = float(water_content * V_total)
-        Roc_mass = float(entry_4_r.get())
+        dry_mass = float(entry_4_r.get())
         T = float(entry_5_r.get())+273.15
         rod_lenght = float(entry_launch_lenght_opt.get()) * 0.001
         rod_inside_diameter = float(entry_launch_diameter_opt.get()) * 0.001
@@ -343,6 +353,8 @@ def optimalize():
         mass_air = P_ins * V_air / (T * Rs)
         mass_propelant = mass_air + V_water * water_density
 
+        Roc_mass = dry_mass + mass_propelant
+
         # Get Optimalization variables
         opt_var = choosen_opt_variable.get()
         opt_range_min = float(entry_opt_min.get())
@@ -360,6 +372,11 @@ def optimalize():
                 array_opt_x.append(opt_range_min)
                 #print(str(opt_range_min) + "\n")
 
+                mass_air = opt_range_min * V_air / (T * Rs)
+                mass_propelant = mass_air + V_water * water_density
+
+                Roc_mass = dry_mass + mass_propelant
+
                 temp_data_opt = opt_sim(k_const, Rs, water_density, opt_range_min, At, V_air, V_water, Roc_mass, T, rod_lenght, rod_inside_diameter)
                 array_opt_Ic.append(temp_data_opt[0])
                 array_opt_tc.append(temp_data_opt[1])
@@ -376,6 +393,11 @@ def optimalize():
             for i in range(opt_it + 1):
                 array_opt_x.append(opt_range_min)
                 #print(str(opt_range_min) + "\n")
+
+                mass_air = P_ins * V_air / (T * Rs)
+                mass_propelant = mass_air + V_water * water_density
+
+                Roc_mass = dry_mass + mass_propelant
 
                 temp_data_opt = opt_sim(k_const, Rs, water_density, P_ins, opt_range_min, V_air, V_water, Roc_mass, T, rod_lenght, rod_inside_diameter)
                 array_opt_Ic.append(temp_data_opt[0])
@@ -397,6 +419,11 @@ def optimalize():
                 V_air = opt_range_min - water_content * opt_range_min
                 V_water = water_content * opt_range_min
 
+                mass_air = P_ins * V_air / (T * Rs)
+                mass_propelant = mass_air + V_water * water_density
+
+                Roc_mass = dry_mass + mass_propelant
+
                 temp_data_opt = opt_sim(k_const, Rs, water_density, P_ins, At, V_air, V_water, Roc_mass, T, rod_lenght, rod_inside_diameter)
                 array_opt_Ic.append(temp_data_opt[0])
                 array_opt_tc.append(temp_data_opt[1])
@@ -416,6 +443,11 @@ def optimalize():
                 V_air = float(V_total - opt_range_min * V_total)
                 V_water = float(opt_range_min * V_total)
 
+                mass_air = P_ins * V_air / (T * Rs)
+                mass_propelant = mass_air + V_water * water_density
+
+                Roc_mass = dry_mass + mass_propelant
+
                 temp_data_opt = opt_sim(k_const, Rs, water_density, float(P_ins), At, V_air, V_water, Roc_mass, T, rod_lenght, rod_inside_diameter)
                 array_opt_Ic.append(temp_data_opt[0])
                 array_opt_tc.append(temp_data_opt[1])
@@ -431,6 +463,12 @@ def optimalize():
             for i in range(opt_it + 1):
                 array_opt_x.append(opt_range_min)
                 #print(str(opt_range_min) + "\n")
+
+                mass_air = P_ins * V_air / (T * Rs)
+                mass_propelant = mass_air + V_water * water_density
+
+                Roc_mass = opt_range_min + mass_propelant
+                
 
                 temp_data_opt = opt_sim(k_const, Rs, water_density, float(P_ins), At, V_air, V_water, opt_range_min, T, rod_lenght, rod_inside_diameter)
                 array_opt_Ic.append(temp_data_opt[0])
@@ -448,6 +486,11 @@ def optimalize():
             for i in range(opt_it + 1):
                 array_opt_x.append(opt_range_min)
                 #print(str(opt_range_min) + "\n")
+
+                mass_air = P_ins * V_air / (opt_range_min * Rs)
+                mass_propelant = mass_air + V_water * water_density
+
+                Roc_mass = dry_mass + mass_propelant
 
                 temp_data_opt = opt_sim(k_const, Rs, water_density, float(P_ins), At, V_air, V_water, Roc_mass, opt_range_min, rod_lenght, rod_inside_diameter)
                 array_opt_Ic.append(temp_data_opt[0])
@@ -561,8 +604,11 @@ def plot_opt_delta_v():
         error_label_r.config(text="Invalid input.")
 
 
+
 # MAIN SIMULATION FUNCTION
 def simulate():
+    global engine_dry_mass
+    global engine_full_mass
     # Output variables declaration
     Ic = float(0)
     max_h = float(0)
@@ -621,7 +667,8 @@ def simulate():
         water_content = float(entry_3.get()) * 0.01
         V_air = V_total - water_content * V_total
         V_water = water_content * V_total
-        Roc_mass = float(entry_4.get())
+        dry_mass = float(entry_4.get())
+        engine_dry_mass = dry_mass
         T = float(entry_5.get())+273.15
         rod_lenght = float(entry_launch_lenght.get()) * 0.001
         rod_inside_diameter = float(entry_launch_diameter.get()) * 0.001
@@ -636,6 +683,9 @@ def simulate():
         # Calculate mass of air
         mass_air = P_ins * V_air / (T * Rs)
         mass_propelant = mass_air + V_water * water_density
+
+        Roc_mass = dry_mass + mass_propelant
+        engine_full_mass = Roc_mass
 
         # V_air fix for existing rod
         V_air = V_air - At * rod_lenght
@@ -971,9 +1021,207 @@ def plot_volume():
         error_label.config(text="Invalid input.")
 
 
+def save_to_file(entry_text):
+    file_path = filedialog.asksaveasfilename(defaultextension=".txt", filetypes=[("Text files", "*.txt")])
+    if file_path:
+        with open(file_path, "w") as file:
+            # frame_simulate
+            file.write(choosen_gas.get()+"\n")
+            file.write(entry_combobox1.get()+"\n")
+            file.write(entry_combobox2.get()+"\n")
+            file.write(entry_launch_lenght.get()+"\n")
+            file.write(entry_launch_diameter.get()+"\n")
+
+            # frame_left
+            file.write(entry_0.get()+"\n")
+            file.write(entry_1.get()+"\n")
+            file.write(entry_2.get()+"\n")
+            file.write(entry_3.get()+"\n")
+            file.write(entry_4.get()+"\n")
+            file.write(entry_5.get()+"\n")
+            file.write(entry_6.get()+"\n")
+
+            # frame_simulate_r
+            file.write(choosen_opt_variable.get()+"\n")
+            file.write(entry_opt_min.get()+"\n")
+            file.write(entry_opt_max.get()+"\n")
+            file.write(entry_opt_itteration.get()+"\n")
+            file.write(choosen_gas_opt.get()+"\n")
+            file.write(entry_combobox1_opt.get()+"\n")
+            file.write(entry_combobox2_opt.get()+"\n")
+            file.write(entry_launch_lenght_opt.get()+"\n")
+            file.write(entry_launch_diameter_opt.get()+"\n")
+
+
+            # frame_right
+            file.write(entry_0_r.get()+"\n")
+            file.write(entry_1_r.get()+"\n")
+            file.write(entry_2_r.get()+"\n")
+            file.write(entry_3_r.get()+"\n")
+            file.write(entry_4_r.get()+"\n")
+            file.write(entry_5_r.get()+"\n")
+            file.write(entry_6_r.get()+"\n")
+
+
+
+def load_from_file(entry_text):
+    array_load_file = []
+    file_path = filedialog.askopenfilename(filetypes=[("Text files", "*.txt")])
+    if file_path:
+        with open(file_path, "r") as file:
+            line = file.readline()
+            # Continue reading lines until the end of the file
+            while line:
+                array_load_file.append(line.strip())  # .strip() removes leading and trailing whitespaces
+                line = file.readline()
+
+    combobox.set(array_load_file[0])
+
+    entry_combobox1.delete(0, tk.END)
+    entry_combobox1.insert(0, array_load_file[1])
+    entry_combobox2.delete(0, tk.END)
+    entry_combobox2.insert(0, array_load_file[2])
+    entry_launch_lenght.delete(0, tk.END)
+    entry_launch_lenght.insert(0, array_load_file[3])
+    entry_launch_diameter.delete(0, tk.END)
+    entry_launch_diameter.insert(0, array_load_file[4])
+
+    entry_0.delete(0, tk.END)
+    entry_0.insert(0, array_load_file[5])
+    entry_1.delete(0, tk.END)
+    entry_1.insert(0, array_load_file[6])
+    entry_2.delete(0, tk.END)
+    entry_2.insert(0, array_load_file[7])
+    entry_3.delete(0, tk.END)
+    entry_3.insert(0, array_load_file[8])
+    entry_4.delete(0, tk.END)
+    entry_4.insert(0, array_load_file[9])
+    entry_5.delete(0, tk.END)
+    entry_5.insert(0, array_load_file[10])
+    entry_6.delete(0, tk.END)
+    entry_6.insert(0, array_load_file[11])
+
+    combobox_variable_opt.set(array_load_file[12])
+
+    entry_opt_min.delete(0, tk.END)
+    entry_opt_min.insert(0, array_load_file[13])
+    entry_opt_max.delete(0, tk.END)
+    entry_opt_max.insert(0, array_load_file[14])
+    entry_opt_itteration.delete(0, tk.END)
+    entry_opt_itteration.insert(0, array_load_file[15])
+    
+    combobox_gas_opt.set(array_load_file[16])
+    
+    entry_combobox1_opt.delete(0, tk.END)
+    entry_combobox1_opt.insert(0, array_load_file[17])
+    entry_combobox2_opt.delete(0, tk.END)
+    entry_combobox2_opt.insert(0, array_load_file[18])
+    entry_launch_lenght_opt.delete(0, tk.END)
+    entry_launch_lenght_opt.insert(0, array_load_file[19])
+    entry_launch_diameter_opt.delete(0, tk.END)
+    entry_launch_diameter_opt.insert(0, array_load_file[20])
+
+
+    entry_0_r.delete(0, tk.END)
+    entry_0_r.insert(0, array_load_file[21])
+    entry_1_r.delete(0, tk.END)
+    entry_1_r.insert(0, array_load_file[22])
+    entry_2_r.delete(0, tk.END)
+    entry_2_r.insert(0, array_load_file[23])
+    entry_3_r.delete(0, tk.END)
+    entry_3_r.insert(0, array_load_file[24])
+    entry_4_r.delete(0, tk.END)
+    entry_4_r.insert(0, array_load_file[25])
+    entry_5_r.delete(0, tk.END)
+    entry_5_r.insert(0, array_load_file[26])
+    entry_6_r.delete(0, tk.END)
+    entry_6_r.insert(0, array_load_file[27])
+    
+    
+def export_to_file():
+    entry_window = tk.Toplevel(root)
+    entry_window.title("Export data")
+
+    label_export_name = ttk.Label(entry_window, text="Engine name:")
+    label_export_name.grid(row=0, column=0, columnspan=2, pady=5, sticky="w")
+
+    entry_export_name = ttk.Entry(entry_window, width=10)
+    entry_export_name.grid(row=0, column=2, pady=5)
+    entry_export_name.insert(0, "0")  # Initialize with a default value
+
+    label_export_diameter = ttk.Label(entry_window, text="Engine diameter[mm]:")
+    label_export_diameter.grid(row=1, column=0, columnspan=2, pady=5, sticky="w")
+
+    entry_export_diameter = ttk.Entry(entry_window, width=10)
+    entry_export_diameter.grid(row=1, column=2, pady=5)
+    entry_export_diameter.insert(0, "0")  # Initialize with a default value
+
+    label_export_lenght = ttk.Label(entry_window, text="Engine lenght:")
+    label_export_lenght.grid(row=2, column=0, columnspan=2, pady=5, sticky="w")
+
+    entry_export_lenght = ttk.Entry(entry_window, width=10)
+    entry_export_lenght.grid(row=2, column=2, pady=5)
+    entry_export_lenght.insert(0, "0")  # Initialize with a default value
+
+    label_export_man = ttk.Label(entry_window, text="Engine manufacturer:")
+    label_export_man.grid(row=3, column=0, columnspan=2, pady=5, sticky="w")
+
+    entry_export_man = ttk.Entry(entry_window, width=10)
+    entry_export_man.grid(row=3, column=2, pady=5)
+    entry_export_man.insert(0, "0")  # Initialize with a default value
+
+
+
+    ok_button = ttk.Button(entry_window, text="OK", command=lambda: save_and_close(entry_export_name, entry_export_diameter, entry_export_lenght, entry_export_man, entry_window))
+    ok_button.grid(row=4, column=1, columnspan=2, pady=10)
+    
+def save_and_close(entry_export_name, entry_export_diameter, entry_export_lenght, entry_export_man, window):
+    global engine_name
+    global engine_diameter
+    global engine_lenght
+    global engine_manufacturer
+    engine_name = entry_export_name.get()
+    engine_diameter = entry_export_diameter.get()
+    engine_lenght = entry_export_lenght.get()
+    engine_manufacturer = entry_export_man.get()
+
+    save_to_export()
+    window.destroy()
+
+
+
+
+def save_to_export():
+    file_path = filedialog.asksaveasfilename(defaultextension=".txt", filetypes=[("Text files", "*.txt")])
+    if file_path:
+        with open(file_path, "w") as file:
+            file.write(engine_name + " ")
+            file.write(str(engine_diameter) + " ")
+            file.write(str(engine_lenght) + " ")
+            file.write("P" + " ")
+            file.write(str(engine_dry_mass) + " ")
+            file.write(str(engine_full_mass) + " ")
+            file.write(engine_manufacturer + "\n")
+            
+            for el_t, el_F in zip(array_time, array_Ft):
+                file.write(str(el_t) + " " + str(el_F) + "\n")
+
+
 # Create the main Tkinter window
 root = tk.Tk()
 root.title("Water Rocket Simulator")
+
+menubar = tk.Menu(root)
+
+file_menu = tk.Menu(menubar, tearoff=0)
+file_menu.add_command(label="Save", command=lambda: save_to_file(entry_0))
+file_menu.add_command(label="Load", command=lambda: load_from_file(entry_0))
+file_menu.add_command(label="Export as .eng", command=lambda: export_to_file())
+
+menubar.add_cascade(label="File", menu=file_menu)
+
+root.config(menu=menubar)
+
 
 # Set the window size to full screen
 screen_width = root.winfo_screenwidth()
@@ -1064,7 +1312,7 @@ entry_3 = ttk.Entry(frame_left, width=10)
 entry_3.grid(row=3, column=2, pady=5)
 entry_3.insert(0, "0")  # Initialize with a default value
 
-label_4 = ttk.Label(frame_left, text="Mass of rocket[kg]:")
+label_4 = ttk.Label(frame_left, text="Dry mass[kg]:")
 label_4.grid(row=4, column=0, columnspan=2, pady=5, sticky="w")
 
 entry_4 = ttk.Entry(frame_left, width=10)
@@ -1183,7 +1431,7 @@ choosen_gas_opt = tk.StringVar(value=default_option)
 
 # Create a combobox (dropdown menu)
 options_gas_opt = ["Air", "Argon", "Helium", "Hydrogen", "Nitrogen", "CO2", "Xenon", "Custom"]
-combobox_gas_opt = ttk.Combobox(frame_overall_data_right, textvariable=choosen_gas, values=options, state="readonly", width=7)
+combobox_gas_opt = ttk.Combobox(frame_overall_data_right, textvariable=choosen_gas_opt, values=options, state="readonly", width=7)
 combobox_gas_opt.grid(row=2, column=0, columnspan=2, pady=5, sticky="w")
 
 label_custom_gas_info_opt = ttk.Label(frame_overall_data_right, text="Custom gas data:")
@@ -1252,7 +1500,7 @@ entry_3_r = ttk.Entry(frame_right, width=10)
 entry_3_r.grid(row=3, column=2, pady=5)
 entry_3_r.insert(0, "0")  # Initialize with a default value
 
-label_4_r = ttk.Label(frame_right, text="Mass of rocket[kg]:")
+label_4_r = ttk.Label(frame_right, text="Dry mass[kg]:")
 label_4_r.grid(row=4, column=0, columnspan=2, pady=5, sticky="w")
 
 entry_4_r = ttk.Entry(frame_right, width=10)
