@@ -1,12 +1,10 @@
-# Water-rocket-simulator
-
 # Simulator Application
 
 ## Prerequisites
 
-Before running the `simulator.py` application, make sure you have the following prerequisites installed:
+Before running the `simulator.py`, make sure you have the following prerequisites installed:
 
-1. **Python**: The application requires Python. You can download the latest version of Python from [python.org](https://www.python.org/downloads/).
+1. **Python**: The application requires Python. You can download the latest version of Python from [python.org](https://www.python.org/downloads/), Windows store or using terminal. 
 
 2. **Matplotlib**: This library is used for plotting and visualizing data. You can install it using the following command:
 
@@ -24,6 +22,8 @@ Before running the `simulator.py` application, make sure you have the following 
    - Open your web browser and go to [python.org](https://www.python.org/downloads/).
    - Download the latest version of Python for Windows.
    - During installation, make sure to check the box that says "Add Python to PATH."
+
+   - Or install it using Windows Store
 
 2. **Install Required Packages**:
    Open PowerShell and run the following commands to install the required packages:
@@ -67,7 +67,7 @@ Before running the `simulator.py` application, make sure you have the following 
 
 ---
 
-Adjust the instructions based on your specific application and requirements. Users can follow these steps to set up and run the `simulator.py` application on their Windows or Linux systems.
+In case of problems with instalation and opening `simulator.py` just google it or use chat GPT.
 
 
 # To do:
