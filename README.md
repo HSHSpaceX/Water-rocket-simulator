@@ -1,4 +1,4 @@
-# Simulator Application
+# Water-rocket-simulator
 
 ## Prerequisites
 
