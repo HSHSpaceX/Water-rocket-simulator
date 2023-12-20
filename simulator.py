@@ -2,46 +2,15 @@ import math
 import tkinter as tk
 from tkinter import ttk
 from tkinter import filedialog
+from tkinter import messagebox
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 import matplotlib.pyplot as plt
 
 # Constants declaration
 delta_t = 0.0001
-#k_const = 1.4
 P_atm = float(1*101325)
-#Rs = 287
-'''
-# Fuction to change constants values for selected gas
-def change_gas(event):
-    global k_const
-    global Rs
-    gas_name = choosen_gas.get()
 
-    if(gas_name == "Air"):
-        k_const = 1.4
-        Rs = 287
-    if(gas_name == "Argon"):
-        k_const = 1.67
-        Rs = 208
-    if(gas_name == "Helium"):
-        k_const = 1.66
-        Rs = 2077
-    if(gas_name == "Hydrogen"):
-        k_const = 1.41
-        Rs = 4124
-    if(gas_name == "Nitrogen"):
-        k_const = 1.4
-        Rs = 297 
-    if(gas_name == "CO2"):
-        k_const = 1.3
-        Rs = 188
-    if(gas_name == "Xenon"):
-        k_const = 1.65
-        Rs = 208
-'''
-
-
-# Array declaration
+# Simulation output data
 array_time = []
 array_h = []
 array_Ft = []
@@ -50,13 +19,7 @@ array_temperature = []
 array_pressure = []
 array_V_water = []
 array_V_air = []
-'''
-# Output variables declaration
-Ic = float(0)
-max_h = float(0)
-total_time = float(0)
-delta_v = float(0)
-'''
+
 # Optimalization output data
 array_opt_x = []
 array_opt_Ic = []
@@ -74,25 +37,25 @@ engine_full_mass = 0
 engine_manufacturer = ""
 
 
-# Simulation for optimalization loop
+# SIMULATION FOR OPTIMALIZATION FUNCTION
 def opt_sim(k_const, Rs, water_density, P_ins, At, V_air, V_water, Roc_mass, T, rod_lenght, rod_inside_diameter):
     try:
         #print(str(k_const) + " " + str(Rs) + " " + str(water_density) + " "+ str(P_ins) + " " + str(At) + " " + str(V_water) + " " + str(V_air) + " " + str(Roc_mass) +" "+ str(T) + " " + str(rod_lenght) + " " + str(rod_inside_diameter)+ "\n")
-        # Output variables declaration
+        
+        # Local output variables declaration
         Ic = float(0)
         max_h = float(0)
         total_time = float(0)
         delta_v = float(0)
 
+        # Local variables for simulation
         s = float(0.0)
         vrod = float(0.0)
 
-        
-
         # Define adiabatic constant
         C_const = P_ins * pow(V_air, k_const)
-
         
+
         # Calculate mass of air
         mass_air = P_ins * V_air / (T * Rs)
         mass_propelant = mass_air + V_water * water_density
@@ -103,20 +66,13 @@ def opt_sim(k_const, Rs, water_density, P_ins, At, V_air, V_water, Roc_mass, T, 
 
         if(rod_inside_diameter > 0 and rod_lenght > 0):
             while(s < rod_lenght):
-                # Array update
-                #array_time.append(total_time)
+                # Update total_time
                 total_time = total_time + delta_t
-                
-                #array_V_water.append(V_water)
-                #array_V_air.append(V_air)
-
-                #array_mass.append(Roc_mass)
-                #array_pressure.append(P_ins)
-                #array_temperature.append(T)
 
                 # Calculate Ft and Ic
                 Ft = P_ins * At
-                #array_Ft.append(Ft)
+                
+                # Update impuls
                 Ic += Ft * delta_t
 
                 arod = Ft / Roc_mass
@@ -158,7 +114,7 @@ def opt_sim(k_const, Rs, water_density, P_ins, At, V_air, V_water, Roc_mass, T, 
 
 
 
-        # Main loop of simulation, handles models that push out only fraction of water inside
+        # Loop for water phase, handles models that push out only fraction of water inside
         while(float(V_water) > float(0) and float(P_ins) > float(P_atm)):  
             # Update time array for plot
             #array_time.append(total_time)
@@ -320,13 +276,15 @@ def optimalize():
     if(gas_name == "Xenon"):
         k_const = 1.65
         Rs = 208
-    if(gas_name == "Custom"):
-        k_const = float(entry_combobox1_opt.get())
-        Rs = float(entry_combobox2_opt.get())
 
-    water_density = float(entry_6_r.get())
 
     try:
+        if(gas_name == "Custom"):
+            k_const = float(entry_combobox1_opt.get())
+            Rs = float(entry_combobox2_opt.get())
+
+        water_density = float(entry_6_r.get())
+
         # Entry values read
         P_ins = float(entry_0_r.get())*100000
         At = 3.1415*pow(0.001*float(entry_1_r.get())/2, 2)
@@ -338,6 +296,33 @@ def optimalize():
         T = float(entry_5_r.get())+273.15
         rod_lenght = float(entry_launch_lenght_opt.get()) * 0.001
         rod_inside_diameter = float(entry_launch_diameter_opt.get()) * 0.001
+        
+        # Error safety net
+        if(P_ins <= 0):
+            raise ValueError
+        if(k_const <= 0):
+            raise ValueError
+        if(Rs <= 0):
+            raise ValueError
+        if(water_density <= 0):
+            raise ValueError
+        if(At <= 0):
+            raise ValueError
+        if(V_total <= 0):
+            raise ValueError
+        if(water_content < 0 or water_content >= 1):
+            raise ValueError
+        if(dry_mass <= 0):
+            raise ValueError
+        if(T <= 0):
+            raise ValueError
+        if(rod_inside_diameter < 0):
+            raise ValueError
+        if(rod_lenght < 0):
+            raise ValueError
+        if(rod_inside_diameter > 0.001 * float(entry_1_r.get())):
+            raise ValueError
+        
         
         s = float(0.0)
         vrod = float(0.0)
@@ -360,6 +345,20 @@ def optimalize():
         opt_range_min = float(entry_opt_min.get())
         opt_range_max = float(entry_opt_max.get())
         opt_it = int(entry_opt_itteration.get())
+
+        # Error safety net for optimalization variables
+        if(opt_range_max <= opt_range_min):
+            raise ValueError
+        if(opt_var == "Water content"):
+            if(opt_range_min < 0 or opt_range_max >= 100):
+                raise ValueError
+        if(opt_range_min == 0 and (opt_var == "Throat" or opt_var == "Volume")):
+            raise ValueError
+        if(opt_it <= 0 and opt_var != "Gas temperature"):
+            raise ValueError
+        if(opt_var == "Gas temperature" and opt_range_min < -273):
+            raise ValueError
+
 
         opt_variable_name = opt_var
 
@@ -672,6 +671,32 @@ def simulate():
         T = float(entry_5.get())+273.15
         rod_lenght = float(entry_launch_lenght.get()) * 0.001
         rod_inside_diameter = float(entry_launch_diameter.get()) * 0.001
+
+        # Error safety net
+        if(P_ins <= 0):
+            raise ValueError
+        if(k_const <= 0):
+            raise ValueError
+        if(Rs <= 0):
+            raise ValueError
+        if(water_density <= 0):
+            raise ValueError
+        if(At <= 0):
+            raise ValueError
+        if(V_total <= 0):
+            raise ValueError
+        if(water_content < 0 or water_content >= 1):
+            raise ValueError
+        if(dry_mass <= 0):
+            raise ValueError
+        if(T <= 0):
+            raise ValueError
+        if(rod_inside_diameter < 0):
+            raise ValueError
+        if(rod_lenght < 0):
+            raise ValueError
+        if(rod_inside_diameter >= 0.001 * float(entry_1.get())):
+            raise ValueError
         
         s = float(0.0)
         vrod = float(0.0)
@@ -747,7 +772,7 @@ def simulate():
 
 
 
-        # Main loop of simulation, handles models that push out only fraction of water inside
+        # Loop for water phase, handles models that push out only fraction of water inside
         while(V_water > 0 and P_ins > P_atm):  
             # Update time array for plot
             array_time.append(total_time)
@@ -826,7 +851,8 @@ def simulate():
 
             P_ins = mass_air * Rs * T / V_air
             array_pressure.append(P_ins)
-
+        
+        # Loop for sub Mach 1 on exit
         while(P_ins > P_atm):     
             # Update time array for plot
             array_time.append(total_time)
@@ -1185,8 +1211,17 @@ def save_and_close(entry_export_name, entry_export_diameter, entry_export_lenght
     engine_lenght = entry_export_lenght.get()
     engine_manufacturer = entry_export_man.get()
 
-    save_to_export()
-    window.destroy()
+    # Expect error
+    try:
+        if(float(engine_diameter) <= 0 ):
+            raise ValueError
+        if(float(engine_lenght) <= 0):
+            raise ValueError
+        
+        save_to_export()
+        window.destroy()
+    except ValueError:
+        messagebox.showinfo("Error", "Wrong input.")
 
 
 
@@ -1227,6 +1262,10 @@ root.config(menu=menubar)
 screen_width = root.winfo_screenwidth()
 screen_height = root.winfo_screenheight()
 root.geometry(f"{screen_width}x{screen_height}")
+
+##########################################################################
+# LEFT
+##########################################################################
 
 frame_simulate = ttk.Frame(root, padding="10")
 frame_simulate.grid(row=1, column=0, sticky=(tk.W, tk.E, tk.N, tk.S))
@@ -1355,8 +1394,8 @@ plot_button = ttk.Button(frame_button, text="Plot Temperature", command=plot_tem
 plot_button.grid(row=5, column=0, columnspan=2, pady=5,sticky="w")
 
 # ERROR
-error_label = ttk.Label(frame_simulate, text="", foreground="red")
-error_label.grid(row=3, column=0, columnspan=2, pady=5, sticky="w")
+error_label = ttk.Label(frame_button, text="", foreground="red")
+error_label.grid(row=6, column=0, columnspan=2, pady=5, sticky="w")
 
 frame_text_widget = ttk.Frame(root, padding="10")
 frame_text_widget.grid(row=1, column=3, sticky=(tk.W, tk.E, tk.N, tk.S))
@@ -1541,8 +1580,8 @@ plot_button_r = ttk.Button(frame_button_r, text="Plot Ist", command=plot_opt_Ist
 plot_button_r.grid(row=4, column=0, columnspan=2, pady=5, sticky="w")
 
 # ERROR
-error_label_r = ttk.Label(frame_simulate, text="", foreground="red")
-error_label_r.grid(row=6, column=0, columnspan=2, pady=5, sticky="w")
+error_label_r = ttk.Label(frame_button_r, text="", foreground="red")
+error_label_r.grid(row=5, column=0, columnspan=2, pady=5, sticky="w")
 
 # Dupa
 frame_plot_right = ttk.Frame(root, padding="10")

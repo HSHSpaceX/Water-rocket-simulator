@@ -1,4 +1,26 @@
-# Simulator Application
+# Water rocket simulator
+
+## Features
+
+1. **Easy-to-Use Interface:**
+   Enjoy a super extra cool graphical setup that makes everything clear and easy to understand.
+
+2. **Project Export Option:**
+   Save your projects in a `.eng` file format that allows you to import your engine to Open Rocket projects.
+
+3. **Total Control Over Variables:**
+   Tweak all the important engine settings just the way you want, so you get the results you're looking for.
+
+4. **Customizable Gases and Liquids:**
+   Use your own custom gases and liquids to fit your setup or choose gas from list.
+
+5. **Optimization Made Simple:**
+   Play around with an optimization system that visually shows you the best values for different variables. Optimalization system shows you plots of important values depending on input variable in range of your choosing. 
+
+6. **Save and Load Projects:**
+   Keep your work organized by easily saving and loading your projects.
+
+These features all come together to make a simulator for a compressed gas and liquid engine. It helps you figure out and control engine values in efficient and visually informative way.
 
 ## Prerequisites
 
@@ -67,10 +89,8 @@ Before running the `simulator.py`, make sure you have the following prerequisite
 
 ---
 
-In case of problems with instalation and opening `simulator.py` just google it or use chat GPT.
+In case of problems with instalation and opening `simulator.py` just use google or chat GPT. Instalation and opening should be relatively simple on both Windows or Linux.
 
 
-# To do:
+## To do:
 1. Find bugs
-2. Comments
-3. Ifs and error managment 
