@@ -1,0 +1,26 @@
+\contentsline {chapter}{\numberline {1}Introduction}{2}{}%
+\contentsline {section}{\numberline {1.1}Code Overview}{2}{}%
+\contentsline {section}{\numberline {1.2}Graphical user interface}{2}{}%
+\contentsline {chapter}{\numberline {2}Variables}{3}{}%
+\contentsline {section}{\numberline {2.1}Constants Declaration}{3}{}%
+\contentsline {section}{\numberline {2.2}Simulation Output Data}{3}{}%
+\contentsline {section}{\numberline {2.3}Optimization Output Data}{3}{}%
+\contentsline {section}{\numberline {2.4}Export Data}{4}{}%
+\contentsline {chapter}{\numberline {3}Functions}{5}{}%
+\contentsline {section}{\numberline {3.1}Simulation for optimalization}{5}{}%
+\contentsline {section}{\numberline {3.2}Optimization Function}{5}{}%
+\contentsline {section}{\numberline {3.3}Simulation Function}{5}{}%
+\contentsline {section}{\numberline {3.4}Plotting Functions}{6}{}%
+\contentsline {section}{\numberline {3.5}Save to File Function}{6}{}%
+\contentsline {section}{\numberline {3.6}Load from File Function}{6}{}%
+\contentsline {section}{\numberline {3.7}Export to File Function}{6}{}%
+\contentsline {section}{\numberline {3.8}Save and Close Function}{6}{}%
+\contentsline {section}{\numberline {3.9}Save to Export Function}{7}{}%
+\contentsline {chapter}{\numberline {4}Thinker GUI}{8}{}%
+\contentsline {chapter}{\numberline {5}Simulation algorithm}{10}{}%
+\contentsline {section}{\numberline {5.1}Input variables}{10}{}%
+\contentsline {section}{\numberline {5.2}Structure}{10}{}%
+\contentsline {section}{\numberline {5.3}Lauch of rod phase}{10}{}%
+\contentsline {section}{\numberline {5.4}Liquid expulsion phase}{11}{}%
+\contentsline {section}{\numberline {5.5}Mach 1 gas expulsion phase}{12}{}%
+\contentsline {section}{\numberline {5.6}Sub Mach 1 gas expulsioin phase}{12}{}%

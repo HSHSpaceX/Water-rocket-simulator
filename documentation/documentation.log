@@ -1,0 +1,325 @@
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 23.10) (preloaded format=pdflatex 2023.8.3)  20 DEC 2023 18:12
+entering extended mode
+ restricted \write18 enabled.
+ %&-line parsing enabled.
+**./documentation.tex
+(documentation.tex
+LaTeX2e <2023-06-01> patch level 1
+L3 programming layer <2023-06-30>
+(/home/prlpnrpph512/.miktex/texmfs/install/tex/latex/base/report.cls
+Document Class: report 2023/05/17 v1.4n Standard LaTeX document class
+(/home/prlpnrpph512/.miktex/texmfs/install/tex/latex/base/size10.clo
+File: size10.clo 2023/05/17 v1.4n Standard LaTeX file (size option)
+)
+\c@part=\count185
+\c@chapter=\count186
+\c@section=\count187
+\c@subsection=\count188
+\c@subsubsection=\count189
+\c@paragraph=\count190
+\c@subparagraph=\count191
+\c@figure=\count192
+\c@table=\count193
+\abovecaptionskip=\skip48
+\belowcaptionskip=\skip49
+\bibindent=\dimen140
+)
+(/home/prlpnrpph512/.miktex/texmfs/install/tex/latex/listings/listings.sty
+(/home/prlpnrpph512/.miktex/texmfs/install/tex/latex/graphics/keyval.sty
+Package: keyval 2022/05/29 v1.15 key=value parser (DPC)
+\KV@toks@=\toks17
+)
+\lst@mode=\count194
+\lst@gtempboxa=\box51
+\lst@token=\toks18
+\lst@length=\count195
+\lst@currlwidth=\dimen141
+\lst@column=\count196
+\lst@pos=\count197
+\lst@lostspace=\dimen142
+\lst@width=\dimen143
+\lst@newlines=\count198
+\lst@lineno=\count199
+\lst@maxwidth=\dimen144
+
+(/home/prlpnrpph512/.miktex/texmfs/install/tex/latex/listings/lstmisc.sty
+File: lstmisc.sty 2023/02/27 1.9 (Carsten Heinz)
+\c@lstnumber=\count266
+\lst@skipnumbers=\count267
+\lst@framebox=\box52
+)
+(/home/prlpnrpph512/.miktex/texmfs/install/tex/latex/listings/listings.cfg
+File: listings.cfg 2023/02/27 1.9 listings configuration
+))
+Package: listings 2023/02/27 1.9 (Carsten Heinz)
+
+(/home/prlpnrpph512/.miktex/texmfs/install/tex/latex/graphics/graphicx.sty
+Package: graphicx 2021/09/16 v1.2d Enhanced LaTeX Graphics (DPC,SPQR)
+
+(/home/prlpnrpph512/.miktex/texmfs/install/tex/latex/graphics/graphics.sty
+Package: graphics 2022/03/10 v1.4e Standard LaTeX Graphics (DPC,SPQR)
+
+(/home/prlpnrpph512/.miktex/texmfs/install/tex/latex/graphics/trig.sty
+Package: trig 2021/08/11 v1.11 sin cos tan (DPC)
+)
+(/home/prlpnrpph512/.miktex/texmfs/install/tex/latex/graphics-cfg/graphics.cfg
+File: graphics.cfg 2016/06/04 v1.11 sample graphics configuration
+)
+Package graphics Info: Driver file: pdftex.def on input line 107.
+(/home/prlpnrpph512/.miktex/texmfs/install/tex/latex/graphics-def/pdftex.def
+File: pdftex.def 2022/09/22 v1.2b Graphics/color driver for pdftex
+))
+\Gin@req@height=\dimen145
+\Gin@req@width=\dimen146
+) (/home/prlpnrpph512/.miktex/texmfs/install/tex/latex/float/float.sty
+Package: float 2001/11/08 v1.3d Float enhancements (AL)
+\c@float@type=\count268
+\float@exts=\toks19
+\float@box=\box53
+\@float@everytoks=\toks20
+\@floatcapt=\box54
+)
+(/home/prlpnrpph512/.miktex/texmfs/install/tex/latex/geometry/geometry.sty
+Package: geometry 2020/01/02 v5.9 Page Geometry
+
+(/home/prlpnrpph512/.miktex/texmfs/install/tex/generic/iftex/ifvtex.sty
+Package: ifvtex 2019/10/25 v1.7 ifvtex legacy package. Use iftex instead.
+
+(/home/prlpnrpph512/.miktex/texmfs/install/tex/generic/iftex/iftex.sty
+Package: iftex 2022/02/03 v1.0f TeX engine tests
+))
+\Gm@cnth=\count269
+\Gm@cntv=\count270
+\c@Gm@tempcnt=\count271
+\Gm@bindingoffset=\dimen147
+\Gm@wd@mp=\dimen148
+\Gm@odd@mp=\dimen149
+\Gm@even@mp=\dimen150
+\Gm@layoutwidth=\dimen151
+\Gm@layoutheight=\dimen152
+\Gm@layouthoffset=\dimen153
+\Gm@layoutvoffset=\dimen154
+\Gm@dimlist=\toks21
+
+(/home/prlpnrpph512/.miktex/texmfs/install/tex/latex/geometry/geometry.cfg))
+(/home/prlpnrpph512/.miktex/texmfs/install/tex/latex/l3backend/l3backend-pdftex
+.def
+File: l3backend-pdftex.def 2023-04-19 L3 backend support: PDF output (pdfTeX)
+\l__color_backend_stack_int=\count272
+\l__pdf_internal_box=\box55
+) (documentation.aux)
+\openout1 = `documentation.aux'.
+
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 8.
+LaTeX Font Info:    ... okay on input line 8.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 8.
+LaTeX Font Info:    ... okay on input line 8.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 8.
+LaTeX Font Info:    ... okay on input line 8.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 8.
+LaTeX Font Info:    ... okay on input line 8.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 8.
+LaTeX Font Info:    ... okay on input line 8.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 8.
+LaTeX Font Info:    ... okay on input line 8.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 8.
+LaTeX Font Info:    ... okay on input line 8.
+\c@lstlisting=\count273
+
+(/home/prlpnrpph512/.miktex/texmfs/install/tex/context/base/mkii/supp-pdf.mkii
+[Loading MPS to PDF converter (version 2006.09.02).]
+\scratchcounter=\count274
+\scratchdimen=\dimen155
+\scratchbox=\box56
+\nofMPsegments=\count275
+\nofMParguments=\count276
+\everyMPshowfont=\toks22
+\MPscratchCnt=\count277
+\MPscratchDim=\dimen156
+\MPnumerator=\count278
+\makeMPintoPDFobject=\count279
+\everyMPtoPDFconversion=\toks23
+)
+(/home/prlpnrpph512/.miktex/texmfs/install/tex/latex/epstopdf-pkg/epstopdf-base
+.sty
+Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
+Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
+85.
+
+(/home/prlpnrpph512/.miktex/texmfs/install/tex/latex/00miktex/epstopdf-sys.cfg
+File: epstopdf-sys.cfg 2021/03/18 v2.0 Configuration of epstopdf for MiKTeX
+))
+*geometry* driver: auto-detecting
+*geometry* detected driver: pdftex
+*geometry* verbose mode - [ preamble ] result:
+* driver: pdftex
+* paper: a4paper
+* layout: <same size as paper>
+* layoutoffset:(h,v)=(0.0pt,0.0pt)
+* modes: 
+* h-part:(L,W,R)=(81.94394pt, 433.62pt, 81.94394pt)
+* v-part:(T,H,B)=(106.75473pt, 578.15999pt, 160.13213pt)
+* \paperwidth=597.50787pt
+* \paperheight=845.04684pt
+* \textwidth=433.62pt
+* \textheight=578.15999pt
+* \oddsidemargin=9.67395pt
+* \evensidemargin=9.67395pt
+* \topmargin=-2.51526pt
+* \headheight=12.0pt
+* \headsep=25.0pt
+* \topskip=10.0pt
+* \footskip=30.0pt
+* \marginparwidth=65.0pt
+* \marginparsep=11.0pt
+* \columnsep=10.0pt
+* \skip\footins=9.0pt plus 4.0pt minus 2.0pt
+* \hoffset=0.0pt
+* \voffset=0.0pt
+* \mag=1000
+* \@twocolumnfalse
+* \@twosidefalse
+* \@mparswitchfalse
+* \@reversemarginfalse
+* (1in=72.27pt=25.4mm, 1cm=28.453pt)
+
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <12> on input line 14.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <8> on input line 14.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <6> on input line 14.
+[1
+
+{/home/prlpnrpph512/.miktex/texmfs/data/fonts/map/pdftex/pdftex.map}]
+(documentation.toc
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <7> on input line 2.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <5> on input line 2.
+)
+\tf@toc=\write3
+\openout3 = `documentation.toc'.
+
+ [1
+
+]
+Chapter 1.
+[2
+
+]
+Chapter 2.
+(/home/prlpnrpph512/.miktex/texmfs/install/tex/latex/listings/lstlang1.sty
+File: lstlang1.sty 2023/02/27 1.9 listings language file
+)
+[3
+
+] [4]
+Chapter 3.
+
+Overfull \hbox (40.38483pt too wide) in paragraph at lines 101--102
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][] 
+ []
+
+[5
+
+]
+Overfull \hbox (214.3866pt too wide) in paragraph at lines 180--181
+[][][][][][][][][][][][][][][][][][][][] 
+ []
+
+[6] [7]
+Chapter 4.
+
+Overfull \hbox (10.38452pt too wide) in paragraph at lines 204--205
+[][][][][][][][][][][][][][][][][][][][][][] 
+ []
+
+
+Overfull \hbox (22.38464pt too wide) in paragraph at lines 205--206
+[][][][][][][][][][][][][][][][][][][][][][] 
+ []
+
+
+Overfull \hbox (40.38483pt too wide) in paragraph at lines 206--207
+[][][][][][][][][][][][][][][][][][][][][][][][][] 
+ []
+
+LaTeX Font Info:    Trying to load font information for OMS+cmr on input line 2
+13.
+(/home/prlpnrpph512/.miktex/texmfs/install/tex/latex/base/omscmr.fd
+File: omscmr.fd 2023/04/13 v2.5m Standard LaTeX font definitions
+)
+LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10> not available
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 213.
+ [8
+
+]
+[9]
+Chapter 5.
+
+Overfull \hbox (40.38483pt too wide) in paragraph at lines 244--245
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][] 
+ []
+
+[10
+
+]
+LaTeX Font Info:    Trying to load font information for OML+cmr on input line 2
+64.
+ (/home/prlpnrpph512/.miktex/texmfs/install/tex/latex/base/omlcmr.fd
+File: omlcmr.fd 2023/04/13 v2.5m Standard LaTeX font definitions
+)
+LaTeX Font Info:    Font shape `OML/cmr/m/n' in size <10> not available
+(Font)              Font shape `OML/cmm/m/it' tried instead on input line 264.
+
+[11]
+Underfull \hbox (badness 10000) in paragraph at lines 311--314
+
+ []
+
+[12] [13
+
+] (documentation.aux)
+ ***********
+LaTeX2e <2023-06-01> patch level 1
+L3 programming layer <2023-06-30>
+ ***********
+
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+
+ ) 
+Here is how much of TeX's memory you used:
+ 3882 strings out of 477486
+ 57896 string characters out of 5813755
+ 1955244 words of memory out of 5000000
+ 24858 multiletter control sequences out of 15000+600000
+ 564078 words of font info for 56 fonts, out of 8000000 for 9000
+ 0 hyphenation exceptions out of 8191
+ 57i,6n,65p,539b,1611s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ </home/prlpnrpph512/.miktex/texmfs/data/fonts/pk/ljfour/jknappen/ec/dpi600/t
+crm1000.pk></home/prlpnrpph512/.miktex/texmfs/install/fonts/type1/public/amsfon
+ts/cm/cmbx10.pfb></home/prlpnrpph512/.miktex/texmfs/install/fonts/type1/public/
+amsfonts/cm/cmbx12.pfb></home/prlpnrpph512/.miktex/texmfs/install/fonts/type1/p
+ublic/amsfonts/cm/cmex10.pfb></home/prlpnrpph512/.miktex/texmfs/install/fonts/t
+ype1/public/amsfonts/cm/cmmi10.pfb></home/prlpnrpph512/.miktex/texmfs/install/f
+onts/type1/public/amsfonts/cm/cmmi5.pfb></home/prlpnrpph512/.miktex/texmfs/inst
+all/fonts/type1/public/amsfonts/cm/cmmi7.pfb></home/prlpnrpph512/.miktex/texmfs
+/install/fonts/type1/public/amsfonts/cm/cmr10.pfb></home/prlpnrpph512/.miktex/t
+exmfs/install/fonts/type1/public/amsfonts/cm/cmr12.pfb></home/prlpnrpph512/.mik
+tex/texmfs/install/fonts/type1/public/amsfonts/cm/cmr17.pfb></home/prlpnrpph512
+/.miktex/texmfs/install/fonts/type1/public/amsfonts/cm/cmr5.pfb></home/prlpnrpp
+h512/.miktex/texmfs/install/fonts/type1/public/amsfonts/cm/cmr7.pfb></home/prlp
+nrpph512/.miktex/texmfs/install/fonts/type1/public/amsfonts/cm/cmsy10.pfb></hom
+e/prlpnrpph512/.miktex/texmfs/install/fonts/type1/public/amsfonts/cm/cmsy5.pfb>
+</home/prlpnrpph512/.miktex/texmfs/install/fonts/type1/public/amsfonts/cm/cmsy7
+.pfb></home/prlpnrpph512/.miktex/texmfs/install/fonts/type1/public/amsfonts/cm/
+cmti10.pfb></home/prlpnrpph512/.miktex/texmfs/install/fonts/type1/public/amsfon
+ts/cm/cmtt10.pfb>
+Output written on documentation.pdf (14 pages, 226487 bytes).
+PDF statistics:
+ 134 PDF objects out of 1000 (max. 8388607)
+ 0 named destinations out of 1000 (max. 500000)
+ 1 words of extra memory for PDF output out of 10000 (max. 10000000)
+
