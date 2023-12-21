@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 23.10) (preloaded format=pdflatex 2023.8.3)  20 DEC 2023 18:12
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 23.10) (preloaded format=pdflatex 2023.8.3)  21 DEC 2023 15:50
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -102,43 +102,106 @@ Package: iftex 2022/02/03 v1.0f TeX engine tests
 \Gm@dimlist=\toks21
 
 (/home/prlpnrpph512/.miktex/texmfs/install/tex/latex/geometry/geometry.cfg))
+(/home/prlpnrpph512/.miktex/texmfs/install/tex/latex/pdfpages/pdfpages.sty
+Package: pdfpages 2022/12/19 v0.5x Insert pages of external PDF documents (AM)
+
+(/home/prlpnrpph512/.miktex/texmfs/install/tex/latex/base/ifthen.sty
+Package: ifthen 2022/04/13 v1.1d Standard LaTeX ifthen package (DPC)
+)
+(/home/prlpnrpph512/.miktex/texmfs/install/tex/latex/tools/calc.sty
+Package: calc 2017/05/25 v4.3 Infix arithmetic (KKT,FJ)
+\calc@Acount=\count272
+\calc@Bcount=\count273
+\calc@Adimen=\dimen155
+\calc@Bdimen=\dimen156
+\calc@Askip=\skip50
+\calc@Bskip=\skip51
+LaTeX Info: Redefining \setlength on input line 80.
+LaTeX Info: Redefining \addtolength on input line 81.
+\calc@Ccount=\count274
+\calc@Cskip=\skip52
+)
+(/home/prlpnrpph512/.miktex/texmfs/install/tex/latex/eso-pic/eso-pic.sty
+Package: eso-pic 2023/05/03 v3.0c eso-pic (RN)
+\ESO@tempdima=\dimen157
+\ESO@tempdimb=\dimen158
+
+(/home/prlpnrpph512/.miktex/texmfs/install/tex/latex/xcolor/xcolor.sty
+Package: xcolor 2022/06/12 v2.14 LaTeX color extensions (UK)
+
+(/home/prlpnrpph512/.miktex/texmfs/install/tex/latex/graphics-cfg/color.cfg
+File: color.cfg 2016/01/02 v1.6 sample color configuration
+)
+Package xcolor Info: Driver file: pdftex.def on input line 227.
+
+(/home/prlpnrpph512/.miktex/texmfs/install/tex/latex/graphics/mathcolor.ltx)
+Package xcolor Info: Model `cmy' substituted by `cmy0' on input line 1353.
+Package xcolor Info: Model `hsb' substituted by `rgb' on input line 1357.
+Package xcolor Info: Model `RGB' extended on input line 1369.
+Package xcolor Info: Model `HTML' substituted by `rgb' on input line 1371.
+Package xcolor Info: Model `Hsb' substituted by `hsb' on input line 1372.
+Package xcolor Info: Model `tHsb' substituted by `hsb' on input line 1373.
+Package xcolor Info: Model `HSB' substituted by `hsb' on input line 1374.
+Package xcolor Info: Model `Gray' substituted by `gray' on input line 1375.
+Package xcolor Info: Model `wave' substituted by `hsb' on input line 1376.
+))
+\AM@pagewidth=\dimen159
+\AM@pageheight=\dimen160
+\AM@fboxrule=\dimen161
+
+(/home/prlpnrpph512/.miktex/texmfs/install/tex/latex/pdfpages/pppdftex.def
+File: pppdftex.def 2022/12/19 v0.5x Pdfpages driver for pdfTeX (AM)
+)
+\pdfpages@includegraphics@status=\count275
+\AM@pagebox=\box55
+\AM@global@opts=\toks22
+\AM@pagecnt=\count276
+\AM@toc@title=\toks23
+\AM@lof@heading=\toks24
+\c@AM@survey=\count277
+\AM@templatesizebox=\box56
+)
+(/home/prlpnrpph512/.miktex/texmfs/install/tex/latex/comment/comment.sty
+\CommentStream=\write3
+
+Excluding comment 'comment')
 (/home/prlpnrpph512/.miktex/texmfs/install/tex/latex/l3backend/l3backend-pdftex
 .def
 File: l3backend-pdftex.def 2023-04-19 L3 backend support: PDF output (pdfTeX)
-\l__color_backend_stack_int=\count272
-\l__pdf_internal_box=\box55
+\l__color_backend_stack_int=\count278
+\l__pdf_internal_box=\box57
 ) (documentation.aux)
 \openout1 = `documentation.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 8.
-LaTeX Font Info:    ... okay on input line 8.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 8.
-LaTeX Font Info:    ... okay on input line 8.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 8.
-LaTeX Font Info:    ... okay on input line 8.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 8.
-LaTeX Font Info:    ... okay on input line 8.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 8.
-LaTeX Font Info:    ... okay on input line 8.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 8.
-LaTeX Font Info:    ... okay on input line 8.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 8.
-LaTeX Font Info:    ... okay on input line 8.
-\c@lstlisting=\count273
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 9.
+LaTeX Font Info:    ... okay on input line 9.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 9.
+LaTeX Font Info:    ... okay on input line 9.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 9.
+LaTeX Font Info:    ... okay on input line 9.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 9.
+LaTeX Font Info:    ... okay on input line 9.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 9.
+LaTeX Font Info:    ... okay on input line 9.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 9.
+LaTeX Font Info:    ... okay on input line 9.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 9.
+LaTeX Font Info:    ... okay on input line 9.
+\c@lstlisting=\count279
 
 (/home/prlpnrpph512/.miktex/texmfs/install/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count274
-\scratchdimen=\dimen155
-\scratchbox=\box56
-\nofMPsegments=\count275
-\nofMParguments=\count276
-\everyMPshowfont=\toks22
-\MPscratchCnt=\count277
-\MPscratchDim=\dimen156
-\MPnumerator=\count278
-\makeMPintoPDFobject=\count279
-\everyMPtoPDFconversion=\toks23
+\scratchcounter=\count280
+\scratchdimen=\dimen162
+\scratchbox=\box58
+\nofMPsegments=\count281
+\nofMParguments=\count282
+\everyMPshowfont=\toks25
+\MPscratchCnt=\count283
+\MPscratchDim=\dimen163
+\MPnumerator=\count284
+\makeMPintoPDFobject=\count285
+\everyMPtoPDFconversion=\toks26
 )
 (/home/prlpnrpph512/.miktex/texmfs/install/tex/latex/epstopdf-pkg/epstopdf-base
 .sty
@@ -183,12 +246,26 @@ File: epstopdf-sys.cfg 2021/03/18 v2.0 Configuration of epstopdf for MiKTeX
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
+(/home/prlpnrpph512/.miktex/texmfs/install/tex/latex/pdflscape/pdflscape.sty
+Package: pdflscape 2022-10-27 v0.13 Display of landscape pages in PDF
+
+(/home/prlpnrpph512/.miktex/texmfs/install/tex/latex/pdflscape/pdflscape-nometa
+data.sty
+Package: pdflscape-nometadata 2022-10-28 v0.13 Display of landscape pages in PD
+F (HO)
+
+(/home/prlpnrpph512/.miktex/texmfs/install/tex/latex/graphics/lscape.sty
+Package: lscape 2020/05/28 v3.02 Landscape Pages (DPC)
+)
+Package pdflscape Info: Auto-detected driver: pdftex on input line 81.
+))
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <12> on input line 14.
+(Font)              <12> on input line 15.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <8> on input line 14.
+(Font)              <8> on input line 15.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <6> on input line 14.
+(Font)              <6> on input line 15.
+
 [1
 
 {/home/prlpnrpph512/.miktex/texmfs/data/fonts/map/pdftex/pdftex.map}]
@@ -198,8 +275,8 @@ LaTeX Font Info:    External font `cmex10' loaded for size
 LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <5> on input line 2.
 )
-\tf@toc=\write3
-\openout3 = `documentation.toc'.
+\tf@toc=\write4
+\openout4 = `documentation.toc'.
 
  [1
 
@@ -216,88 +293,109 @@ File: lstlang1.sty 2023/02/27 1.9 listings language file
 
 ] [4]
 Chapter 3.
+<optimalization.pdf, id=24, 249.18094pt x 429.10312pt>
+File: optimalization.pdf Graphic file (type pdf)
+<use optimalization.pdf>
+Package pdftex.def Info: optimalization.pdf  used on input line 107.
+(pdftex.def)             Requested size: 149.5097pt x 257.46385pt.
+Excluding 'comment' comment. [5
 
-Overfull \hbox (40.38483pt too wide) in paragraph at lines 101--102
+ <./optimalization.pdf>]
+Overfull \hbox (40.38483pt too wide) in paragraph at lines 130--131
 [][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][] 
  []
 
-[5
-
-]
-Overfull \hbox (214.3866pt too wide) in paragraph at lines 180--181
+<simulate.pdf, id=37, 216.81pt x 257.46187pt>
+File: simulate.pdf Graphic file (type pdf)
+<use simulate.pdf>
+Package pdftex.def Info: simulate.pdf  used on input line 148.
+(pdftex.def)             Requested size: 216.80946pt x 257.46123pt.
+Excluding 'comment' comment. [6 <./simulate.pdf>]
+Overfull \hbox (214.3866pt too wide) in paragraph at lines 213--214
 [][][][][][][][][][][][][][][][][][][][] 
  []
 
-[6] [7]
+[7] [8]
 Chapter 4.
 
-Overfull \hbox (10.38452pt too wide) in paragraph at lines 204--205
+Overfull \hbox (10.38452pt too wide) in paragraph at lines 237--238
 [][][][][][][][][][][][][][][][][][][][][][] 
  []
 
 
-Overfull \hbox (22.38464pt too wide) in paragraph at lines 205--206
+Overfull \hbox (22.38464pt too wide) in paragraph at lines 238--239
 [][][][][][][][][][][][][][][][][][][][][][] 
  []
 
 
-Overfull \hbox (40.38483pt too wide) in paragraph at lines 206--207
+Overfull \hbox (40.38483pt too wide) in paragraph at lines 239--240
 [][][][][][][][][][][][][][][][][][][][][][][][][] 
  []
 
 LaTeX Font Info:    Trying to load font information for OMS+cmr on input line 2
-13.
+46.
 (/home/prlpnrpph512/.miktex/texmfs/install/tex/latex/base/omscmr.fd
 File: omscmr.fd 2023/04/13 v2.5m Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 213.
- [8
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 246.
+ [9
 
 ]
-[9]
+[10]
 Chapter 5.
 
-Overfull \hbox (40.38483pt too wide) in paragraph at lines 244--245
+Overfull \hbox (40.38483pt too wide) in paragraph at lines 277--278
 [][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][] 
  []
 
-[10
+[11
 
 ]
 LaTeX Font Info:    Trying to load font information for OML+cmr on input line 2
-64.
+97.
  (/home/prlpnrpph512/.miktex/texmfs/install/tex/latex/base/omlcmr.fd
 File: omlcmr.fd 2023/04/13 v2.5m Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OML/cmr/m/n' in size <10> not available
-(Font)              Font shape `OML/cmm/m/it' tried instead on input line 264.
+(Font)              Font shape `OML/cmm/m/it' tried instead on input line 297.
 
-[11]
-Underfull \hbox (badness 10000) in paragraph at lines 311--314
+[12]
+Underfull \hbox (badness 10000) in paragraph at lines 348--350
 
  []
 
-[12] [13
+
+Underfull \hbox (badness 10000) in paragraph at lines 348--350
+
+ []
+
+[13]
+Underfull \hbox (badness 10000) in paragraph at lines 363--365
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 363--365
+
+ []
+
+[14] [15
 
 ] (documentation.aux)
  ***********
 LaTeX2e <2023-06-01> patch level 1
 L3 programming layer <2023-06-30>
  ***********
-
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-
  ) 
 Here is how much of TeX's memory you used:
- 3882 strings out of 477486
- 57896 string characters out of 5813755
- 1955244 words of memory out of 5000000
- 24858 multiletter control sequences out of 15000+600000
- 564078 words of font info for 56 fonts, out of 8000000 for 9000
+ 5323 strings out of 477486
+ 81045 string characters out of 5813755
+ 1956244 words of memory out of 5000000
+ 26258 multiletter control sequences out of 15000+600000
+ 564385 words of font info for 57 fonts, out of 8000000 for 9000
  0 hyphenation exceptions out of 8191
- 57i,6n,65p,539b,1611s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 68i,6n,75p,539b,1614s stack positions out of 10000i,1000n,20000p,200000b,200000s
  </home/prlpnrpph512/.miktex/texmfs/data/fonts/pk/ljfour/jknappen/ec/dpi600/t
 crm1000.pk></home/prlpnrpph512/.miktex/texmfs/install/fonts/type1/public/amsfon
 ts/cm/cmbx10.pfb></home/prlpnrpph512/.miktex/texmfs/install/fonts/type1/public/
@@ -317,9 +415,9 @@ e/prlpnrpph512/.miktex/texmfs/install/fonts/type1/public/amsfonts/cm/cmsy5.pfb>
 .pfb></home/prlpnrpph512/.miktex/texmfs/install/fonts/type1/public/amsfonts/cm/
 cmti10.pfb></home/prlpnrpph512/.miktex/texmfs/install/fonts/type1/public/amsfon
 ts/cm/cmtt10.pfb>
-Output written on documentation.pdf (14 pages, 226487 bytes).
+Output written on documentation.pdf (16 pages, 250626 bytes).
 PDF statistics:
- 134 PDF objects out of 1000 (max. 8388607)
+ 158 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
- 1 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 11 words of extra memory for PDF output out of 10000 (max. 10000000)
 

@@ -4,7 +4,8 @@
 \usepackage{graphicx}
 \usepackage{float}
 \usepackage[a4paper, total={6in, 8in}]{geometry}
-
+\usepackage{pdfpages}
+\usepackage{comment}
 \begin{document}
 
 \title{Water-rocket-simulatr code documentation}
@@ -95,6 +96,34 @@ engine_manufacturer = ""
 
 \chapter{Functions}
 
+\section{Optimization Function}
+
+\begin{lstlisting}[language=Python]
+def optimize():
+    # Function to optimize water rocket design
+    ...
+\end{lstlisting}
+\begin{center}
+\includegraphics[scale=0.6]{optimalization}
+\end{center}
+\begin{comment}
+@startuml
+repeat :Main Thinker Window;
+:Button Optimalize;
+:optimalize();
+backward :Warning;
+repeat while (Value Error) is (Yes) not (No)
+:Chooses what variable to optimalize around;
+while(i in range opt_it + 1)
+:opt_sim();
+:Update optimalization output data;
+:i++;
+endwhile
+:plot_opt_Ic();
+@enduml
+\end{comment}
+The \texttt{optimize} function sets up and executes the optimization process based on user inputs and choosen variable.
+
 \section{Simulation for optimalization}
 
 \begin{lstlisting}[language=Python]
@@ -107,15 +136,6 @@ rod_length, rod_inside_diameter):
 
 This function performs the numerical simulation of the water rocket's flight for optimization.
 
-\section{Optimization Function}
-
-\begin{lstlisting}[language=Python]
-def optimize():
-    # Function to optimize water rocket design
-    ...
-\end{lstlisting}
-
-The \texttt{optimize} function sets up and executes the optimization process based on user inputs and choosen variable.
 
 \section{Simulation Function}
 
@@ -124,9 +144,22 @@ def simulate():
     # Function to simulate certain rocket motor
     ...
 \end{lstlisting}
-
+\begin{center}
+\includegraphics[scale=1]{simulate}
+\end{center}
+\begin{comment}
+@startuml
+repeat :Main Thinker Window;
+:Button Simulate;
+:simulate();
+backward :Warning;
+repeat while (Value Error) is (No) not (Yes)
+:Update simulation output data;
+:plot_thurst();
+@enduml
+\end{comment}
 The \texttt{simulate} function executes simulation for a single data setup. It's responsible for left plot.
-\newpage
+
 
 \section{Plotting Functions}
 
@@ -284,7 +317,17 @@ $$\Delta V = A_t v_e \Delta t$$
 $$pV^k = const$$
 $$ T = \frac{p V}{m Rs}$$
 
-Now that we understand physics behind it's not hard to understand how to compute it numericaly.
+\subsection*{Algorithm in steps}
+\begin{enumerate}
+\item $F_t = ...$
+\item $v_e = ...$
+\item $\Delta V =...$
+\item $T = ...$
+\item $m_{roc} -= \Delta V \cdot \rho_{wat}$
+\item $ V_{air} = ... \qquad V_{wat} = ...$
+\item $P_{ins} = ...$
+\end{enumerate}
+
 
 \section{Mach 1 gas expulsion phase}
 We will treat this phase as a series of adiabatic expansions of gas. To calculate thurust we will use well known formula which I won't explain here.
@@ -303,14 +346,35 @@ Now we rearange the adiabatic equation:
 $$p_1v_1^k = p_2v_2^k$$ 
 By substituting ideal gas equation and we get following equation for T:
 $$T = \frac{p}{Rs}\left(\frac{V}{m_1}\right)^k\left(\frac{V}{m_1 - \Delta m}\right)^{1-k}$$
-Now we compute it numericaly till we have Mach 1 on exit.
+Now we compute it numericaly till we have Mach 1 on exit.\\\\
+\subsection*{Algorithm in steps}
+\begin{enumerate}
+\item $T_t = ...$
+\item $\dot{m} = ...$
+\item $v_e = ...$
+\item $P_t = ...\qquad F_t = ...$
+\item $\Delta m = \dot{m}\cdot \Delta t \qquad m_{roc} = ...$
+\item $T = ...\qquad P_{ins} = ...$
+\end{enumerate}
 
 \section{Sub Mach 1 gas expulsioin phase}
 Calculations are similar but this time we have to calculate $M_e$. We assume $p_t = p_{atm}$.
 $$M_e = \sqrt{\frac{2}{k-1}\left(\left(\frac{p_{ins}}{p_t}\right)^{\frac{k-1}{k}}-1\right)}$$
 $$v_e = M_e\cdot a_e$$
 Rest are just analogical equations for $M_e < 1$.\\\\
-Now with the understanding of underlaying physics you should have no problem with figuring out exact order of calculation from the while loops.
+
+\subsection*{Algorithm in steps}
+\begin{enumerate}
+\item $M_e=...$
+\item $T_t = ...$
+\item $v_e = ...$
+\item $\rho^* = ... \qquad \rho_t = ...$
+\item $\dot{m} = ...$
+\item $F_t = ...$
+\item $\Delta m = \dot{m}\cdot \Delta t \qquad m_{roc} = ...$
+\item $T = ...\qquad P_{ins} = ...$
+\end{enumerate}
+Now with the understanding of underlaying physics reader should have no problem understanding numerical computations behind simulation loops.
 
 \begin{thebibliography}{9}
 \bibitem{WaterRockets}
