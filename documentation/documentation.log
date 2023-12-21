@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 23.10) (preloaded format=pdflatex 2023.8.3)  21 DEC 2023 15:50
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 23.10) (preloaded format=pdflatex 2023.8.3)  21 DEC 2023 23:02
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -23,6 +23,9 @@ File: size10.clo 2023/05/17 v1.4n Standard LaTeX file (size option)
 \abovecaptionskip=\skip48
 \belowcaptionskip=\skip49
 \bibindent=\dimen140
+)
+(/home/prlpnrpph512/.miktex/texmfs/install/tex/latex/base/fontenc.sty
+Package: fontenc 2021/04/29 v2.0v Standard LaTeX package
 )
 (/home/prlpnrpph512/.miktex/texmfs/install/tex/latex/listings/listings.sty
 (/home/prlpnrpph512/.miktex/texmfs/install/tex/latex/graphics/keyval.sty
@@ -173,20 +176,20 @@ File: l3backend-pdftex.def 2023-04-19 L3 backend support: PDF output (pdfTeX)
 ) (documentation.aux)
 \openout1 = `documentation.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 9.
-LaTeX Font Info:    ... okay on input line 9.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 9.
-LaTeX Font Info:    ... okay on input line 9.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 9.
-LaTeX Font Info:    ... okay on input line 9.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 9.
-LaTeX Font Info:    ... okay on input line 9.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 9.
-LaTeX Font Info:    ... okay on input line 9.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 9.
-LaTeX Font Info:    ... okay on input line 9.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 9.
-LaTeX Font Info:    ... okay on input line 9.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 10.
+LaTeX Font Info:    ... okay on input line 10.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 10.
+LaTeX Font Info:    ... okay on input line 10.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 10.
+LaTeX Font Info:    ... okay on input line 10.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 10.
+LaTeX Font Info:    ... okay on input line 10.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 10.
+LaTeX Font Info:    ... okay on input line 10.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 10.
+LaTeX Font Info:    ... okay on input line 10.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 10.
+LaTeX Font Info:    ... okay on input line 10.
 \c@lstlisting=\count279
 
 (/home/prlpnrpph512/.miktex/texmfs/install/tex/context/base/mkii/supp-pdf.mkii
@@ -260,11 +263,11 @@ Package: lscape 2020/05/28 v3.02 Landscape Pages (DPC)
 Package pdflscape Info: Auto-detected driver: pdftex on input line 81.
 ))
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <12> on input line 15.
+(Font)              <12> on input line 16.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <8> on input line 15.
+(Font)              <8> on input line 16.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <6> on input line 15.
+(Font)              <6> on input line 16.
 
 [1
 
@@ -282,6 +285,11 @@ LaTeX Font Info:    External font `cmex10' loaded for size
 
 ]
 Chapter 1.
+
+Underfull \hbox (badness 10000) in paragraph at lines 24--25
+
+ []
+
 [2
 
 ]
@@ -289,94 +297,83 @@ Chapter 2.
 (/home/prlpnrpph512/.miktex/texmfs/install/tex/latex/listings/lstlang1.sty
 File: lstlang1.sty 2023/02/27 1.9 listings language file
 )
-[3
+LaTeX Font Info:    Trying to load font information for T1+cmtt on input line 5
+7.
 
-] [4]
+(/home/prlpnrpph512/.miktex/texmfs/install/tex/latex/base/t1cmtt.fd
+File: t1cmtt.fd 2023/04/13 v2.5m Standard LaTeX font definitions
+) [3
+
+]
+[4]
 Chapter 3.
-<optimalization.pdf, id=24, 249.18094pt x 429.10312pt>
+<optimalization.pdf, id=26, 249.18094pt x 429.10312pt>
 File: optimalization.pdf Graphic file (type pdf)
 <use optimalization.pdf>
-Package pdftex.def Info: optimalization.pdf  used on input line 107.
+Package pdftex.def Info: optimalization.pdf  used on input line 110.
 (pdftex.def)             Requested size: 149.5097pt x 257.46385pt.
 Excluding 'comment' comment. [5
 
  <./optimalization.pdf>]
-Overfull \hbox (40.38483pt too wide) in paragraph at lines 130--131
+Overfull \hbox (40.2679pt too wide) in paragraph at lines 133--134
 [][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][] 
  []
 
-<simulate.pdf, id=37, 216.81pt x 257.46187pt>
+<simulate.pdf, id=39, 216.81pt x 257.46187pt>
 File: simulate.pdf Graphic file (type pdf)
 <use simulate.pdf>
-Package pdftex.def Info: simulate.pdf  used on input line 148.
+Package pdftex.def Info: simulate.pdf  used on input line 151.
 (pdftex.def)             Requested size: 216.80946pt x 257.46123pt.
 Excluding 'comment' comment. [6 <./simulate.pdf>]
-Overfull \hbox (214.3866pt too wide) in paragraph at lines 213--214
+Overfull \hbox (214.22675pt too wide) in paragraph at lines 216--217
 [][][][][][][][][][][][][][][][][][][][] 
  []
 
 [7] [8]
 Chapter 4.
 
-Overfull \hbox (10.38452pt too wide) in paragraph at lines 237--238
+Overfull \hbox (10.275pt too wide) in paragraph at lines 240--241
 [][][][][][][][][][][][][][][][][][][][][][] 
  []
 
 
-Overfull \hbox (22.38464pt too wide) in paragraph at lines 238--239
+Overfull \hbox (22.27216pt too wide) in paragraph at lines 241--242
 [][][][][][][][][][][][][][][][][][][][][][] 
  []
 
 
-Overfull \hbox (40.38483pt too wide) in paragraph at lines 239--240
+Overfull \hbox (40.2679pt too wide) in paragraph at lines 242--243
 [][][][][][][][][][][][][][][][][][][][][][][][][] 
  []
 
-LaTeX Font Info:    Trying to load font information for OMS+cmr on input line 2
-46.
-(/home/prlpnrpph512/.miktex/texmfs/install/tex/latex/base/omscmr.fd
-File: omscmr.fd 2023/04/13 v2.5m Standard LaTeX font definitions
-)
-LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 246.
- [9
+[9
 
-]
-[10]
+] [10]
 Chapter 5.
 
-Overfull \hbox (40.38483pt too wide) in paragraph at lines 277--278
+Overfull \hbox (40.2679pt too wide) in paragraph at lines 280--281
 [][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][] 
  []
 
 [11
 
-]
-LaTeX Font Info:    Trying to load font information for OML+cmr on input line 2
-97.
- (/home/prlpnrpph512/.miktex/texmfs/install/tex/latex/base/omlcmr.fd
-File: omlcmr.fd 2023/04/13 v2.5m Standard LaTeX font definitions
-)
-LaTeX Font Info:    Font shape `OML/cmr/m/n' in size <10> not available
-(Font)              Font shape `OML/cmm/m/it' tried instead on input line 297.
-
-[12]
-Underfull \hbox (badness 10000) in paragraph at lines 348--350
+] [12]
+Underfull \hbox (badness 10000) in paragraph at lines 351--353
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 348--350
+Underfull \hbox (badness 10000) in paragraph at lines 351--353
 
  []
 
 [13]
-Underfull \hbox (badness 10000) in paragraph at lines 363--365
+Underfull \hbox (badness 10000) in paragraph at lines 366--368
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 363--365
+Underfull \hbox (badness 10000) in paragraph at lines 366--368
 
  []
 
@@ -389,35 +386,39 @@ L3 programming layer <2023-06-30>
  ***********
  ) 
 Here is how much of TeX's memory you used:
- 5323 strings out of 477486
- 81045 string characters out of 5813755
- 1956244 words of memory out of 5000000
- 26258 multiletter control sequences out of 15000+600000
- 564385 words of font info for 57 fonts, out of 8000000 for 9000
+ 5528 strings out of 477486
+ 82819 string characters out of 5813755
+ 1954244 words of memory out of 5000000
+ 26455 multiletter control sequences out of 15000+600000
+ 570625 words of font info for 59 fonts, out of 8000000 for 9000
  0 hyphenation exceptions out of 8191
- 68i,6n,75p,539b,1614s stack positions out of 10000i,1000n,20000p,200000b,200000s
- </home/prlpnrpph512/.miktex/texmfs/data/fonts/pk/ljfour/jknappen/ec/dpi600/t
-crm1000.pk></home/prlpnrpph512/.miktex/texmfs/install/fonts/type1/public/amsfon
-ts/cm/cmbx10.pfb></home/prlpnrpph512/.miktex/texmfs/install/fonts/type1/public/
-amsfonts/cm/cmbx12.pfb></home/prlpnrpph512/.miktex/texmfs/install/fonts/type1/p
-ublic/amsfonts/cm/cmex10.pfb></home/prlpnrpph512/.miktex/texmfs/install/fonts/t
-ype1/public/amsfonts/cm/cmmi10.pfb></home/prlpnrpph512/.miktex/texmfs/install/f
-onts/type1/public/amsfonts/cm/cmmi5.pfb></home/prlpnrpph512/.miktex/texmfs/inst
-all/fonts/type1/public/amsfonts/cm/cmmi7.pfb></home/prlpnrpph512/.miktex/texmfs
-/install/fonts/type1/public/amsfonts/cm/cmr10.pfb></home/prlpnrpph512/.miktex/t
-exmfs/install/fonts/type1/public/amsfonts/cm/cmr12.pfb></home/prlpnrpph512/.mik
-tex/texmfs/install/fonts/type1/public/amsfonts/cm/cmr17.pfb></home/prlpnrpph512
-/.miktex/texmfs/install/fonts/type1/public/amsfonts/cm/cmr5.pfb></home/prlpnrpp
-h512/.miktex/texmfs/install/fonts/type1/public/amsfonts/cm/cmr7.pfb></home/prlp
-nrpph512/.miktex/texmfs/install/fonts/type1/public/amsfonts/cm/cmsy10.pfb></hom
-e/prlpnrpph512/.miktex/texmfs/install/fonts/type1/public/amsfonts/cm/cmsy5.pfb>
-</home/prlpnrpph512/.miktex/texmfs/install/fonts/type1/public/amsfonts/cm/cmsy7
-.pfb></home/prlpnrpph512/.miktex/texmfs/install/fonts/type1/public/amsfonts/cm/
-cmti10.pfb></home/prlpnrpph512/.miktex/texmfs/install/fonts/type1/public/amsfon
-ts/cm/cmtt10.pfb>
-Output written on documentation.pdf (16 pages, 250626 bytes).
+ 68i,6n,75p,541b,1614s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ </home/prlpnrpph512/.miktex/texmfs/data/fonts/pk/ljfour/jknappen/ec/dpi600/e
+cbx1200.pk> </home/prlpnrpph512/.miktex/texmfs/data/fonts/pk/ljfour/jknappen/ec
+/dpi600/ecti1000.pk> </home/prlpnrpph512/.miktex/texmfs/data/fonts/pk/ljfour/jk
+nappen/ec/dpi600/ectt1000.pk> </home/prlpnrpph512/.miktex/texmfs/data/fonts/pk/
+ljfour/jknappen/ec/dpi600/tcrm1000.pk> </home/prlpnrpph512/.miktex/texmfs/data/
+fonts/pk/ljfour/jknappen/ec/dpi600/ecbx1440.pk> </home/prlpnrpph512/.miktex/tex
+mfs/data/fonts/pk/ljfour/jknappen/ec/dpi600/ecbx2074.pk> </home/prlpnrpph512/.m
+iktex/texmfs/data/fonts/pk/ljfour/jknappen/ec/dpi600/ecrm1000.pk> </home/prlpnr
+pph512/.miktex/texmfs/data/fonts/pk/ljfour/jknappen/ec/dpi600/ecbx1000.pk> </ho
+me/prlpnrpph512/.miktex/texmfs/data/fonts/pk/ljfour/jknappen/ec/dpi600/ecbx2488
+.pk> </home/prlpnrpph512/.miktex/texmfs/data/fonts/pk/ljfour/jknappen/ec/dpi600
+/ecrm1200.pk> </home/prlpnrpph512/.miktex/texmfs/data/fonts/pk/ljfour/jknappen/
+ec/dpi600/ecrm1728.pk></home/prlpnrpph512/.miktex/texmfs/install/fonts/type1/pu
+blic/amsfonts/cm/cmex10.pfb></home/prlpnrpph512/.miktex/texmfs/install/fonts/ty
+pe1/public/amsfonts/cm/cmmi10.pfb></home/prlpnrpph512/.miktex/texmfs/install/fo
+nts/type1/public/amsfonts/cm/cmmi5.pfb></home/prlpnrpph512/.miktex/texmfs/insta
+ll/fonts/type1/public/amsfonts/cm/cmmi7.pfb></home/prlpnrpph512/.miktex/texmfs/
+install/fonts/type1/public/amsfonts/cm/cmr10.pfb></home/prlpnrpph512/.miktex/te
+xmfs/install/fonts/type1/public/amsfonts/cm/cmr5.pfb></home/prlpnrpph512/.mikte
+x/texmfs/install/fonts/type1/public/amsfonts/cm/cmr7.pfb></home/prlpnrpph512/.m
+iktex/texmfs/install/fonts/type1/public/amsfonts/cm/cmsy10.pfb></home/prlpnrpph
+512/.miktex/texmfs/install/fonts/type1/public/amsfonts/cm/cmsy5.pfb></home/prlp
+nrpph512/.miktex/texmfs/install/fonts/type1/public/amsfonts/cm/cmsy7.pfb>
+Output written on documentation.pdf (16 pages, 252731 bytes).
 PDF statistics:
- 158 PDF objects out of 1000 (max. 8388607)
+ 465 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  11 words of extra memory for PDF output out of 10000 (max. 10000000)
 
