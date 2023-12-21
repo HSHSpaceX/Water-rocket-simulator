@@ -7,7 +7,7 @@ from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 import matplotlib.pyplot as plt
 
 # Constants declaration
-delta_t = 0.0001
+delta_t = 0.001
 P_atm = float(1*101325)
 
 # Simulation output data
@@ -835,11 +835,12 @@ def simulate():
             Tt = T * 2 / (k_const + 1)
 
             dot_m = P_ins * At * pow(2/(k_const+1), 0.5 * (k_const+1)/(k_const-1)) * math.sqrt(k_const/(Rs*Tt))
-            
+            #print(str(dot_m))
             ve_air = math.sqrt(k_const * Rs * Tt)
-
+            #print(str(ve_air))
             P_throat = pow(2 / (k_const + 1), k_const / (k_const - 1)) * P_ins
             Ft = dot_m * ve_air + At * (P_throat - P_atm)
+            #print(str(Ft) + " " +str(At*(P_throat - P_atm)))
             array_Ft.append(Ft)
             Ic += Ft * delta_t
             
@@ -860,6 +861,8 @@ def simulate():
 
             P_ins = mass_air * Rs * T / V_air
             array_pressure.append(P_ins)
+
+        #print("\n")
         
         # Loop for sub Mach 1 on exit
         while(P_ins > P_atm):     
@@ -872,17 +875,20 @@ def simulate():
             array_V_air.append(V_air)
 
             Mach = math.sqrt(2 / (k_const-1) * (pow(P_ins / P_atm, (k_const-1) / k_const) - 1))
+            #print(str(Mach))
 
             Tt = T / (1 + 0.5 * (k_const-1) * Mach * Mach)
 
             ve_air = Mach * math.sqrt(k_const * Rs * Tt)
-
+            #print(str(ve_air))
             density_chamber = mass_air / V_air
             density_throat = density_chamber / pow(1 + 0.5 * (k_const - 1) * Mach * Mach, 1 / (k_const-1))
 
             dot_m = At * density_throat * ve_air
+            #print(str(dot_m))
 
             Ft = dot_m * ve_air
+            #print(str(Ft))
             array_Ft.append(Ft)
             Ic += Ft * delta_t
 
