@@ -7,7 +7,7 @@ from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 import matplotlib.pyplot as plt
 
 # Constants declaration
-delta_t = 0.001
+delta_t = 0.0001
 P_atm = float(1*101325)
 
 # Simulation output data
