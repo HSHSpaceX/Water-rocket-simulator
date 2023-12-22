@@ -8,7 +8,6 @@ The simulation consists of three stages:
 1. **Start from the launch rod** 
 2. **Liquid expulsion**
 3. **Gas expulsion**
-Beside simulation for single set of data, this program allows you to view plots of output parameters vs values of certain input paramenter. Thanks to that, it allows for efficient motor desing and helps with understanding physical model behind it.  
 
 Beyond individual simulations, the program offers a feature allowing users to visualize plots depicting output values against varying input parameters. This functionality not only supports the efficient design of rocket motors but also aids in understanding the physical model behind the simulation.
 
