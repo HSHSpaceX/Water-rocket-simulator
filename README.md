@@ -1,5 +1,21 @@
 # Water rocket simulator
 
+## Application Purpose and Capabilities 
+This application simulates simple rocket engine, consisting of chamber with pressurized gas and liquid. Rocket thrust is generated through expulsion of either liquid or gas, caused by the expansion of gas. Users have the flexibility to select from a list of predefined gases or introduce custom ones.
+
+The simulation consists of three stages:
+
+1. **Start from the launch rod** 
+2. **Liquid expulsion**
+3. **Gas expulsion**
+Beside simulation for single set of data, this program allows you to view plots of output parameters vs values of certain input paramenter. Thanks to that, it allows for efficient motor desing and helps with understanding physical model behind it.  
+
+Beyond individual simulations, the program offers a feature allowing users to visualize plots depicting output values against varying input parameters. This functionality not only supports the efficient design of rocket motors but also aids in understanding the physical model behind the simulation.
+
+Here's a picture that shows how the program works:
+
+![Rocket Engine Simulation](images/example0.png)
+
 ## Features
 
 1. **Easy-to-Use Interface:**
@@ -93,4 +109,5 @@ In case of problems with instalation and opening `simulator.py` just use google 
 
 
 ## To do:
+
 1. Find bugs
