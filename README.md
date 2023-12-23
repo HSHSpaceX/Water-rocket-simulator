@@ -13,7 +13,7 @@ Beyond individual simulations, the program offers a feature allowing users to vi
 
 Here's a picture that shows how the program works:
 
-![Rocket Engine Simulation](images/example.png)
+![Rocket Engine Simulation](images/example1.png)
 
 ## Features
 

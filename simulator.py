@@ -179,7 +179,7 @@ def opt_sim(k_const, Rs, water_density, P_ins, At, V_air, V_water, Roc_mass, T, 
 
             Tt = T * 2 / (k_const + 1)
 
-            dot_m = P_ins * At * pow(2/(k_const+1), 0.5 * (k_const+1)/(k_const-1)) * math.sqrt(k_const/(Rs*Tt))
+            dot_m = P_ins * At * pow(2/(k_const+1), 0.5 * (k_const+1)/(k_const-1)) * math.sqrt(k_const/(Rs*T))
             
             ve_air = math.sqrt(k_const * Rs * Tt)
 
@@ -537,7 +537,7 @@ def plot_opt_Ic():
         # Set labels and title
         ax_right.set_xlabel(opt_variable_name)
         ax_right.set_ylabel('Ic[Ns]')
-        ax_right.set_title('Graph of ')
+        ax_right.set_title('Graph of impulse')
 
         # Update the canvas
         canvas_right.draw()
@@ -560,7 +560,7 @@ def plot_opt_tc():
         # Set labels and title
         ax_right.set_xlabel(opt_variable_name)
         ax_right.set_ylabel('Total time[s]')
-        ax_right.set_title('Graph of ')
+        ax_right.set_title('Graph of time')
 
         # Update the canvas
         canvas_right.draw()
@@ -583,7 +583,7 @@ def plot_opt_Ist():
         # Set labels and title
         ax_right.set_xlabel(opt_variable_name)
         ax_right.set_ylabel('Specific impuls[s]')
-        ax_right.set_title('Graph of ')
+        ax_right.set_title('Graph of specific impulse')
 
         # Update the canvas
         canvas_right.draw()
@@ -606,7 +606,7 @@ def plot_opt_delta_v():
         # Set labels and title
         ax_right.set_xlabel(opt_variable_name)
         ax_right.set_ylabel('Delta v[m/s]')
-        ax_right.set_title('Graph of ')
+        ax_right.set_title('Graph of delta v')
 
         # Update the canvas
         canvas_right.draw()
@@ -843,7 +843,7 @@ def simulate():
 
             Tt = T * 2 / (k_const + 1)
 
-            dot_m = P_ins * At * pow(2/(k_const+1), 0.5 * (k_const+1)/(k_const-1)) * math.sqrt(k_const/(Rs*Tt))
+            dot_m = P_ins * At * pow(2/(k_const+1), 0.5 * (k_const+1)/(k_const-1)) * math.sqrt(k_const/(Rs*T))
             #print(str(dot_m))
             ve_air = math.sqrt(k_const * Rs * Tt)
             #print(str(ve_air))
