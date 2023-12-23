@@ -35,6 +35,9 @@ Here's a picture that shows how the program works:
 6. **Save and Load Projects:**
    Keep your work organized by easily saving and loading your projects.
 
+7. **Efficiency coefficients**
+   Implement empirically determined efficiency coefficients, set different values for each distinct phase.
+
 These features all come together to make a simulator for a compressed gas and liquid engine. It helps you figure out and control engine values in efficient and visually informative way.
 
 ## Prerequisites

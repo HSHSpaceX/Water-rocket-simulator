@@ -36,6 +36,15 @@ engine_dry_mass = 0
 engine_full_mass = 0
 engine_manufacturer = ""
 
+# Efficiency data
+efficiency_sim_rod = 1
+efficiency_sim_water = 1
+efficiency_sim_gas = 1
+
+efficiency_opt_rod = 1
+efficiency_opt_water = 1
+efficiency_opt_gas = 1
+
 
 # SIMULATION FOR OPTIMALIZATION FUNCTION
 def opt_sim(k_const, Rs, water_density, P_ins, At, V_air, V_water, Roc_mass, T, rod_lenght, rod_inside_diameter):
@@ -52,18 +61,17 @@ def opt_sim(k_const, Rs, water_density, P_ins, At, V_air, V_water, Roc_mass, T, 
         s = float(0.0)
         vrod = float(0.0)
 
+        # V_air fix for existing rod
+        V_air = V_air - At * rod_lenght
+
         # Define adiabatic constant
         C_const = P_ins * pow(V_air, k_const)
         
-
         # Calculate mass of air
         mass_air = P_ins * V_air / (T * Rs)
         mass_propelant = mass_air + V_water * water_density
         total_time = 0
         #print(str(Roc_mass) + " " + str(mass_propelant))
-
-        # V_air fix for existing rod
-        V_air = V_air - At * rod_lenght
 
         if(rod_inside_diameter > 0 and rod_lenght > 0):
             while(s < rod_lenght):
@@ -71,7 +79,7 @@ def opt_sim(k_const, Rs, water_density, P_ins, At, V_air, V_water, Roc_mass, T, 
                 total_time = total_time + delta_t
 
                 # Calculate Ft and Ic
-                Ft = P_ins * At
+                Ft = P_ins * At * efficiency_opt_rod
                 
                 # Update impuls
                 Ic += Ft * delta_t
@@ -97,7 +105,7 @@ def opt_sim(k_const, Rs, water_density, P_ins, At, V_air, V_water, Roc_mass, T, 
                 #array_temperature.append(T)
 
                 # Calculate Ft and Ic
-                Ft = P_ins * At
+                Ft = P_ins * At * efficiency_opt_rod
                 #array_Ft.append(Ft)
                 Ic += Ft * delta_t
 
@@ -124,7 +132,7 @@ def opt_sim(k_const, Rs, water_density, P_ins, At, V_air, V_water, Roc_mass, T, 
             total_time = total_time + delta_t 
 
             # Calculate thurst
-            Ft = 2 * At * (P_ins - P_atm)
+            Ft = 2 * At * (P_ins - P_atm) * efficiency_opt_water
             #array_Ft.append(Ft)
             Ic += Ft * delta_t
 
@@ -176,7 +184,7 @@ def opt_sim(k_const, Rs, water_density, P_ins, At, V_air, V_water, Roc_mass, T, 
             ve_air = math.sqrt(k_const * Rs * Tt)
 
             P_throat = pow(2 / (k_const + 1), k_const / (k_const - 1)) * P_ins
-            Ft = dot_m * ve_air + At * (P_throat - P_atm)
+            Ft = (dot_m * ve_air + At * (P_throat - P_atm)) * efficiency_opt_gas
             array_Ft.append(Ft)
             Ic += Ft * delta_t
             
@@ -219,7 +227,7 @@ def opt_sim(k_const, Rs, water_density, P_ins, At, V_air, V_water, Roc_mass, T, 
 
             dot_m = At * density_throat * ve_air
 
-            Ft = dot_m * ve_air
+            Ft = dot_m * ve_air * efficiency_opt_gas
             #array_Ft.append(Ft)
             Ic += Ft * delta_t
 
@@ -302,6 +310,7 @@ def optimalize():
         T = float(entry_5_r.get())+273.15
         rod_lenght = float(entry_launch_lenght_opt.get()) * 0.001
         rod_inside_diameter = float(entry_launch_diameter_opt.get()) * 0.001
+
         
         # Error safety net
         if(P_ins <= 0):
@@ -679,6 +688,7 @@ def simulate():
         rod_lenght = float(entry_launch_lenght.get()) * 0.001
         rod_inside_diameter = float(entry_launch_diameter.get()) * 0.001
 
+
         # Error safety net
         if(P_ins <= 0):
             raise ValueError
@@ -708,19 +718,18 @@ def simulate():
         s = float(0.0)
         vrod = float(0.0)
 
+        # V_air fix for existing rod
+        V_air = V_air - At * rod_lenght
+
         # Define adiabatic constant
         C_const = P_ins * pow(V_air, k_const)
 
-        
         # Calculate mass of air
         mass_air = P_ins * V_air / (T * Rs)
         mass_propelant = mass_air + V_water * water_density
 
         Roc_mass = dry_mass + mass_propelant
         engine_full_mass = Roc_mass
-
-        # V_air fix for existing rod
-        V_air = V_air - At * rod_lenght
 
         if(rod_inside_diameter > 0 and rod_lenght > 0):
             while(s < rod_lenght):
@@ -736,7 +745,7 @@ def simulate():
                 array_temperature.append(T)
 
                 # Calculate Ft and Ic
-                Ft = P_ins * At
+                Ft = (P_ins * At) * efficiency_sim_rod
                 array_Ft.append(Ft)
                 Ic += Ft * delta_t
 
@@ -756,11 +765,11 @@ def simulate():
                 array_V_air.append(V_air)
                 array_V_water.append(V_water)
                 
-                array_pressure.append(P_ins)
                 array_temperature.append(T)
+                array_pressure.append(P_ins)
 
                 # Calculate Ft and Ic
-                Ft = P_ins * At
+                Ft = (P_ins * At) * efficiency_sim_rod
                 array_Ft.append(Ft)
                 Ic += Ft * delta_t
 
@@ -787,7 +796,7 @@ def simulate():
             total_time = total_time + delta_t 
 
             # Calculate thurst
-            Ft = 2 * At * (P_ins - P_atm)
+            Ft = (2 * At * (P_ins - P_atm)) * efficiency_sim_water
             array_Ft.append(Ft)
             Ic += Ft * delta_t
 
@@ -818,8 +827,8 @@ def simulate():
             V_water = V_water - delta_V
             
             # Calculate pressure and update array
-            array_pressure.append(P_ins)
             P_ins = C_const * pow(V_air, -k_const)
+            array_pressure.append(P_ins)
             
         # Loop for Mach 1 on exit
         while(P_ins > P_atm and P_ins/P_atm >= pow((k_const+1)/2, k_const/(k_const-1))):
@@ -839,7 +848,7 @@ def simulate():
             ve_air = math.sqrt(k_const * Rs * Tt)
             #print(str(ve_air))
             P_throat = pow(2 / (k_const + 1), k_const / (k_const - 1)) * P_ins
-            Ft = dot_m * ve_air + At * (P_throat - P_atm)
+            Ft = (dot_m * ve_air + At * (P_throat - P_atm)) * efficiency_sim_gas
             #print(str(Ft) + " " +str(At*(P_throat - P_atm)))
             array_Ft.append(Ft)
             Ic += Ft * delta_t
@@ -887,7 +896,7 @@ def simulate():
             dot_m = At * density_throat * ve_air
             #print(str(dot_m))
 
-            Ft = dot_m * ve_air
+            Ft = (dot_m * ve_air) * efficiency_sim_gas
             #print(str(Ft))
             array_Ft.append(Ft)
             Ic += Ft * delta_t
@@ -1260,6 +1269,109 @@ def save_to_export():
             for el_t, el_F in zip(array_time, array_Ft):
                 file.write(str(el_t) + " " + str(el_F) + "\n")
 
+def efficiency_sim_window():
+    entry_window = tk.Toplevel(root)
+    entry_window.title("Efficiency Simulation")
+
+    label_export_name = ttk.Label(entry_window, text="Launch rod efficiency:")
+    label_export_name.grid(row=0, column=0, columnspan=2, pady=5, sticky="w")
+
+    entry_export_name = ttk.Entry(entry_window, width=10)
+    entry_export_name.grid(row=0, column=2, pady=5)
+    entry_export_name.insert(0, str(efficiency_sim_rod))  # Initialize with a default value
+
+    label_export_diameter = ttk.Label(entry_window, text="Liquid phase efficiency:")
+    label_export_diameter.grid(row=1, column=0, columnspan=2, pady=5, sticky="w")
+
+    entry_export_diameter = ttk.Entry(entry_window, width=10)
+    entry_export_diameter.grid(row=1, column=2, pady=5)
+    entry_export_diameter.insert(0, str(efficiency_sim_water))  # Initialize with a default value
+
+    label_export_lenght = ttk.Label(entry_window, text="Gas phase efficiency:")
+    label_export_lenght.grid(row=2, column=0, columnspan=2, pady=5, sticky="w")
+
+    entry_export_lenght = ttk.Entry(entry_window, width=10)
+    entry_export_lenght.grid(row=2, column=2, pady=5)
+    entry_export_lenght.insert(0, str(efficiency_sim_gas))  # Initialize with a default value
+
+    ok_button = ttk.Button(entry_window, text="OK", command=lambda: efficiency_sim_save(entry_export_name, entry_export_diameter, entry_export_lenght, entry_window))
+    ok_button.grid(row=4, column=1, columnspan=2, pady=10)
+    
+def efficiency_sim_save(entry_export_name, entry_export_diameter, entry_export_lenght, window):
+    global efficiency_sim_rod
+    global efficiency_sim_water
+    global efficiency_sim_gas
+    
+    # Expect error
+    try:
+        efficiency_sim_rod = float(entry_export_name.get())
+        efficiency_sim_water = float(entry_export_diameter.get())
+        efficiency_sim_gas = float(entry_export_lenght.get())
+
+        if(efficiency_sim_rod <= 0 or efficiency_sim_water <= 0 or efficiency_sim_gas <= 0):
+            raise ValueError
+        if(efficiency_sim_rod > 100 or efficiency_sim_water > 100 or efficiency_sim_gas > 100):
+            raise ValueError
+        
+        window.destroy()
+    except ValueError:
+        messagebox.showinfo("Error", "Wrong input.")
+        efficiency_sim_rod = 1
+        efficiency_sim_water = 1
+        efficiency_sim_gas = 1
+
+def efficiency_opt_window():
+    entry_window = tk.Toplevel(root)
+    entry_window.title("Efficiency Optimalization")
+
+    label_export_name = ttk.Label(entry_window, text="Launch rod efficiency:")
+    label_export_name.grid(row=0, column=0, columnspan=2, pady=5, sticky="w")
+
+    entry_export_name = ttk.Entry(entry_window, width=10)
+    entry_export_name.grid(row=0, column=2, pady=5)
+    entry_export_name.insert(0, str(efficiency_opt_rod))  # Initialize with a default value
+
+    label_export_diameter = ttk.Label(entry_window, text="Liquid phase efficiency:")
+    label_export_diameter.grid(row=1, column=0, columnspan=2, pady=5, sticky="w")
+
+    entry_export_diameter = ttk.Entry(entry_window, width=10)
+    entry_export_diameter.grid(row=1, column=2, pady=5)
+    entry_export_diameter.insert(0, str(efficiency_opt_water))  # Initialize with a default value
+
+    label_export_lenght = ttk.Label(entry_window, text="Gas phase efficiency:")
+    label_export_lenght.grid(row=2, column=0, columnspan=2, pady=5, sticky="w")
+
+    entry_export_lenght = ttk.Entry(entry_window, width=10)
+    entry_export_lenght.grid(row=2, column=2, pady=5)
+    entry_export_lenght.insert(0, str(efficiency_opt_gas))  # Initialize with a default value
+
+    ok_button = ttk.Button(entry_window, text="OK", command=lambda: efficiency_opt_save(entry_export_name, entry_export_diameter, entry_export_lenght, entry_window))
+    ok_button.grid(row=4, column=1, columnspan=2, pady=10)
+    
+def efficiency_opt_save(entry_export_name, entry_export_diameter, entry_export_lenght, window):
+    global efficiency_opt_rod
+    global efficiency_opt_water
+    global efficiency_opt_gas
+    
+    # Expect error
+    try:
+        efficiency_opt_rod = float(entry_export_name.get())
+        efficiency_opt_water = float(entry_export_diameter.get())
+        efficiency_opt_gas = float(entry_export_lenght.get())
+
+        if(efficiency_opt_rod <= 0 or efficiency_opt_water <= 0 or efficiency_opt_gas <= 0):
+            raise ValueError
+        if(efficiency_opt_rod > 100 or efficiency_opt_water > 100 or efficiency_opt_gas > 100):
+            raise ValueError
+        
+        window.destroy()
+    except ValueError:
+        messagebox.showinfo("Error", "Wrong input.")
+        efficiency_opt_rod = 1
+        efficiency_opt_water = 1
+        efficiency_opt_gas = 1
+
+
 
 # Create the main Tkinter window
 root = tk.Tk()
@@ -1290,7 +1402,10 @@ frame_simulate = ttk.Frame(root, padding="10")
 frame_simulate.grid(row=1, column=0, sticky=(tk.W, tk.E, tk.N, tk.S))
 
 simulate_button = ttk.Button(frame_simulate, text="Simulate", command=simulate)
-simulate_button.grid(row=0, column=0, columnspan=2, pady=5, sticky="w")
+simulate_button.grid(row=0, column=0, columnspan=1, pady=5, sticky="w")
+
+efficiency_button = ttk.Button(frame_simulate, text="Efficiency", command=efficiency_sim_window)
+efficiency_button.grid(row=0, column=2, columnspan=1, pady=5, sticky="w")
 
 # Create a label for displaying the selected option
 label_gas = ttk.Label(frame_simulate, text="Choose a gas:")
@@ -1460,11 +1575,11 @@ combobox_variable_opt.grid(row=2, column=0, columnspan=2, pady=5, sticky="w")
 label_opt_range = ttk.Label(frame_simulate_r, text="Optimalization range:")
 label_opt_range.grid(row=3, column=0, columnspan=2, pady=5, sticky="w")
 
-entry_opt_min = ttk.Entry(frame_simulate_r, width=10)
+entry_opt_min = ttk.Entry(frame_simulate_r, width=7)
 entry_opt_min.grid(row=4, column=0, sticky="w", pady=5)
 entry_opt_min.insert(0, "min")  # Initialize with a default value
 
-entry_opt_max = ttk.Entry(frame_simulate_r, width=10)
+entry_opt_max = ttk.Entry(frame_simulate_r, width=7)
 entry_opt_max.grid(row=5, column=0, sticky="w", pady=5)
 entry_opt_max.insert(0, "max")  # Initialize with a default value
 
@@ -1472,9 +1587,12 @@ entry_opt_max.insert(0, "max")  # Initialize with a default value
 label_opt_itteration = ttk.Label(frame_simulate_r, text="Itterations:")
 label_opt_itteration.grid(row=6, column=0, columnspan=2, pady=5, sticky="w")
 
-entry_opt_itteration = ttk.Entry(frame_simulate_r, width=6)
+entry_opt_itteration = ttk.Entry(frame_simulate_r, width=7)
 entry_opt_itteration.grid(row=6, column=1, sticky="w", pady=5)
 entry_opt_itteration.insert(0, "1")  # Initialize with a default value
+
+efficiency_button = ttk.Button(frame_simulate_r, text="Efficiency", command=efficiency_opt_window)
+efficiency_button.grid(row=0, column=1, columnspan=2, pady=5, sticky="w")
 
 # 2nd frame on right
 frame_overall_data_right = ttk.Frame(root, padding="10")
