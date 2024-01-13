@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 23.10) (preloaded format=pdflatex 2023.8.3)  21 DEC 2023 23:02
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 23.10) (preloaded format=pdflatex 2023.8.3)  13 JAN 2024 17:26
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -294,90 +294,99 @@ Underfull \hbox (badness 10000) in paragraph at lines 24--25
 
 ]
 Chapter 2.
+
+Underfull \hbox (badness 10000) in paragraph at lines 71--73
+
+ []
+
+[3
+
+] [4]
+Chapter 3.
 (/home/prlpnrpph512/.miktex/texmfs/install/tex/latex/listings/lstlang1.sty
 File: lstlang1.sty 2023/02/27 1.9 listings language file
 )
-LaTeX Font Info:    Trying to load font information for T1+cmtt on input line 5
-7.
+LaTeX Font Info:    Trying to load font information for T1+cmtt on input line 1
+04.
 
 (/home/prlpnrpph512/.miktex/texmfs/install/tex/latex/base/t1cmtt.fd
 File: t1cmtt.fd 2023/04/13 v2.5m Standard LaTeX font definitions
-) [3
+) [5
 
 ]
-[4]
-Chapter 3.
-<optimalization.pdf, id=26, 249.18094pt x 429.10312pt>
+[6]
+Chapter 4.
+<optimalization.pdf, id=36, 249.18094pt x 429.10312pt>
 File: optimalization.pdf Graphic file (type pdf)
 <use optimalization.pdf>
-Package pdftex.def Info: optimalization.pdf  used on input line 110.
+Package pdftex.def Info: optimalization.pdf  used on input line 157.
 (pdftex.def)             Requested size: 149.5097pt x 257.46385pt.
-Excluding 'comment' comment. [5
+Excluding 'comment' comment. [7
 
  <./optimalization.pdf>]
-Overfull \hbox (40.2679pt too wide) in paragraph at lines 133--134
+Overfull \hbox (40.2679pt too wide) in paragraph at lines 180--181
 [][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][] 
  []
 
-<simulate.pdf, id=39, 216.81pt x 257.46187pt>
+<simulate.pdf, id=49, 216.81pt x 257.46187pt>
 File: simulate.pdf Graphic file (type pdf)
 <use simulate.pdf>
-Package pdftex.def Info: simulate.pdf  used on input line 151.
+Package pdftex.def Info: simulate.pdf  used on input line 198.
 (pdftex.def)             Requested size: 216.80946pt x 257.46123pt.
-Excluding 'comment' comment. [6 <./simulate.pdf>]
-Overfull \hbox (214.22675pt too wide) in paragraph at lines 216--217
+Excluding 'comment' comment. [8 <./simulate.pdf>]
+Overfull \hbox (214.22675pt too wide) in paragraph at lines 263--264
 [][][][][][][][][][][][][][][][][][][][] 
  []
 
-[7] [8]
-Chapter 4.
-
-Overfull \hbox (10.275pt too wide) in paragraph at lines 240--241
-[][][][][][][][][][][][][][][][][][][][][][] 
- []
-
-
-Overfull \hbox (22.27216pt too wide) in paragraph at lines 241--242
-[][][][][][][][][][][][][][][][][][][][][][] 
- []
-
-
-Overfull \hbox (40.2679pt too wide) in paragraph at lines 242--243
-[][][][][][][][][][][][][][][][][][][][][][][][][] 
- []
-
-[9
-
-] [10]
+[9] [10]
 Chapter 5.
 
-Overfull \hbox (40.2679pt too wide) in paragraph at lines 280--281
-[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][] 
+Overfull \hbox (10.275pt too wide) in paragraph at lines 287--288
+[][][][][][][][][][][][][][][][][][][][][][] 
+ []
+
+
+Overfull \hbox (22.27216pt too wide) in paragraph at lines 288--289
+[][][][][][][][][][][][][][][][][][][][][][] 
+ []
+
+
+Overfull \hbox (40.2679pt too wide) in paragraph at lines 289--290
+[][][][][][][][][][][][][][][][][][][][][][][][][] 
  []
 
 [11
 
 ] [12]
-Underfull \hbox (badness 10000) in paragraph at lines 351--353
+Chapter 6.
+
+Overfull \hbox (40.2679pt too wide) in paragraph at lines 327--328
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][] 
+ []
+
+[13
+
+] [14]
+Underfull \hbox (badness 10000) in paragraph at lines 398--400
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 351--353
+Underfull \hbox (badness 10000) in paragraph at lines 398--400
 
  []
 
-[13]
-Underfull \hbox (badness 10000) in paragraph at lines 366--368
+[15]
+Underfull \hbox (badness 10000) in paragraph at lines 413--415
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 366--368
+Underfull \hbox (badness 10000) in paragraph at lines 413--415
 
  []
 
-[14] [15
+[16] [17
 
 ] (documentation.aux)
  ***********
@@ -394,9 +403,9 @@ Here is how much of TeX's memory you used:
  0 hyphenation exceptions out of 8191
  68i,6n,75p,541b,1614s stack positions out of 10000i,1000n,20000p,200000b,200000s
  </home/prlpnrpph512/.miktex/texmfs/data/fonts/pk/ljfour/jknappen/ec/dpi600/e
-cbx1200.pk> </home/prlpnrpph512/.miktex/texmfs/data/fonts/pk/ljfour/jknappen/ec
-/dpi600/ecti1000.pk> </home/prlpnrpph512/.miktex/texmfs/data/fonts/pk/ljfour/jk
-nappen/ec/dpi600/ectt1000.pk> </home/prlpnrpph512/.miktex/texmfs/data/fonts/pk/
+cti1000.pk> </home/prlpnrpph512/.miktex/texmfs/data/fonts/pk/ljfour/jknappen/ec
+/dpi600/ectt1000.pk> </home/prlpnrpph512/.miktex/texmfs/data/fonts/pk/ljfour/jk
+nappen/ec/dpi600/ecbx1200.pk> </home/prlpnrpph512/.miktex/texmfs/data/fonts/pk/
 ljfour/jknappen/ec/dpi600/tcrm1000.pk> </home/prlpnrpph512/.miktex/texmfs/data/
 fonts/pk/ljfour/jknappen/ec/dpi600/ecbx1440.pk> </home/prlpnrpph512/.miktex/tex
 mfs/data/fonts/pk/ljfour/jknappen/ec/dpi600/ecbx2074.pk> </home/prlpnrpph512/.m
@@ -416,9 +425,9 @@ x/texmfs/install/fonts/type1/public/amsfonts/cm/cmr7.pfb></home/prlpnrpph512/.m
 iktex/texmfs/install/fonts/type1/public/amsfonts/cm/cmsy10.pfb></home/prlpnrpph
 512/.miktex/texmfs/install/fonts/type1/public/amsfonts/cm/cmsy5.pfb></home/prlp
 nrpph512/.miktex/texmfs/install/fonts/type1/public/amsfonts/cm/cmsy7.pfb>
-Output written on documentation.pdf (16 pages, 252731 bytes).
+Output written on documentation.pdf (18 pages, 264530 bytes).
 PDF statistics:
- 465 PDF objects out of 1000 (max. 8388607)
+ 494 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  11 words of extra memory for PDF output out of 10000 (max. 10000000)
 

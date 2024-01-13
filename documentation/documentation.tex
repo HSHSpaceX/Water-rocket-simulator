@@ -46,6 +46,53 @@ Program has a graphical interface which consits of 4 main regions.
 \item Right input table - list of entries for data to optimalize around
 \end{itemize}
 
+\chapter{How to use program}
+In this part I will focus on explaining what certain inputs and outputs mean and how they change the way program works. I will not cover how to install aplication since it's already explained in README.md. 
+
+\subsection*{Output short names}
+\begin{itemize}
+\item Ic - Total impuls
+\item tc - total time
+\item Ist - Specific impuls
+\item delta\_v - delta of velocity
+\end{itemize}
+
+\section{Simulate}
+
+\subsection*{Efficiency}
+Efficiency button allows you to input coefficients that are used when calculating thrust. 
+$$\mbox{Output\_Thrust} = \mbox{Efficiency} \cdot \mbox{Thrust}$$
+Program allows you to choose custom efficiency for each seperate phase, that is for lauch phase, liquid expulsion phase and gas expulsion phase. 
+
+\subsection*{Custom gas}
+For program to use your custom gas, firstly you need to choose Custom in dropbox. Then insert information about your custom gas in "Specific heat ratio" and "Spec. gas constant" input fields.
+
+\subsection*{Launch rod}
+By defeault program skips this stage. This happens when "Launch rod lenght" input is equal to 0. For program to include launch phase you simply have to change value of this input to value higher to 0.  \\\\
+Rod inside diamater input should be used when your launch rod is empty inside. When that's the case, insert internal diameter of the rod.
+
+\subsection*{Pressure}
+Inserted value of pressure should be equal to absolute pressure inside the tank.
+
+\subsection*{Dry mass}
+Dry mass is mass of structure of engine, that means mass of engine without the mass of propelant.
+
+\section{Optimalization}
+
+\subsection*{Choose variable to optimalize}
+In this dropbox you should choose name of value that you want your program to optimalize around. Importantly, when you choose to optimalize around something, you may leave coresponding input field at 0 or whatever value you like. It will not impact optimalization.
+
+\subsection*{Optimalization range}
+Here input the range for values to optimalize around. These values NEED to be in same units as in input fields for corresponding variables.
+
+\subsection*{Itterations}
+Number of simulations that you want the optimalization function to run throught.  The higher the better output, however for big numbers it may take a while. Personally I recommend around 100-1000. If you choose 1000 it make take few secounds depending on your computer.
+
+\subsection*{Weird plots}
+If you think that your plot is weird, it is most likely because of the fact that this simulations are done numerically. So for example total inpuls vs throat diameter can take many shapes, however for 1000 itterations it should be readable and give you general idea on what's happening. 
+
+
+
 \chapter{Variables}
 
 \section{Constants Declaration}

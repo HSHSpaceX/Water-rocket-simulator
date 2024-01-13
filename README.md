@@ -11,6 +11,8 @@ The simulation consists of three stages:
 
 Beyond individual simulations, the program offers a feature allowing users to visualize plots depicting output values against varying input parameters. This functionality not only supports the efficient design of rocket motors but also aids in understanding the physical model behind the simulation.
 
+For a comprehensive understanding of the physics behind the simulation and to learn how to use the program correctly, I highly recommend referring to the documentation.
+
 Here's a picture that shows how the program works:
 
 ![Rocket Engine Simulation](images/example1.png)
