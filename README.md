@@ -1,117 +1,59 @@
-# Water rocket simulator
+# （中文）水火箭模拟器
 
-## Application Purpose and Capabilities 
-This application simulates simple rocket engine, consisting of chamber with pressurized gas and liquid. Rocket thrust is generated through expulsion of either liquid or gas, caused by the expansion of gas. Users have the flexibility to select from a list of predefined gases or introduce custom ones.
+## 应用目的与功能(exe版本)
+此应用程序模拟了简单的火箭发动机，由充满加压气体和液体的燃烧室组成。火箭推力通过液体或气体的喷射产生，这是由气体膨胀引起的。用户可以从预定义的气体列表中选择，也可以自定义气体。
 
-The simulation consists of three stages:
+该模拟包含三个阶段：
 
-1. **Start from the launch rod** 
-2. **Liquid expulsion**
-3. **Gas expulsion**
+1. 从发射杆开始2. 液体排出3. 气体排出
 
-Beyond individual simulations, the program offers a feature allowing users to visualize plots depicting output values against varying input parameters. This functionality not only supports the efficient design of rocket motors but also aids in understanding the physical model behind the simulation.
+除了单独的模拟之外，该程序还提供了一项功能，允许用户可视化描绘输出值与不同输入参数关系的图表。此功能不仅有助于高效设计火箭发动机，还有助于理解模拟背后的物理模型。
 
-For a comprehensive understanding of the physics behind the simulation and to learn how to use the program correctly, I highly recommend referring to the documentation.
+为了全面理解模拟背后的物理原理并学会正确使用该程序，我强烈建议查阅相关文档。
 
-Here's a picture that shows how the program works:
-
-![Rocket Engine Simulation](images/example1.png)
-
-## Features
-
-1. **Easy-to-Use Interface:**
-   Enjoy a super extra cool graphical setup that makes everything clear and easy to understand.
-
-2. **Project Export Option:**
-   Save your projects in a `.eng` file format that allows you to import your engine to Open Rocket projects.
-
-3. **Total Control Over Variables:**
-   Tweak all the important engine settings just the way you want, so you get the results you're looking for.
-
-4. **Customizable Gases and Liquids:**
-   Use your own custom gases and liquids to fit your setup or choose gas from list.
-
-5. **Optimization Made Simple:**
-   Play around with an optimization system that visually shows you the best values for different variables. Optimalization system shows you plots of important values depending on input variable in range of your choosing. 
-
-6. **Save and Load Projects:**
-   Keep your work organized by easily saving and loading your projects.
-
-7. **Efficiency coefficients**
-   Implement empirically determined efficiency coefficients, set different values for each distinct phase.
-
-These features all come together to make a simulator for a compressed gas and liquid engine. It helps you figure out and control engine values in efficient and visually informative way.
-
-## Prerequisites
-
-Before running the `simulator.py`, make sure you have the following prerequisites installed:
-
-1. **Python**: The application requires Python. You can download the latest version of Python from [python.org](https://www.python.org/downloads/), Windows store or using terminal. 
-
-2. **Matplotlib**: This library is used for plotting and visualizing data. You can install it using the following command:
-
-   ```bash
-   pip install matplotlib
-   ```
-
-3. **Tkinter**: Tkinter is Python's standard GUI (Graphical User Interface) package. It is included with most Python installations, so you usually don't need to install it separately. However, if you encounter issues, ensure that Tkinter is installed.
-
-## Running the Application
-
-### Windows PowerShell
-
-1. **Download Python**:
-   - Open your web browser and go to [python.org](https://www.python.org/downloads/).
-   - Download the latest version of Python for Windows.
-   - During installation, make sure to check the box that says "Add Python to PATH."
-
-   - Or install it using Windows Store
-
-2. **Install Required Packages**:
-   Open PowerShell and run the following commands to install the required packages:
-
-   ```powershell
-   pip install matplotlib
-   ```
-
-3. **Run the Application**:
-   Navigate to the directory containing `simulator.py` and run the following command:
-
-   ```powershell
-   python simulator.py
-   ```
-
-### Linux Ubuntu
-
-1. **Install Python**:
-   - Open the terminal.
-   - Run the following commands to install Python:
-
-     ```bash
-     sudo apt update
-     sudo apt install python3
-     ```
-
-2. **Install Required Packages**:
-   Open the terminal and run the following commands:
-
-   ```bash
-   sudo apt install python3-pip
-   pip3 install matplotlib
-   ```
-
-3. **Run the Application**:
-   Navigate to the directory containing `simulator.py` in the terminal and run the following command:
-
-   ```bash
-   python3 simulator.py
-   ```
-
----
-
-In case of problems with instalation and opening `simulator.py` just use google or chat GPT. Instalation and opening should be relatively simple on both Windows or Linux.
+这是一张展示该程序如何运行的图片：
 
 
-## To do:
 
-1. Find bugs
+## 特性
+
+1. **易用界面：**
+享受超级酷炫的图形设置，让一切清晰易懂。
+
+2. **项目导出选项：**
+将您的项目保存为 `.eng` 文件格式，以便将您的引擎导入到 Open Rocket 项目中。
+
+3. **对变量的完全掌控：**
+按照您的意愿调整所有重要的引擎设置，从而获得您期望的结果。
+
+4. **可自定义的气体和液体：**
+使用您自己的自定义气体和液体以适应您的设置，或者从列表中选择气体。
+
+5. **优化变得简单：**
+尝试使用一个优化系统，它能直观地向您展示不同变量的最佳值。优化系统会根据您选择的输入变量范围，向您展示重要值的图表。
+
+6. **保存和加载项目：**
+通过轻松保存和加载项目来保持您的工作井井有条。
+
+7. **效率系数**
+采用经实证确定的效率系数，为每个不同的阶段设定不同的值。
+
+这些功能共同构成了一个压缩气体和液体发动机的模拟器。它能帮助您以高效且直观的方式计算并控制发动机的各项参数。
+
+## 先决条件
+
+在运行 `simulator.py` 之前，请确保已安装以下先决条件：
+
+1. **Python**：该应用程序需要 Python。您可以从 [python.org](https://www.python.org/downloads/)、Windows 应用商店或使用终端下载 Python 的最新版本。
+
+2. **Matplotlib**：这是一个用于绘制和可视化数据的库。您可以使用以下命令进行安装：
+
+使用 pip 安装 matplotlib 。```
+
+
+3. **Tkinter**：Tkinter 是 Python 的标准图形用户界面（GUI）包。它通常包含在大多数 Python 安装中，所以您一般无需单独安装。不过，如果您遇到问题，请确保已安装 Tkinter。
+
+## 运行应用程序
+下载exe包即可使用
+
+# 其余目标
